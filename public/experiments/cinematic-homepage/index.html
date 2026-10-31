@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoBid Vault — Cinematic Homepage Concept (Visual Experiment)</title>
+  
+  <!-- Curatorial Typography Hierarchy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CHRONOBID VAULT — CINEMATIC VISUAL IDENTITY TOKENS (EXPERIMENT)
+       ========================================================================== */
+    :root {
+      /* Five-Tone Approved Palette */
+      --color-charcoal: #101113;
+      --color-charcoal-surface: #17191C;
+      --color-forest: #182720;
+      --color-forest-deep: #0F1A15;
+      --color-crimson: #702C3B;
+      --color-crimson-rich: #8A1C2E;
+      --color-gold: #C5A059;
+      --color-gold-muted: #8E743F;
+      --color-porcelain: #F4F0E8;
+      --color-ivory: #FAF8F5;
+      --color-stone: #D8D0C2;
+      --color-stone-light: #E8E2D5;
+      --color-border-dark: rgba(197, 160, 89, 0.2);
+      --color-border-light: rgba(24, 39, 32, 0.12);
+
+      /* Typography */
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+
+      /* Motion Physics (Mechanical Spring Damping) */
+      --ease-mechanical: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-tactile: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --duration-quick: 180ms;
+      --duration-standard: 320ms;
+      --duration-cinematic: 650ms;
+    }
+
+    /* Reset & Base Elements */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--color-charcoal);
+      color: var(--color-porcelain);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    /* Accessibility Focus */
+    *:focus-visible {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       PERSISTENT TOP GOVERNANCE BANNER
+       ========================================================================== */
+    .sandbox-banner {
+      background: var(--color-forest-deep);
+      border-bottom: 1px solid var(--color-border-dark);
+      padding: 6px 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-align: center;
+      color: var(--color-gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      position: relative;
+    }
+
+    .sandbox-banner .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-motion-toggle {
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      padding: 2px 8px;
+      font-size: 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      transition: background var(--duration-quick);
+    }
+
+    .btn-motion-toggle:hover {
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+    }
+
+    /* ==========================================================================
+       MASTHEAD NAVIGATION
+       ========================================================================== */
+    .masthead {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(16, 17, 19, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color var(--duration-standard);
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-ivory);
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-gold);
+      border: 1px solid var(--color-gold);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .nav-divisions {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-divisions a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--color-stone);
+      position: relative;
+      padding: 4px 0;
+      transition: color var(--duration-quick);
+    }
+
+    .nav-divisions a:hover,
+    .nav-divisions a.active {
+      color: var(--color-gold);
+    }
+
+    .nav-divisions a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: var(--color-gold);
+      transition: width var(--duration-standard) var(--ease-mechanical);
+    }
+
+    .nav-divisions a:hover::after,
+    .nav-divisions a.active::after {
+      width: 100%;
+    }
+
+    .headroom-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(24, 39, 32, 0.6);
+      border: 1px solid var(--color-gold);
+      padding: 6px 12px;
+      border-radius: 2px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .headroom-badge .indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #76DE5B;
+      box-shadow: 0 0 8px #76DE5B;
+    }
+
+    /* ==========================================================================
+       SECTION 1: CINEMATIC OPENING HERO
+       ========================================================================== */
+    .hero-section {
+      position: relative;
+      min-height: 90vh;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      padding: 64px 48px;
+      gap: 48px;
+      border-bottom: 1px solid var(--color-border-dark);
+      background: radial-gradient(circle at 75% 40%, rgba(24, 39, 32, 0.35) 0%, rgba(16, 17, 19, 1) 70%);
+    }
+
+    .hero-narrative {
+      max-width: 620px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--color-gold);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 5.5vw, 76px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--color-ivory);
+      margin-bottom: 24px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-gold);
+      padding-right: 4px;
+    }
+
+    .hero-manifesto {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--color-stone);
+      margin-bottom: 36px;
+      max-width: 520px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .btn-gold {
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 26px;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform var(--duration-quick) var(--ease-mechanical), background var(--duration-quick);
+    }
+
+    .btn-gold:hover {
+      background: #D8B26A;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--color-stone);
+      color: var(--color-ivory);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border-radius: 2px;
+      transition: border-color var(--duration-quick), color var(--duration-quick);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    /* Hero Archival Specimen Showcase */
+    .hero-specimen-frame {
+      position: relative;
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 32px;
+      border-radius: 4px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      transition: transform var(--duration-standard) var(--ease-mechanical);
+    }
+
+    .hero-specimen-frame:hover {
+      transform: translateY(-4px);
+      border-color: rgba(197, 160, 89, 0.45);
+    }
+
+    .specimen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    }
+
+    .lot-id-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--color-gold);
+      text-transform: uppercase;
+    }
+
+    .lot-division-label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--color-stone);
+    }
+
+    /* Museum Engraving SVG Vector Display */
+    .specimen-vector-canvas {
+      width: 100%;
+      height: 320px;
+      background: linear-gradient(145deg, #131417, #0D0E10);
+      border: 1px solid rgba(216, 208, 194, 0.1);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .specimen-svg {
+      width: 80%;
+      height: 80%;
+      transition: transform var(--duration-cinematic) var(--ease-mechanical);
+    }
+
+    .hero-specimen-frame:hover .specimen-svg {
+      transform: scale(1.04) rotate(0.5deg);
+    }
+
+    .specimen-plaque {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .plaque-item .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-stone);
+      margin-bottom: 4px;
+    }
+
+    .plaque-item .val {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-ivory);
+    }
+
+    .plaque-item .val.ask {
+      color: var(--color-gold);
+      font-size: 16px;
+    }
+
+    /* ==========================================================================
+       SECTION 2: THE CHRONOBID PROPOSITION (THREE PILLARS)
+       ========================================================================== */
+    .section-proposition {
+      padding: 96px 48px;
+      border-bottom: 1px solid var(--color-border-dark);
+      background: var(--color-charcoal);
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.8vw, 48px);
+      text-align: center;
+      color: var(--color-ivory);
+      margin-bottom: 56px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pillar-card {
+      background: var(--color-charcoal-surface);
+      border: 1px solid rgba(197, 160, 89, 0.15);
+      padding: 36px 28px;
+      border-radius: 3px;
+      position: relative;
+      transition: transform var(--duration-standard) var(--ease-mechanical), border-color var(--duration-standard);
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-gold);
+    }
+
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .pillar-heading {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--color-ivory);
+      margin-bottom: 16px;
+    }
+
+    .pillar-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-stone);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       SECTION 3: CURATED FEATURED AUCTION EVENT
+       ========================================================================== */
+    .section-auction-event {
+      padding: 80px 48px;
+      background: var(--color-forest-deep);
+      border-bottom: 1px solid var(--color-border-dark);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .event-details h3 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 42px);
+      color: var(--color-ivory);
+      margin-bottom: 16px;
+    }
+
+    .event-meta {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-gold);
+      margin-bottom: 24px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .event-narrative {
+      font-size: 15px;
+      color: var(--color-stone);
+      line-height: 1.65;
+      max-width: 600px;
+    }
+
+    .event-chronometer-box {
+      background: rgba(16, 17, 19, 0.85);
+      border: 1px solid var(--color-gold);
+      padding: 32px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .chronometer-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-stone);
+      margin-bottom: 12px;
+    }
+
+    .chronometer-digits {
+      font-family: var(--font-mono);
+      font-size: 44px;
+      font-weight: 600;
+      color: var(--color-gold);
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .chronometer-note {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #76DE5B;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+       SECTION 4: CATEGORY EXPLORATION (THE FOUR VAULTS)
+       ========================================================================== */
+    .section-categories {
+      padding: 96px 48px;
+      background: var(--color-charcoal);
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .category-tab-btn {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      border-radius: 2px;
+      color: var(--color-stone);
+      background: var(--color-charcoal-surface);
+      transition: all var(--duration-quick);
+    }
+
+    .category-tab-btn:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    .category-tab-btn.active {
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+      border-color: var(--color-gold);
+      font-weight: 600;
+    }
+
+    .category-display-stage {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 40px;
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      transition: opacity var(--duration-standard) var(--ease-mechanical);
+    }
+
+    .stage-image-frame {
+      width: 100%;
+      height: 360px;
+      background: #0E0F12;
+      border: 1px solid rgba(216, 208, 194, 0.12);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .stage-image-frame svg {
+      width: 75%;
+      height: 75%;
+    }
+
+    .stage-specimen-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      background: rgba(16, 17, 19, 0.8);
+      border: 1px solid var(--color-gold);
+      padding: 3px 8px;
+      color: var(--color-gold);
+      border-radius: 2px;
+    }
+
+    .stage-info .division-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+
+    .stage-info .lot-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--color-ivory);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .stage-info .lot-provenance {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-stone);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .stage-spec-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+      border-top: 1px solid rgba(197, 160, 89, 0.15);
+      padding-top: 16px;
+    }
+
+    .stage-spec-row .spec-item .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-stone);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .stage-spec-row .spec-item .val {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-ivory);
+    }
+
+    /* ==========================================================================
+       SECTION 5: MASTERPIECE SPOTLIGHT (OPTICAL LOUPE & BID PADDLE)
+       ========================================================================== */
+    .section-spotlight {
+      padding: 96px 48px;
+      background: #0C0D0F;
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .spotlight-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    /* Interactive Optical Loupe Container */
+    .loupe-container {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #14161A;
+      border: 1px solid var(--color-border-dark);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .loupe-image-base {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loupe-lens {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.8), inset 0 0 16px rgba(197, 160, 89, 0.4);
+      display: none;
+      background-repeat: no-repeat;
+      background-color: #1A1C22;
+      z-index: 10;
+    }
+
+    .loupe-instructions {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--color-gold);
+      background: rgba(16, 17, 19, 0.8);
+      padding: 4px 10px;
+      border-radius: 2px;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+    }
+
+    .spotlight-info h4 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+
+    .spotlight-info h3 {
+      font-family: var(--font-display);
+      font-size: 38px;
+      color: var(--color-ivory);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .spotlight-info p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-stone);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    /* Dual-Action Hold-to-Bid Interactive Paddle */
+    .paddle-simulator-box {
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .paddle-status-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .paddle-status-row .ask {
+      color: var(--color-gold);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .hold-to-bid-btn {
+      position: relative;
+      width: 100%;
+      height: 52px;
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background var(--duration-quick);
+    }
+
+    .hold-to-bid-btn:hover {
+      background: rgba(197, 160, 89, 0.25);
+    }
+
+    .hold-to-bid-btn .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--color-gold);
+      opacity: 0.35;
+      pointer-events: none;
+      transition: width 0.35s linear;
+    }
+
+    .hold-to-bid-btn.charging .progress-fill {
+      width: 100%;
+    }
+
+    .hold-to-bid-btn.confirmed {
+      background: #76DE5B;
+      color: #101113;
+      border-color: #76DE5B;
+    }
+
+    .paddle-helper-text {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-stone);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* ==========================================================================
+       SECTION 6: LIVE SALEROOM URGENCY & SOFT-CLOSE PULSE
+       ========================================================================== */
+    .section-saleroom-pulse {
+      padding: 80px 48px;
+      background: var(--color-charcoal);
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .pulse-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      border-radius: 4px;
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .saleroom-telemetry h4 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+
+    .saleroom-telemetry h3 {
+      font-family: var(--font-display);
+      font-size: 30px;
+      color: var(--color-ivory);
+      margin-bottom: 16px;
+    }
+
+    .soft-close-indicator {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #D8B26A;
+      background: rgba(197, 160, 89, 0.1);
+      border-left: 3px solid var(--color-gold);
+      padding: 10px 14px;
+      margin-bottom: 24px;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .btn-simulate-sniping {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--color-crimson);
+      color: var(--color-ivory);
+      padding: 10px 16px;
+      border-radius: 2px;
+      transition: background var(--duration-quick);
+    }
+
+    .btn-simulate-sniping:hover {
+      background: var(--color-crimson-rich);
+    }
+
+    /* Live Feed Ticker */
+    .saleroom-feed {
+      border-left: 1px solid rgba(197, 160, 89, 0.15);
+      padding-left: 32px;
+    }
+
+    .feed-heading {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-stone);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .feed-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feed-item {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: rgba(16, 17, 19, 0.6);
+      border: 1px solid rgba(216, 208, 194, 0.1);
+      border-radius: 2px;
+    }
+
+    .feed-item.new-bid {
+      border-color: var(--color-gold);
+      background: rgba(197, 160, 89, 0.08);
+    }
+
+    .feed-item .paddle {
+      color: var(--color-stone);
+    }
+
+    .feed-item .amount {
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       SECTION 7 & 8: CONSIGNOR INTAKE & CUSTODIAL TRUST
+       ========================================================================== */
+    .section-trust {
+      padding: 80px 48px;
+      background: var(--color-forest-deep);
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .trust-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .trust-card {
+      background: rgba(16, 17, 19, 0.7);
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      padding: 24px 20px;
+      border-radius: 3px;
+    }
+
+    .trust-card .hallmark {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+
+    .trust-card h5 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--color-ivory);
+      margin-bottom: 8px;
+    }
+
+    .trust-card p {
+      font-size: 12px;
+      color: var(--color-stone);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       ARCHIVAL INSTITUTIONAL FOOTER
+       ========================================================================== */
+    .archival-footer {
+      background: var(--color-charcoal);
+      padding: 64px 48px 32px;
+      font-size: 13px;
+      color: var(--color-stone);
+      border-top: 1px solid var(--color-border-dark);
+    }
+
+    .footer-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    }
+
+    .footer-col h6 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col ul a:hover {
+      color: var(--color-gold);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-stone);
+    }
+
+    /* ==========================================================================
+       REDUCED MOTION OVERRIDE
+       ========================================================================== */
+    @media (prefers-reduced-motion: reduce), (update: slow) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    body.reduced-motion *,
+    body.reduced-motion *::before,
+    body.reduced-motion *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        padding: 40px 24px;
+      }
+      .pillars-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-auction-event {
+        grid-template-columns: 1fr;
+      }
+      .category-display-stage {
+        grid-template-columns: 1fr;
+      }
+      .spotlight-layout {
+        grid-template-columns: 1fr;
+      }
+      .pulse-container {
+        grid-template-columns: 1fr;
+      }
+      .trust-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Governance Disclosure -->
+  <aside class="sandbox-banner" role="region" aria-label="Experiment Governance Disclosure">
+    <div>
+      <strong>[STANDALONE DESIGN EXPERIMENT]</strong> ChronoBid Vault Cinematic Homepage Research Prototype &bull; Phase 2.1 Baseline Preserved
+    </div>
+    <div class="controls">
+      <span>Base Currency: <strong>USD</strong></span>
+      <button id="motionToggle" class="btn-motion-toggle" aria-label="Toggle motion effects">Motion: Fluid</button>
+    </div>
+  </aside>
+
+  <!-- Institutional Masthead -->
+  <header class="masthead">
+    <div class="brand-mark">
+      <span class="brand-logo">ChronoBid Vault</span>
+      <span class="brand-tag">Archival Monograph</span>
+    </div>
+
+    <nav aria-label="Auction Category Divisions">
+      <ul class="nav-divisions">
+        <li><a href="#categories" data-cat="horology" class="active">Fine Horology</a></li>
+        <li><a href="#categories" data-cat="coins">Rare Coins</a></li>
+        <li><a href="#categories" data-cat="jewelry">Haute Joaillerie</a></li>
+        <li><a href="#categories" data-cat="art">Fine Art</a></li>
+      </ul>
+    </nav>
+
+    <div class="headroom-badge" title="Verified Pre-Funded Bidding Headroom">
+      <span class="indicator"></span>
+      <span>Vault Headroom: <strong>$150,000 USD</strong></span>
+    </div>
+  </header>
+
+  <!-- Section 1: Cinematic Opening Hero -->
+  <section class="hero-section" id="hero">
+    <div class="hero-narrative">
+      <div class="hero-eyebrow">Archival Auction Saleroom &bull; Geneve 2026</div>
+      <h1 class="hero-title">Where <em>Provenance</em> Meets Precision.</h1>
+      <p class="hero-manifesto">
+        An editorial auction marketplace for extraordinary mechanical timepieces, numismatic antiquities, signed high jewellery, and curated fine art. Every bid backed by verified custodial headroom.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#categories" class="btn-gold">Explore Saleroom Lots &rarr;</a>
+        <a href="#spotlight" class="btn-outline">Inspect Featured Lot</a>
+      </div>
+    </div>
+
+    <!-- Featured Hero Specimen Frame (Lot 01) -->
+    <div class="hero-specimen-frame">
+      <div class="specimen-header">
+        <div>
+          <span class="lot-id-badge">Lot 01 &bull; Fine Horology</span>
+          <div class="lot-division-label">Patek Philippe Calatrava Ref. 3520D (1974)</div>
+        </div>
+        <span class="lot-id-badge" style="color: #76DE5B;">Active Lot</span>
+      </div>
+
+      <!-- Vector Architectural Schematic of Patek Calatrava -->
+      <div class="specimen-vector-canvas" aria-label="Architectural line drawing of Patek Philippe Calatrava 3520D">
+        <svg class="specimen-svg" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Watch Case Outer Ring -->
+          <circle cx="150" cy="150" r="110" stroke="#C5A059" stroke-width="2.5" />
+          <!-- Clous de Paris Bezel Texture (Concentric rings with notch accents) -->
+          <circle cx="150" cy="150" r="102" stroke="#8E743F" stroke-width="1.5" stroke-dasharray="3 3" />
+          <circle cx="150" cy="150" r="94" stroke="#C5A059" stroke-width="1" />
+          <!-- Watch Dial Inner Surface -->
+          <circle cx="150" cy="150" r="88" fill="#141518" stroke="#33373E" stroke-width="1" />
+          <!-- Roman Numeral Hour Markers -->
+          <line x1="150" y1="66" x2="150" y2="76" stroke="#FAF8F5" stroke-width="2" />
+          <line x1="150" y1="224" x2="150" y2="234" stroke="#FAF8F5" stroke-width="2" />
+          <line x1="66" y1="150" x2="76" y2="150" stroke="#FAF8F5" stroke-width="2" />
+          <line x1="224" y1="150" x2="234" y2="150" stroke="#FAF8F5" stroke-width="2" />
+          <!-- Watch Hands (10:10 Position) -->
+          <line x1="150" y1="150" x2="105" y2="105" stroke="#FAF8F5" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="150" y1="150" x2="200" y2="120" stroke="#FAF8F5" stroke-width="1.8" stroke-linecap="round" />
+          <!-- Center Pinion -->
+          <circle cx="150" cy="150" r="4.5" fill="#C5A059" />
+          <!-- Watch Crown -->
+          <rect x="260" y="142" width="10" height="16" rx="2" fill="#C5A059" stroke="#8E743F" stroke-width="1" />
+        </svg>
+      </div>
+
+      <div class="specimen-plaque">
+        <div class="plaque-item">
+          <div class="label">Current Saleroom Ask</div>
+          <div class="val ask">$22,000 USD</div>
+        </div>
+        <div class="plaque-item">
+          <div class="label">Saleroom Status</div>
+          <div class="val">Reserve Met &bull; 8 Bids</div>
+        </div>
+        <div class="plaque-item">
+          <div class="label">Forensic Calibre</div>
+          <div class="val">Manual-Wind Cal. 175</div>
+        </div>
+        <div class="plaque-item">
+          <div class="label">Case Metal</div>
+          <div class="val">18k White Gold (32.5mm)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: The ChronoBid Proposition (Three Pillars) -->
+  <section class="section-proposition">
+    <div class="section-eyebrow">Institutional Architecture</div>
+    <h2 class="section-title">Engineered for Rarity &amp; Settlement Trust</h2>
+
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <span class="pillar-num">01 / PRE-FUNDED INTEGRITY</span>
+        <h3 class="pillar-heading">Pre-Funded Vault Headroom</h3>
+        <p class="pillar-desc">
+          Every participant operates with verified deposit headroom. Speculative bidding and post-hammer defaults are mathematically prohibited by cryptographic holds.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <span class="pillar-num">02 / PHYSICAL FORENSICS</span>
+        <h3 class="pillar-heading">Physical Specialist Inspection</h3>
+        <p class="pillar-desc">
+          Every specimen undergoes exhaustive multi-point verification: metallurgical XRF assay, timing calibre diagnostics, and provenance archive matching.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <span class="pillar-num">03 / CUSTODIAL SETTLEMENT</span>
+        <h3 class="pillar-heading">Escrow &amp; Insured Transit</h3>
+        <p class="pillar-desc">
+          Acquisitions remain safely in insured vault custody until funds clear. Seamless hand-to-hand delivery coordinated via bonded high-security couriers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Curated Featured Auction Event -->
+  <section class="section-auction-event">
+    <div class="event-details">
+      <div class="hero-eyebrow">Curated Evening Sale</div>
+      <h3>The October Geneve Saleroom: Horology &amp; Antiquities</h3>
+      <div class="event-meta">
+        <span>Session I: Lots 01–15</span>
+        <span>&bull;</span>
+        <span>Canonical USD Base</span>
+        <span>&bull;</span>
+        <span>Geneva, Switzerland</span>
+      </div>
+      <p class="event-narrative">
+        An unreserved showcase of rare references from distinguished private collections. Highlights include an unpolished 1974 Patek Philippe Calatrava, a Classical Athenian Silver Tetradrachm in exceptional die strike, and signed Art Deco emeralds.
+      </p>
+    </div>
+
+    <div class="event-chronometer-box">
+      <div class="chronometer-label">Saleroom Clock &bull; Soft-Close Active</div>
+      <div class="chronometer-digits" id="saleroomClock">00:01:45</div>
+      <div class="chronometer-note">&bull; Anti-Sniping Protection Enabled (&lt;120s trigger)</div>
+    </div>
+  </section>
+
+  <!-- Section 4: Category Exploration (The Four Vaults) -->
+  <section class="section-categories" id="categories">
+    <div class="section-eyebrow">Curatorial Disciplines</div>
+    <h2 class="section-title">Explore the Four Vaults</h2>
+
+    <!-- Category Tabs -->
+    <div class="category-tabs" role="tablist">
+      <button class="category-tab-btn active" role="tab" aria-selected="true" data-cat="horology">Fine Horology (6 Lots)</button>
+      <button class="category-tab-btn" role="tab" aria-selected="false" data-cat="coins">Rare Coins (3 Lots)</button>
+      <button class="category-tab-btn" role="tab" aria-selected="false" data-cat="jewelry">Haute Joaillerie (3 Lots)</button>
+      <button class="category-tab-btn" role="tab" aria-selected="false" data-cat="art">Fine Art (3 Lots)</button>
+    </div>
+
+    <!-- Dynamic Category Display Stage -->
+    <div class="category-display-stage" id="categoryStage">
+      <div class="stage-image-frame" id="stageFrame">
+        <!-- Default: Horology SVG -->
+        <span class="stage-specimen-badge" id="stageBadge">Specimen Dossier #01</span>
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="stageSvg">
+          <circle cx="100" cy="100" r="75" stroke="#C5A059" stroke-width="2" />
+          <circle cx="100" cy="100" r="60" stroke="#FAF8F5" stroke-width="1" />
+          <line x1="100" y1="100" x2="65" y2="75" stroke="#C5A059" stroke-width="2" />
+          <line x1="100" y1="100" x2="135" y2="85" stroke="#FAF8F5" stroke-width="1.5" />
+          <circle cx="100" cy="100" r="4" fill="#C5A059" />
+        </svg>
+      </div>
+
+      <div class="stage-info">
+        <div class="division-name" id="stageDivision">Division I &bull; Fine Horology</div>
+        <h3 class="lot-title" id="stageTitle">Patek Philippe Calatrava Ref. 3520D</h3>
+        <p class="lot-provenance" id="stageProvenance">
+          Preserved in pristine archival condition from a private Swiss collection. Features an unpolished 18k white gold case with sharp Clous de Paris hobnail bezel and original Certificate of Origin dated 1974.
+        </p>
+        <div class="stage-spec-row">
+          <div class="spec-item">
+            <div class="label">Current Saleroom Ask</div>
+            <div class="val" id="stageAsk">$22,000 USD</div>
+          </div>
+          <div class="spec-item">
+            <div class="label">Condition Grade</div>
+            <div class="val" id="stageGrade">Grade 1.2 (Museum Class)</div>
+          </div>
+          <div class="spec-item">
+            <div class="label">Specialist Reference</div>
+            <div class="val" id="stageRef">Ref. 3520D / Cal. 175</div>
+          </div>
+          <div class="spec-item">
+            <div class="label">Custody Location</div>
+            <div class="val">Geneva FreePort Vault 4</div>
+          </div>
+        </div>
+        <a href="#spotlight" class="btn-gold">Examine Specimen Dossier &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Masterpiece Spotlight (Optical Loupe & Paddle Simulator) -->
+  <section class="section-spotlight" id="spotlight">
+    <div class="spotlight-layout">
+      <!-- Interactive Optical Loupe Frame -->
+      <div class="loupe-container" id="loupeContainer">
+        <div class="loupe-image-base">
+          <svg viewBox="0 0 300 300" fill="none" style="width: 75%; height: 75%;" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="150" r="110" stroke="#C5A059" stroke-width="2" />
+            <circle cx="150" cy="150" r="102" stroke="#FAF8F5" stroke-dasharray="3 3" />
+            <circle cx="150" cy="150" r="94" stroke="#8E743F" stroke-width="1.5" />
+            <line x1="150" y1="50" x2="150" y2="70" stroke="#C5A059" stroke-width="2" />
+            <line x1="150" y1="230" x2="150" y2="250" stroke="#C5A059" stroke-width="2" />
+            <line x1="50" y1="150" x2="70" y2="150" stroke="#C5A059" stroke-width="2" />
+            <line x1="230" y1="150" x2="250" y2="150" stroke="#C5A059" stroke-width="2" />
+            <text x="110" y="115" fill="#FAF8F5" font-family="'Instrument Serif', serif" font-size="14">PATEK PHILIPPE</text>
+            <text x="132" y="128" fill="#C5A059" font-family="'IBM Plex Mono', monospace" font-size="8">GENEVE</text>
+            <line x1="150" y1="150" x2="110" y2="110" stroke="#FAF8F5" stroke-width="2" />
+            <line x1="150" y1="150" x2="200" y2="125" stroke="#FAF8F5" stroke-width="1.5" />
+            <circle cx="150" cy="150" r="5" fill="#C5A059" />
+          </svg>
+        </div>
+        <div class="loupe-lens" id="loupeLens"></div>
+        <div class="loupe-instructions">&bull; Move cursor across dial for 2.5x optical inspection</div>
+      </div>
+
+      <!-- Spotlight Info & Interactive Hold-to-Bid Paddle -->
+      <div class="spotlight-info">
+        <h4>Featured Masterpiece Dossier</h4>
+        <h3>Patek Philippe Calatrava 3520D</h3>
+        <p>
+          Equipped with the ultra-thin hand-wound Calibre 175 (18 jewels, 21,600 vph, Gyromax balance). The pure white porcelain-lacquered dial features slender Roman numerals and black oxidised baton hands, encapsulated in a razor-sharp 32.5mm two-body case.
+        </p>
+
+        <!-- Mechanical Hold-to-Bid Interactive Paddle -->
+        <div class="paddle-simulator-box">
+          <div class="paddle-status-row">
+            <span>Next Minimum Increment:</span>
+            <span class="ask">$23,000 USD (+$1,000)</span>
+          </div>
+          <div class="paddle-status-row">
+            <span>Your Paddle: <strong>#4102</strong></span>
+            <span>Available Headroom: <strong>$150,000 USD</strong></span>
+          </div>
+
+          <button class="hold-to-bid-btn" id="holdPaddleBtn" aria-label="Press and hold 350ms to place bid of $23,000 USD">
+            <span class="progress-fill" id="paddleProgress"></span>
+            <span id="paddleLabel">Press &amp; Hold to Bid $23,000 USD</span>
+          </button>
+          <div class="paddle-helper-text">&bull; 350ms intentional dwell prevents accidental clicks &bull; Releasing cancels</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Live Saleroom Urgency & Soft-Close Pulse -->
+  <section class="section-saleroom-pulse">
+    <div class="pulse-container">
+      <div class="saleroom-telemetry">
+        <h4>Saleroom Telemetry</h4>
+        <h3>Live Anti-Sniping Protection</h3>
+        <p style="font-size: 14px; color: var(--color-stone); margin-bottom: 20px;">
+          ChronoBid Vault strictly blocks bot sniping. If any bid arrives within the final 120 seconds of a lot, the clock instantly resets to a full two minutes.
+        </p>
+        <div class="soft-close-indicator" id="softCloseStatus">
+          Anti-Sniping Engine: Monitoring saleroom clock (&lt;120s extension active)
+        </div>
+        <button class="btn-simulate-sniping" id="btnSimulateBid">
+          Simulate Bid Under 120s (+120s Reset)
+        </button>
+      </div>
+
+      <!-- Live Bid Feed -->
+      <div class="saleroom-feed">
+        <div class="feed-heading">
+          <span>Recent Saleroom Telemetry</span>
+          <span>Status: Verified</span>
+        </div>
+        <ul class="feed-list" id="feedList">
+          <li class="feed-item">
+            <span class="paddle">Paddle #3098 (Frankfurt)</span>
+            <span class="amount">$22,000 USD [Current Ask]</span>
+          </li>
+          <li class="feed-item">
+            <span class="paddle">Paddle #7821 (Zurich)</span>
+            <span class="amount">$21,000 USD</span>
+          </li>
+          <li class="feed-item">
+            <span class="paddle">Paddle #4102 (You)</span>
+            <span class="amount">$20,000 USD [Outbid]</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7 & 8: Consignor Intake & Custodial Trust -->
+  <section class="section-trust">
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="hallmark">Assay &bull; XRF</div>
+        <h5>Metallurgical Proof</h5>
+        <p>Precious alloy testing and non-destructive surface verification by senior gemologists.</p>
+      </div>
+
+      <div class="trust-card">
+        <div class="hallmark">Archival &bull; Title</div>
+        <h5>Provenance Ledger</h5>
+        <p>Complete historical bill of sale, catalogue raisonné records, and Art Loss Register clearance.</p>
+      </div>
+
+      <div class="trust-card">
+        <div class="hallmark">Bonded &bull; Vault</div>
+        <h5>Armoured Custody</h5>
+        <p>Stored in climate-controlled Swiss bonded vaults with full Lloyd's of London transit insurance.</p>
+      </div>
+
+      <div class="trust-card">
+        <div class="hallmark">Sellers &bull; Intake</div>
+        <h5>Consign With Us</h5>
+        <p>Direct specialist intake with 48-hour formal appraisal dossiers for exceptional collections.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Archival Institutional Footer -->
+  <footer class="archival-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h6>ChronoBid Vault</h6>
+        <p style="font-size: 13px; color: var(--color-stone); line-height: 1.6;">
+          An archival multi-category marketplace engineered for high-value fine horology, numismatics, haute joaillerie, and fine art.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h6>Curatorial Vaults</h6>
+        <ul>
+          <li><a href="#categories">Fine Horology</a></li>
+          <li><a href="#categories">Rare Coins &amp; Numismatics</a></li>
+          <li><a href="#categories">Haute Joaillerie</a></li>
+          <li><a href="#categories">Fine Art</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Governance &amp; Trust</h6>
+        <ul>
+          <li><a href="#">Pre-Funded Vault Invariant</a></li>
+          <li><a href="#">Anti-Sniping Soft-Close (ADR-012)</a></li>
+          <li><a href="#">Forensic Condition Grading</a></li>
+          <li><a href="#">Independent Escrow Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Consignment</h6>
+        <ul>
+          <li><a href="#">Submit Collection for Appraisal</a></li>
+          <li><a href="#">Specialist Review Desk</a></li>
+          <li><a href="#">Private Treaty Acquisitions</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 ChronoBid Vault SA &bull; All Rights Reserved &bull; [STANDALONE DESIGN EXPERIMENT]</div>
+      <div>Canonical Settlement Currency: USD &bull; Prototype Only</div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       INTERACTIVE CLIENT CONTROLLER (VANILLA ES6+ ZERO DEPENDENCIES)
+       ========================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Reduced Motion Toggle
+      const motionToggle = document.getElementById('motionToggle');
+      let isReduced = false;
+
+      function updateMotion(state) {
+        isReduced = state;
+        document.body.classList.toggle('reduced-motion', isReduced);
+        motionToggle.textContent = isReduced ? 'Motion: Reduced' : 'Motion: Fluid';
+        motionToggle.setAttribute('aria-pressed', isReduced ? 'true' : 'false');
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        updateMotion(true);
+      }
+
+      motionToggle.addEventListener('click', () => {
+        updateMotion(!isReduced);
+      });
+
+      // 2. Saleroom Chronometer & Soft-Close Simulator
+      const clockEl = document.getElementById('saleroomClock');
+      const softCloseStatusEl = document.getElementById('softCloseStatus');
+      const btnSimulateBid = document.getElementById('btnSimulateBid');
+      const feedList = document.getElementById('feedList');
+
+      let remainingSeconds = 105; // 00:01:45
+      let extensionCount = 0;
+      const MAX_EXTENSIONS = 10;
+
+      function formatTime(sec) {
+        const m = Math.floor(sec / 60).toString().padStart(2, '0');
+        const s = (sec % 60).toString().padStart(2, '0');
+        return `00:${m}:${s}`;
+      }
+
+      setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+          clockEl.textContent = formatTime(remainingSeconds);
+        } else {
+          clockEl.textContent = '00:00:00 [HAMMER DOWN]';
+          clockEl.style.color = 'var(--color-crimson)';
+        }
+      }, 1000);
+
+      btnSimulateBid.addEventListener('click', () => {
+        if (remainingSeconds < 120 && extensionCount < MAX_EXTENSIONS) {
+          remainingSeconds = 120;
+          extensionCount++;
+          clockEl.textContent = formatTime(remainingSeconds);
+          softCloseStatusEl.innerHTML = `<strong>Anti-Sniping Triggered:</strong> Clock extended to 00:02:00 (Extension ${extensionCount}/${MAX_EXTENSIONS})`;
+          softCloseStatusEl.style.borderColor = 'var(--color-crimson)';
+
+          // Append to live feed
+          const li = document.createElement('li');
+          li.className = 'feed-item new-bid';
+          li.innerHTML = `<span class="paddle">Paddle #4102 (You)</span><span class="amount">$23,000 USD [Leading Bid]</span>`;
+          feedList.prepend(li);
+        } else if (extensionCount >= MAX_EXTENSIONS) {
+          softCloseStatusEl.textContent = 'Maximum soft-close extensions (10/10) reached. Clock will expire at 00:00:00 without reset.';
+        }
+      });
+
+      // 3. Category Exploration Switcher
+      const categoryData = {
+        horology: {
+          division: 'Division I &bull; Fine Horology',
+          badge: 'Specimen Dossier #01',
+          title: 'Patek Philippe Calatrava Ref. 3520D',
+          provenance: 'Preserved in pristine archival condition from a private Swiss collection. Features an unpolished 18k white gold case with sharp Clous de Paris hobnail bezel and original Certificate of Origin dated 1974.',
+          ask: '$22,000 USD',
+          grade: 'Grade 1.2 (Museum Class)',
+          ref: 'Ref. 3520D / Cal. 175',
+          svg: `<circle cx="100" cy="100" r="75" stroke="#C5A059" stroke-width="2"/><circle cx="100" cy="100" r="60" stroke="#FAF8F5" stroke-width="1"/><line x1="100" y1="100" x2="65" y2="75" stroke="#C5A059" stroke-width="2"/><line x1="100" y1="100" x2="135" y2="85" stroke="#FAF8F5" stroke-width="1.5"/><circle cx="100" cy="100" r="4" fill="#C5A059"/>`
+        },
+        coins: {
+          division: 'Division II &bull; Rare Coins &amp; Numismatics',
+          badge: 'Specimen Dossier #07',
+          title: 'Classical Athenian Silver Tetradrachm Owl',
+          provenance: 'Struck c. 450 BC in classical Athens on full thick flan. Features the helmeted head of Athena with crested helmet, and reverse owl standing right with olive sprig and crescent moon. Outstanding die relief.',
+          ask: '$105,000 USD',
+          grade: 'NGC Choice AU (Strike 5/5, Surface 4/5)',
+          ref: 'Attic Standard / 17.18g',
+          svg: `<circle cx="100" cy="100" r="72" stroke="#C5A059" stroke-width="2.5" stroke-dasharray="8 4"/><circle cx="100" cy="100" r="62" fill="#1C1814" stroke="#702C3B" stroke-width="1.5"/><ellipse cx="100" cy="95" rx="35" ry="42" stroke="#FAF8F5" stroke-width="2"/><circle cx="88" cy="90" r="10" stroke="#C5A059" stroke-width="1.5"/><circle cx="112" cy="90" r="10" stroke="#C5A059" stroke-width="1.5"/><path d="M 98 102 L 102 102 L 100 108 Z" fill="#C5A059"/>`
+        },
+        jewelry: {
+          division: 'Division III &bull; Haute Joaillerie',
+          badge: 'Specimen Dossier #10',
+          title: 'Cartier Art Deco Colombian Emerald Sautoir',
+          provenance: 'Created c. 1925 in Cartier Paris workshops. Featuring a central 14.82ct untreated Colombian sugarloaf cabochon emerald suspended from a geometric platinum lattice set with old European-cut diamonds.',
+          ask: '$340,000 USD',
+          grade: 'SSEF Certification (Minor Cedar Oil)',
+          ref: 'Platinum &amp; Colombian Emerald',
+          svg: `<polygon points="100,30 160,100 100,170 40,100" stroke="#C5A059" stroke-width="2" fill="#0F1F17"/><polygon points="100,55 140,100 100,145 60,100" stroke="#76DE5B" stroke-width="1.5"/><circle cx="100" cy="100" r="14" fill="#182720" stroke="#FAF8F5" stroke-width="1.5"/>`
+        },
+        art: {
+          division: 'Division IV &bull; Fine Art',
+          badge: 'Specimen Dossier #13',
+          title: 'Studio of Rembrandt: Portrait of a Scholar',
+          provenance: 'Oil on oak panel, dated 1638. Documented in the 1935 Hofstede de Groot catalogue raisonné and held in a distinguished Scottish ducal collection for over 180 years. Exceptional chiaroscuro preservation.',
+          ask: '$210,000 USD',
+          grade: 'Conservation Report Verified (Oak Panel)',
+          ref: 'Panel 64.2 x 50.8 cm (1638)',
+          svg: `<rect x="45" y="30" width="110" height="140" stroke="#C5A059" stroke-width="2.5" fill="#14110E"/><rect x="55" y="40" width="90" height="120" stroke="#8E743F" stroke-width="1"/><ellipse cx="100" cy="85" rx="25" ry="32" stroke="#FAF8F5" stroke-width="1.5"/><path d="M 75 140 Q 100 115 125 140" stroke="#C5A059" stroke-width="2"/>`
+        }
+      };
+
+      const categoryButtons = document.querySelectorAll('.category-tab-btn, .nav-divisions a[data-cat]');
+      const stageBadge = document.getElementById('stageBadge');
+      const stageDivision = document.getElementById('stageDivision');
+      const stageTitle = document.getElementById('stageTitle');
+      const stageProvenance = document.getElementById('stageProvenance');
+      const stageAsk = document.getElementById('stageAsk');
+      const stageGrade = document.getElementById('stageGrade');
+      const stageRef = document.getElementById('stageRef');
+      const stageSvg = document.getElementById('stageSvg');
+
+      function switchCategory(key) {
+        const data = categoryData[key];
+        if (!data) return;
+
+        // Visual active classes
+        categoryButtons.forEach(btn => {
+          if (btn.getAttribute('data-cat') === key) {
+            btn.classList.add('active');
+            if (btn.hasAttribute('aria-selected')) btn.setAttribute('aria-selected', 'true');
+          } else {
+            btn.classList.remove('active');
+            if (btn.hasAttribute('aria-selected')) btn.setAttribute('aria-selected', 'false');
+          }
+        });
+
+        // Content updates
+        stageBadge.textContent = data.badge;
+        stageDivision.innerHTML = data.division;
+        stageTitle.textContent = data.title;
+        stageProvenance.textContent = data.provenance;
+        stageAsk.textContent = data.ask;
+        stageGrade.textContent = data.grade;
+        stageRef.innerHTML = data.ref;
+        stageSvg.innerHTML = data.svg;
+      }
+
+      categoryButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const cat = btn.getAttribute('data-cat');
+          switchCategory(cat);
+        });
+      });
+
+      // 4. Optical Loupe Inspection (Vanilla JS Follower)
+      const loupeContainer = document.getElementById('loupeContainer');
+      const loupeLens = document.getElementById('loupeLens');
+
+      loupeContainer.addEventListener('mouseenter', () => {
+        if (!isReduced) loupeLens.style.display = 'block';
+      });
+
+      loupeContainer.addEventListener('mouseleave', () => {
+        loupeLens.style.display = 'none';
+      });
+
+      loupeContainer.addEventListener('mousemove', (e) => {
+        if (isReduced) return;
+        const rect = loupeContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const lensRadius = 80;
+        loupeLens.style.left = `${x - lensRadius}px`;
+        loupeLens.style.top = `${y - lensRadius}px`;
+      });
+
+      // 5. Dual-Action Mechanical Bidding Paddle (350ms Hold)
+      const holdPaddleBtn = document.getElementById('holdPaddleBtn');
+      const paddleLabel = document.getElementById('paddleLabel');
+      let holdTimer = null;
+      let isCharging = false;
+
+      function startCharge(e) {
+        if (e.type === 'touchstart') e.preventDefault();
+        if (holdPaddleBtn.classList.contains('confirmed')) return;
+
+        isCharging = true;
+        holdPaddleBtn.classList.add('charging');
+        paddleLabel.textContent = 'Holding to Confirm...';
+
+        holdTimer = setTimeout(() => {
+          // Completed 350ms dwell
+          holdPaddleBtn.classList.remove('charging');
+          holdPaddleBtn.classList.add('confirmed');
+          paddleLabel.textContent = 'Bid Placed: $23,000 USD [Held in Vault]';
+
+          const li = document.createElement('li');
+          li.className = 'feed-item new-bid';
+          li.innerHTML = `<span class="paddle">Paddle #4102 (You)</span><span class="amount">$23,000 USD [Leading Ask]</span>`;
+          feedList.prepend(li);
+        }, 350);
+      }
+
+      function cancelCharge() {
+        if (!isCharging) return;
+        isCharging = false;
+        clearTimeout(holdTimer);
+        holdPaddleBtn.classList.remove('charging');
+        if (!holdPaddleBtn.classList.contains('confirmed')) {
+          paddleLabel.textContent = 'Press & Hold to Bid $23,000 USD';
+        }
+      }
+
+      holdPaddleBtn.addEventListener('mousedown', startCharge);
+      holdPaddleBtn.addEventListener('touchstart', startCharge);
+      window.addEventListener('mouseup', cancelCharge);
+      window.addEventListener('touchend', cancelCharge);
+
+    })();
+  </script>
+</body>
+</html>

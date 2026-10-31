@@ -1,0 +1,157 @@
+/* ==========================================================================
+   CHRONOBID VAULT — CINEMATIC V2 EXPERIMENT ISOLATED STYLESHEET
+   Confined strictly to /experiments/cinematic-v2
+   Implements the 6-colour brand palette and alternating section rhythm:
+   - Charcoal Black: #111312
+   - Forest Green:   #183D30
+   - Crimson Red:    #A61935
+   - Antique Gold:   #C5A059
+   - Warm Ivory:     #F4F0E8
+   - Muted Stone:    #A7A39A
+   ========================================================================== */
+
+/* 1. Isolation from Global Phase 2.1 Prototype Root Layout */
+body:has(#cinematic-v2-root) > header,
+body:has(#cinematic-v2-root) > footer,
+body:has(#cinematic-v2-root) > .bg-forest,
+body:has(#cinematic-v2-root) > div:first-child:not(#cinematic-v2-root) {
+  display: none !important;
+}
+
+body:has(#cinematic-v2-root) {
+  background-color: #111312 !important;
+  color: #F4F0E8 !important;
+}
+
+body:has(#cinematic-v2-root) > main {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#cinematic-v2-root {
+  background-color: #111312;
+  color: #F4F0E8;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+/* 2. Section-Level Atmosphere Rules */
+
+/* Section 1: Hero (Charcoal Black Ground with Subtle Forest Ambience) */
+.cinematic-section-hero {
+  background-color: #111312 !important;
+  background-image: radial-gradient(circle at 75% 35%, rgba(24, 61, 48, 0.45) 0%, #111312 70%) !important;
+  color: #F4F0E8 !important;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25) !important;
+}
+
+/* Section 2: Provenance Institutional Transition (Visibly Deep Forest Green Across Full Section) */
+.cinematic-section-provenance {
+  background-color: #183D30 !important;
+  color: #F4F0E8 !important;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.3) !important;
+}
+
+/* Section 3: Curatorial Department Explorer (Charcoal Black Ground) */
+.cinematic-section-departments {
+  background-color: #111312 !important;
+  color: #F4F0E8 !important;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important;
+}
+
+/* Section 4: Saleroom Pulse (Deep Obsidian Charcoal with Crimson Cues) */
+.cinematic-section-saleroom {
+  background-color: #0e100f !important;
+  color: #F4F0E8 !important;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25) !important;
+}
+
+/* Section 5: Masterpiece Surface Loupe (Charcoal Black Spotlight) */
+.cinematic-section-inspection {
+  background-color: #111312 !important;
+  color: #F4F0E8 !important;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important;
+}
+
+/* Section 6: Consignment Desk (Archival Warm Ivory Foundation with Deep Forest Typography) */
+.cinematic-section-consign {
+  background-color: #F4F0E8 !important;
+  color: #182720 !important;
+  border-bottom: 1px solid #D8D0C2 !important;
+}
+
+/* Section 7: Institutional Footer (Charcoal Black Ground) */
+.cinematic-section-footer {
+  background-color: #111312 !important;
+  color: #A7A39A !important;
+  border-top: 1px solid rgba(197, 160, 89, 0.25) !important;
+}
+
+/* 3. Utility Emulation for Uncompiled Tailwind Hex Arbitrary Tokens */
+
+/* Backgrounds */
+.bg-\[\#111312\] { background-color: #111312 !important; }
+.bg-\[\#0c0d0e\] { background-color: #0c0d0e !important; }
+.bg-\[\#0c0d0d\] { background-color: #0c0d0d !important; }
+.bg-\[\#0e100f\] { background-color: #0e100f !important; }
+.bg-\[\#151817\] { background-color: #151817 !important; }
+.bg-\[\#183D30\] { background-color: #183D30 !important; }
+.bg-\[\#A61935\] { background-color: #A61935 !important; }
+.bg-\[\#8B142B\] { background-color: #8B142B !important; }
+.bg-\[\#C5A059\] { background-color: #C5A059 !important; }
+.bg-\[\#D8B26A\] { background-color: #D8B26A !important; }
+.bg-\[\#F4F0E8\] { background-color: #F4F0E8 !important; }
+.bg-\[\#EDE7DC\] { background-color: #EDE7DC !important; }
+.bg-\[\#D8D0C2\] { background-color: #D8D0C2 !important; }
+.bg-\[\#1C1410\] { background-color: #1C1410 !important; }
+.bg-\[\#182720\] { background-color: #182720 !important; }
+
+/* Alpha Backgrounds */
+.bg-\[\#111312\]\/95 { background-color: rgba(17, 19, 18, 0.95) !important; }
+.bg-\[\#111312\]\/90 { background-color: rgba(17, 19, 18, 0.90) !important; }
+.bg-\[\#111312\]\/85 { background-color: rgba(17, 19, 18, 0.85) !important; }
+.bg-\[\#111312\]\/80 { background-color: rgba(17, 19, 18, 0.80) !important; }
+.bg-\[\#183D30\]\/85 { background-color: rgba(24, 61, 48, 0.85) !important; }
+.bg-\[\#183D30\]\/40 { background-color: rgba(24, 61, 48, 0.40) !important; }
+.bg-\[\#183D30\]\/30 { background-color: rgba(24, 61, 48, 0.30) !important; }
+.bg-\[\#C5A059\]\/15 { background-color: rgba(197, 160, 89, 0.15) !important; }
+.bg-\[\#C5A059\]\/20 { background-color: rgba(197, 160, 89, 0.20) !important; }
+.bg-\[\#C5A059\]\/25 { background-color: rgba(197, 160, 89, 0.25) !important; }
+.bg-\[\#A61935\]\/10 { background-color: rgba(166, 25, 53, 0.10) !important; }
+
+/* Text Colors */
+.text-\[\#F4F0E8\] { color: #F4F0E8 !important; }
+.text-\[\#C5A059\] { color: #C5A059 !important; }
+.text-\[\#A7A39A\] { color: #A7A39A !important; }
+.text-\[\#183D30\] { color: #183D30 !important; }
+.text-\[\#182720\] { color: #182720 !important; }
+.text-\[\#111312\] { color: #111312 !important; }
+.text-\[\#A61935\] { color: #A61935 !important; }
+.text-\[\#76DE5B\] { color: #76DE5B !important; }
+
+/* Border Colors */
+.border-\[\#C5A059\] { border-color: #C5A059 !important; }
+.border-\[\#C5A059\]\/20 { border-color: rgba(197, 160, 89, 0.20) !important; }
+.border-\[\#C5A059\]\/25 { border-color: rgba(197, 160, 89, 0.25) !important; }
+.border-\[\#C5A059\]\/30 { border-color: rgba(197, 160, 89, 0.30) !important; }
+.border-\[\#C5A059\]\/40 { border-color: rgba(197, 160, 89, 0.40) !important; }
+.border-\[\#C5A059\]\/60 { border-color: rgba(197, 160, 89, 0.60) !important; }
+.border-\[\#C5A059\]\/70 { border-color: rgba(197, 160, 89, 0.70) !important; }
+.border-\[\#183D30\] { border-color: #183D30 !important; }
+.border-\[\#183D30\]\/20 { border-color: rgba(24, 61, 48, 0.20) !important; }
+.border-\[\#D8D0C2\] { border-color: #D8D0C2 !important; }
+.border-\[\#A7A39A\]\/20 { border-color: rgba(167, 163, 154, 0.20) !important; }
+.border-\[\#A7A39A\]\/40 { border-color: rgba(167, 163, 154, 0.40) !important; }
+
+/* Hover States */
+.hover\:bg-\[\#D8B26A\]:hover { background-color: #D8B26A !important; }
+.hover\:bg-\[\#8B142B\]:hover { background-color: #8B142B !important; }
+.hover\:bg-\[\#C5A059\]:hover { background-color: #C5A059 !important; }
+.hover\:text-\[\#C5A059\]:hover { color: #C5A059 !important; }
+.hover\:text-\[\#F4F0E8\]:hover { color: #F4F0E8 !important; }
+.hover\:text-\[\#111312\]:hover { color: #111312 !important; }
+.hover\:border-\[\#C5A059\]:hover { border-color: #C5A059 !important; }
+.hover\:border-\[\#C5A059\]\/60:hover { border-color: rgba(197, 160, 89, 0.60) !important; }
+.hover\:border-\[\#C5A059\]\/70:hover { border-color: rgba(197, 160, 89, 0.70) !important; }

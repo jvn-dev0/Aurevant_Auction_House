@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoBid Vault — Multi-Category Cultural Auction Marketplace</title>
+  
+  <!-- Curatorial Typography Hierarchy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CHRONOBID VAULT — MULTI-CATEGORY DESIGN SYSTEM TOKENS
+       ========================================================================== */
+    :root {
+      /* Five-Tone Approved Palette */
+      --color-charcoal: #101113;
+      --color-charcoal-surface: #16181B;
+      --color-charcoal-elevated: #1D1F24;
+      --color-forest: #182720;
+      --color-forest-deep: #0D1713;
+      --color-crimson: #702C3B;
+      --color-crimson-rich: #8A1C2E;
+      --color-gold: #C5A059;
+      --color-gold-muted: #8E743F;
+      --color-porcelain: #F4F0E8;
+      --color-ivory: #FAF8F5;
+      --color-stone: #D8D0C2;
+      --color-stone-muted: #A8A092;
+      --color-border-dark: rgba(197, 160, 89, 0.22);
+      --color-border-subtle: rgba(216, 208, 194, 0.12);
+
+      /* Typography */
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+
+      /* Motion Curves */
+      --ease-mechanical: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-tactile: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --duration-fast: 160ms;
+      --duration-normal: 300ms;
+      --duration-cinematic: 600ms;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--color-charcoal);
+      color: var(--color-porcelain);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       TOP GOVERNANCE BANNER
+       ========================================================================== */
+    .sandbox-banner {
+      background: var(--color-forest-deep);
+      border-bottom: 1px solid var(--color-border-dark);
+      padding: 6px 24px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--color-gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      position: relative;
+    }
+
+    .sandbox-banner .controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-motion-toggle {
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      padding: 2px 10px;
+      font-size: 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: background var(--duration-fast);
+    }
+
+    .btn-motion-toggle:hover {
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+    }
+
+    /* ==========================================================================
+       INSTITUTIONAL MASTHEAD & DEPARTMENT BAR
+       ========================================================================== */
+    .masthead {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(16, 17, 19, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-ivory);
+    }
+
+    .brand-hallmark {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--color-gold);
+      border: 1px solid var(--color-gold);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .department-nav {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .department-nav a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--color-stone);
+      position: relative;
+      padding: 6px 0;
+      transition: color var(--duration-fast);
+    }
+
+    .department-nav a:hover,
+    .department-nav a.active {
+      color: var(--color-gold);
+    }
+
+    .department-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: var(--color-gold);
+      transition: width var(--duration-normal) var(--ease-mechanical);
+    }
+
+    .department-nav a:hover::after,
+    .department-nav a.active::after {
+      width: 100%;
+    }
+
+    .vault-headroom-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(24, 39, 32, 0.7);
+      border: 1px solid var(--color-gold);
+      padding: 6px 14px;
+      border-radius: 2px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .vault-headroom-chip .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #76DE5B;
+      box-shadow: 0 0 8px #76DE5B;
+    }
+
+    /* ==========================================================================
+       SECTION 1: THE MULTI-CATEGORY EDITORIAL HERO (NOT JUST A WATCH!)
+       ========================================================================== */
+    .multi-hero {
+      position: relative;
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.05fr 1.35fr;
+      align-items: center;
+      padding: 64px 48px;
+      gap: 56px;
+      border-bottom: 1px solid var(--color-border-dark);
+      background: radial-gradient(circle at 75% 35%, rgba(24, 39, 32, 0.45) 0%, rgba(16, 17, 19, 1) 75%);
+    }
+
+    .hero-manifesto-box {
+      max-width: 580px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 36px;
+      height: 1px;
+      background: var(--color-gold);
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 5.2vw, 84px);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--color-ivory);
+      margin-bottom: 24px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+
+    .hero-body {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--color-stone);
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold {
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform var(--duration-fast) var(--ease-mechanical), background var(--duration-fast);
+    }
+
+    .btn-gold:hover {
+      background: #D8B26A;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--color-stone);
+      color: var(--color-ivory);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      border-radius: 2px;
+      transition: border-color var(--duration-fast), color var(--duration-fast);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    /* Asymmetric Multi-Category Spatial Triptych */
+    .hero-triptych-stage {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      position: relative;
+    }
+
+    .triptych-card {
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      transition: transform var(--duration-normal) var(--ease-mechanical), border-color var(--duration-normal), box-shadow var(--duration-normal);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 380px;
+    }
+
+    .triptych-card:hover,
+    .triptych-card.active {
+      transform: translateY(-6px);
+      border-color: var(--color-gold);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .triptych-card.featured-card {
+      grid-column: span 1;
+      border-color: rgba(197, 160, 89, 0.4);
+    }
+
+    .card-dept-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .card-specimen-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--color-ivory);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .card-visual-frame {
+      flex: 1;
+      width: 100%;
+      background: #0E0F12;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-visual-frame svg {
+      width: 75%;
+      height: 75%;
+      transition: transform var(--duration-cinematic) var(--ease-mechanical);
+    }
+
+    .triptych-card:hover .card-visual-frame svg {
+      transform: scale(1.06);
+    }
+
+    .card-price-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      border-top: 1px solid rgba(197, 160, 89, 0.15);
+      padding-top: 10px;
+    }
+
+    .card-price-row .ask {
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       SECTION 2: THE CHRONOBID INSTITUTIONAL STANDARD
+       ========================================================================== */
+    .section-standard {
+      padding: 96px 48px;
+      border-bottom: 1px solid var(--color-border-dark);
+      background: var(--color-charcoal);
+    }
+
+    .section-header-centered {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 64px;
+    }
+
+    .section-eyebrow-center {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title-large {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4vw, 52px);
+      color: var(--color-ivory);
+      line-height: 1.1;
+    }
+
+    .standard-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .standard-card {
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 40px 32px;
+      border-radius: 3px;
+      transition: transform var(--duration-normal) var(--ease-mechanical);
+    }
+
+    .standard-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-gold);
+    }
+
+    .standard-hallmark {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--color-gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .standard-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      color: var(--color-ivory);
+      margin-bottom: 16px;
+    }
+
+    .standard-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-stone);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       SECTION 3: THE SIX CURATORIAL DISCIPLINES (INTERACTIVE STAGE)
+       ========================================================================== */
+    .section-departments {
+      padding: 96px 48px;
+      background: #0E0F12;
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .dept-tabs-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .dept-tab-btn {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      border-radius: 2px;
+      color: var(--color-stone);
+      background: var(--color-charcoal-surface);
+      transition: all var(--duration-fast);
+    }
+
+    .dept-tab-btn:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+    }
+
+    .dept-tab-btn.active {
+      background: var(--color-gold);
+      color: var(--color-charcoal);
+      border-color: var(--color-gold);
+      font-weight: 600;
+    }
+
+    /* Curatorial Department Stage */
+    .dept-stage {
+      max-width: 1240px;
+      margin: 0 auto;
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 48px;
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+    }
+
+    .dept-visual-box {
+      width: 100%;
+      height: 440px;
+      background: #0B0C0E;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .dept-visual-box svg {
+      width: 80%;
+      height: 80%;
+    }
+
+    .dept-specimen-flag {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      background: rgba(16, 17, 19, 0.85);
+      border: 1px solid var(--color-gold);
+      padding: 4px 10px;
+      color: var(--color-gold);
+      border-radius: 2px;
+    }
+
+    .dept-dossier .dept-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 8px;
+    }
+
+    .dept-dossier .lot-heading {
+      font-family: var(--font-display);
+      font-size: 34px;
+      color: var(--color-ivory);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .dept-dossier .provenance-copy {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--color-stone);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .dept-spec-matrix {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+      border-top: 1px solid rgba(197, 160, 89, 0.15);
+      padding-top: 16px;
+    }
+
+    .matrix-item .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--color-stone-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2px;
+    }
+
+    .matrix-item .val {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-ivory);
+    }
+
+    /* ==========================================================================
+       SECTION 4: LIVE MIXED-CATEGORY SALEROOM PULSE
+       ========================================================================== */
+    .section-saleroom {
+      padding: 88px 48px;
+      background: var(--color-forest-deep);
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .saleroom-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .saleroom-info h3 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 44px);
+      color: var(--color-ivory);
+      margin-bottom: 16px;
+    }
+
+    .saleroom-info p {
+      font-size: 15px;
+      color: var(--color-stone);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .anti-sniping-banner {
+      background: rgba(16, 17, 19, 0.7);
+      border-left: 3px solid var(--color-gold);
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #D8B26A;
+      margin-bottom: 24px;
+    }
+
+    .saleroom-telemetry-box {
+      background: rgba(16, 17, 19, 0.9);
+      border: 1px solid var(--color-gold);
+      padding: 32px;
+      border-radius: 4px;
+    }
+
+    .chronometer-hero {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    }
+
+    .clock-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-stone-muted);
+      margin-bottom: 8px;
+    }
+
+    .clock-display {
+      font-family: var(--font-mono);
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--color-gold);
+      letter-spacing: 0.04em;
+    }
+
+    /* Live Feed Across Categories */
+    .mixed-feed-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .mixed-feed-item {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: rgba(22, 24, 27, 0.7);
+      border: 1px solid rgba(216, 208, 194, 0.1);
+      border-radius: 2px;
+    }
+
+    .mixed-feed-item.active-bid {
+      border-color: var(--color-gold);
+      background: rgba(197, 160, 89, 0.1);
+    }
+
+    .mixed-feed-item .dept {
+      color: var(--color-gold);
+    }
+
+    .mixed-feed-item .price {
+      color: var(--color-ivory);
+      font-weight: 500;
+    }
+
+    .btn-sniping-trigger {
+      width: 100%;
+      background: var(--color-crimson);
+      color: var(--color-ivory);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px;
+      border-radius: 2px;
+      transition: background var(--duration-fast);
+    }
+
+    .btn-sniping-trigger:hover {
+      background: var(--color-crimson-rich);
+    }
+
+    /* ==========================================================================
+       SECTION 5: OBJECT-SPECIFIC INSPECTION & HOLD-TO-BID PADDLE
+       ========================================================================== */
+    .section-inspection {
+      padding: 96px 48px;
+      background: var(--color-charcoal);
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .inspection-layout {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .interactive-loupe-viewport {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #121417;
+      border: 1px solid var(--color-border-dark);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .loupe-svg-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loupe-glass {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.85), inset 0 0 16px rgba(197, 160, 89, 0.4);
+      display: none;
+      z-index: 10;
+    }
+
+    .loupe-tagline {
+      position: absolute;
+      bottom: 14px;
+      left: 18px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--color-gold);
+      background: rgba(16, 17, 19, 0.85);
+      padding: 4px 10px;
+      border-radius: 2px;
+      border: 1px solid rgba(197, 160, 89, 0.25);
+    }
+
+    .paddle-interaction-box {
+      background: var(--color-charcoal-surface);
+      border: 1px solid var(--color-border-dark);
+      padding: 28px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .paddle-info-line {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .paddle-info-line .bold-val {
+      color: var(--color-gold);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .mechanical-bid-paddle {
+      position: relative;
+      width: 100%;
+      height: 54px;
+      background: rgba(197, 160, 89, 0.15);
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background var(--duration-fast);
+    }
+
+    .mechanical-bid-paddle:hover {
+      background: rgba(197, 160, 89, 0.25);
+    }
+
+    .paddle-charge-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--color-gold);
+      opacity: 0.35;
+      pointer-events: none;
+      transition: width 0.35s linear;
+    }
+
+    .mechanical-bid-paddle.charging .paddle-charge-fill {
+      width: 100%;
+    }
+
+    .mechanical-bid-paddle.placed {
+      background: #76DE5B;
+      color: #101113;
+      border-color: #76DE5B;
+    }
+
+    /* ==========================================================================
+       SECTION 6 & 7: CONSIGNOR PORTAL & CUSTODIAL PROVENANCE
+       ========================================================================== */
+    .section-consign-trust {
+      padding: 88px 48px;
+      background: #0D0E11;
+      border-bottom: 1px solid var(--color-border-dark);
+    }
+
+    .consign-trust-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .consign-trust-card {
+      background: var(--color-charcoal-surface);
+      border: 1px solid rgba(197, 160, 89, 0.2);
+      padding: 28px 22px;
+      border-radius: 3px;
+    }
+
+    .consign-trust-card .hallmark {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 12px;
+    }
+
+    .consign-trust-card h5 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--color-ivory);
+      margin-bottom: 8px;
+    }
+
+    .consign-trust-card p {
+      font-size: 13px;
+      color: var(--color-stone);
+      line-height: 1.55;
+    }
+
+    /* ==========================================================================
+       ARCHIVAL INSTITUTIONAL FOOTER
+       ========================================================================== */
+    .archival-footer {
+      background: var(--color-charcoal);
+      padding: 72px 48px 36px;
+      border-top: 1px solid var(--color-border-dark);
+    }
+
+    .footer-columns {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    }
+
+    .footer-col h6 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-stone);
+    }
+
+    .footer-col ul a:hover {
+      color: var(--color-gold);
+    }
+
+    .footer-legal-bar {
+      max-width: 1240px;
+      margin: 32px auto 0;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-stone-muted);
+    }
+
+    /* Reduced Motion Accessibility Overrides */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    body.reduced-motion *,
+    body.reduced-motion *::before,
+    body.reduced-motion *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Responsive Adaptation */
+    @media (max-width: 1024px) {
+      .multi-hero {
+        grid-template-columns: 1fr;
+        padding: 48px 24px;
+      }
+      .hero-triptych-stage {
+        grid-template-columns: 1fr;
+      }
+      .dept-stage {
+        grid-template-columns: 1fr;
+        padding: 32px;
+      }
+      .saleroom-grid {
+        grid-template-columns: 1fr;
+      }
+      .inspection-layout {
+        grid-template-columns: 1fr;
+      }
+      .consign-trust-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .standard-pillars {
+        grid-template-columns: 1fr;
+      }
+      .footer-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Governance Disclosure -->
+  <aside class="sandbox-banner" role="region" aria-label="Experiment Governance Disclosure">
+    <div>
+      <strong>[STANDALONE MULTI-CATEGORY EXPERIMENT V2]</strong> ChronoBid Vault &bull; 6 Curatorial Disciplines &bull; Phase 2.1 Prototype Preserved
+    </div>
+    <div class="controls">
+      <span>Base Currency: <strong>USD</strong></span>
+      <button id="motionToggle" class="btn-motion-toggle" aria-label="Toggle motion effects">Motion: Fluid</button>
+    </div>
+  </aside>
+
+  <!-- Institutional Masthead -->
+  <header class="masthead">
+    <div class="brand-block">
+      <span class="brand-logo">ChronoBid Vault</span>
+      <span class="brand-hallmark">Multi-Category Saleroom</span>
+    </div>
+
+    <nav aria-label="Curatorial Departments Navigation">
+      <ul class="department-nav">
+        <li><a href="#departments" data-dept="art">Fine Art</a></li>
+        <li><a href="#departments" data-dept="coins">Coins</a></li>
+        <li><a href="#departments" data-dept="books">Rare Books</a></li>
+        <li><a href="#departments" data-dept="horology">Horology</a></li>
+        <li><a href="#departments" data-dept="jewelry">Jewellery</a></li>
+        <li><a href="#departments" data-dept="antiquities">Antiquities</a></li>
+      </ul>
+    </nav>
+
+    <div class="vault-headroom-chip" title="Verified Pre-Funded Bidding Headroom">
+      <span class="live-dot"></span>
+      <span>Vault Headroom: <strong>$150,000 USD</strong></span>
+    </div>
+  </header>
+
+  <!-- Section 1: The Multi-Category Curatorial Hero (Showing Breadth Immediately!) -->
+  <section class="multi-hero" id="hero">
+    <div class="hero-manifesto-box">
+      <div class="hero-eyebrow">The October Global Evening Sale &bull; Geneve 2026</div>
+      <h1 class="hero-headline">The Architecture of <em>Exceptional</em> Things.</h1>
+      <p class="hero-body">
+        A global auction marketplace uniting paintings, ancient numismatics, rare folios, fine horology, signed jewels, and classical antiquities. Bound by pre-funded custodial escrow and physical forensic assay.
+      </p>
+      <div class="hero-actions">
+        <a href="#departments" class="btn-gold">Explore All 6 Disciplines &rarr;</a>
+        <a href="#saleroom" class="btn-outline">Enter Live Saleroom</a>
+      </div>
+    </div>
+
+    <!-- Asymmetric Curatorial Triptych: 3 Different Categories Represented Simultaneously -->
+    <div class="hero-triptych-stage">
+      <!-- Specimen A: Fine Art -->
+      <div class="triptych-card active" data-dept-target="art">
+        <div>
+          <span class="card-dept-badge">Dept I &bull; Fine Art</span>
+          <h3 class="card-specimen-title">Rembrandt Studio: Portrait of a Scholar</h3>
+        </div>
+        <div class="card-visual-frame" aria-label="Rembrandt Studio Portrait of a Scholar (1638)">
+          <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="160" height="200" stroke="#C5A059" stroke-width="2" fill="#14110E"/>
+            <rect x="30" y="30" width="140" height="180" stroke="#8E743F" stroke-width="1"/>
+            <ellipse cx="100" cy="95" rx="36" ry="46" stroke="#FAF8F5" stroke-width="2"/>
+            <path d="M 60 170 Q 100 135 140 170" stroke="#C5A059" stroke-width="2.5"/>
+            <circle cx="100" cy="85" r="14" fill="#C5A059" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="card-price-row">
+          <span>Current Ask:</span>
+          <span class="ask">$210,000 USD</span>
+        </div>
+      </div>
+
+      <!-- Specimen B: Historical Coins -->
+      <div class="triptych-card" data-dept-target="coins">
+        <div>
+          <span class="card-dept-badge">Dept II &bull; Numismatics</span>
+          <h3 class="card-specimen-title">Athenian Silver Owl Tetradrachm</h3>
+        </div>
+        <div class="card-visual-frame" aria-label="Athenian Silver Tetradrachm (c. 450 BC)">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="75" stroke="#C5A059" stroke-width="2" stroke-dasharray="6 4"/>
+            <circle cx="100" cy="100" r="64" fill="#171512" stroke="#702C3B" stroke-width="1.5"/>
+            <ellipse cx="100" cy="95" rx="35" ry="42" stroke="#FAF8F5" stroke-width="2"/>
+            <circle cx="88" cy="90" r="10" stroke="#C5A059" stroke-width="1.5"/>
+            <circle cx="112" cy="90" r="10" stroke="#C5A059" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="card-price-row">
+          <span>Current Ask:</span>
+          <span class="ask">$105,000 USD</span>
+        </div>
+      </div>
+
+      <!-- Specimen C: Rare Books & Manuscripts -->
+      <div class="triptych-card" data-dept-target="books">
+        <div>
+          <span class="card-dept-badge">Dept III &bull; Rare Books</span>
+          <h3 class="card-specimen-title">Shakespeare: The First Folio (1623)</h3>
+        </div>
+        <div class="card-visual-frame" aria-label="Shakespeare First Folio (1623)">
+          <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="15" width="150" height="210" rx="3" stroke="#C5A059" stroke-width="2" fill="#1C1410"/>
+            <line x1="45" y1="15" x2="45" y2="225" stroke="#702C3B" stroke-width="3"/>
+            <rect x="58" y="35" width="105" height="170" stroke="#8E743F" stroke-width="1" stroke-dasharray="2 2"/>
+            <line x1="70" y1="65" x2="150" y2="65" stroke="#FAF8F5" stroke-width="1.5"/>
+            <line x1="70" y1="85" x2="150" y2="85" stroke="#FAF8F5" stroke-width="1.5"/>
+            <line x1="70" y1="105" x2="135" y2="105" stroke="#C5A059" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="card-price-row">
+          <span>Current Ask:</span>
+          <span class="ask">$420,000 USD</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: The ChronoBid Institutional Standard (Three Pillars) -->
+  <section class="section-standard">
+    <div class="section-header-centered">
+      <div class="section-eyebrow-center">Institutional Governance</div>
+      <h2 class="section-title-large">Trust Engineered for Historic Acquisitions</h2>
+    </div>
+
+    <div class="standard-pillars">
+      <div class="standard-card">
+        <span class="standard-hallmark">01 &bull; SETTLEMENT INTEGRITY</span>
+        <h3 class="standard-title">Pre-Funded Vault Headroom</h3>
+        <p class="standard-desc">
+          Every participant operates with verified cash or collateral deposits. Speculative bids and post-hammer default are mathematically eliminated by cryptographic reservation locks.
+        </p>
+      </div>
+
+      <div class="standard-card">
+        <span class="standard-hallmark">02 &bull; PHYSICAL FORENSICS</span>
+        <h3 class="standard-title">Multi-Point Laboratory Assay</h3>
+        <p class="standard-desc">
+          Specialists perform XRF metallurgical analysis on ancient coins and gold cases, multispectral pigment scans on canvases, and paper watermark verification on early folios.
+        </p>
+      </div>
+
+      <div class="standard-card">
+        <span class="standard-hallmark">03 &bull; CUSTODIAL ESCROW</span>
+        <h3 class="standard-title">FreePort Escrow &amp; Transit</h3>
+        <p class="standard-desc">
+          Purchased lots remain in climate-controlled Swiss bonded freeports until settlement completes, accompanied by insured Lloyd's of London hand-to-hand transit.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: The Six Curatorial Disciplines (Interactive Stage) -->
+  <section class="section-departments" id="departments">
+    <div class="section-header-centered">
+      <div class="section-eyebrow-center">Curatorial Departments</div>
+      <h2 class="section-title-large">Explore the Six Vaults</h2>
+    </div>
+
+    <!-- Department Selector Tabs -->
+    <div class="dept-tabs-bar" role="tablist">
+      <button class="dept-tab-btn active" role="tab" aria-selected="true" data-dept="art">Fine Art &amp; Paintings</button>
+      <button class="dept-tab-btn" role="tab" aria-selected="false" data-dept="coins">Coins &amp; Numismatics</button>
+      <button class="dept-tab-btn" role="tab" aria-selected="false" data-dept="books">Rare Books &amp; Manuscripts</button>
+      <button class="dept-tab-btn" role="tab" aria-selected="false" data-dept="horology">Fine Horology</button>
+      <button class="dept-tab-btn" role="tab" aria-selected="false" data-dept="jewelry">Haute Joaillerie</button>
+      <button class="dept-tab-btn" role="tab" aria-selected="false" data-dept="antiquities">Classical Antiquities</button>
+    </div>
+
+    <!-- Dynamic Department Stage -->
+    <div class="dept-stage" id="deptStage">
+      <div class="dept-visual-box" id="deptVisual">
+        <span class="dept-specimen-flag" id="deptFlag">Lot 13 &bull; Verified Specimen</span>
+        <!-- Default: Fine Art SVG -->
+        <svg viewBox="0 0 200 240" fill="none" id="deptSvg" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="160" height="200" stroke="#C5A059" stroke-width="2" fill="#14110E"/>
+          <rect x="30" y="30" width="140" height="180" stroke="#8E743F" stroke-width="1"/>
+          <ellipse cx="100" cy="95" rx="36" ry="46" stroke="#FAF8F5" stroke-width="2"/>
+          <path d="M 60 170 Q 100 135 140 170" stroke="#C5A059" stroke-width="2.5"/>
+        </svg>
+      </div>
+
+      <div class="dept-dossier">
+        <div class="dept-tag" id="deptTag">Department I &bull; Fine Art</div>
+        <h3 class="lot-heading" id="deptTitle">Studio of Rembrandt: Portrait of a Scholar</h3>
+        <p class="provenance-copy" id="deptProvenance">
+          Oil on oak panel, dated 1638. Documented in the 1935 Hofstede de Groot catalogue raisonné and held in a distinguished Scottish ducal collection for over 180 years. Exceptional chiaroscuro preservation.
+        </p>
+
+        <!-- Department Specific Specification Matrix -->
+        <div class="dept-spec-matrix" id="deptMatrix">
+          <div class="matrix-item">
+            <div class="label">Current Ask</div>
+            <div class="val" id="deptAsk">$210,000 USD</div>
+          </div>
+          <div class="matrix-item">
+            <div class="label">Medium &amp; Support</div>
+            <div class="val" id="deptParam1">Oil on Oak Panel</div>
+          </div>
+          <div class="matrix-item">
+            <div class="label">Dimensions</div>
+            <div class="val" id="deptParam2">64.2 x 50.8 cm (1638)</div>
+          </div>
+          <div class="matrix-item">
+            <div class="label">Custody Location</div>
+            <div class="val" id="deptParam3">Geneva FreePort Vault 2</div>
+          </div>
+        </div>
+
+        <a href="#inspection" class="btn-gold">Launch Department Loupe &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Live Mixed-Category Saleroom Pulse -->
+  <section class="section-saleroom" id="saleroom">
+    <div class="saleroom-grid">
+      <div class="saleroom-info">
+        <div class="hero-eyebrow">Synchronized Saleroom</div>
+        <h3>The October Mixed Evening Sale</h3>
+        <p>
+          Live auction bidding synchronized across all six curatorial departments. Lots close with soft-close anti-sniping protection: any bid under 120 seconds triggers an immediate two-minute clock reset.
+        </p>
+        <div class="anti-sniping-banner" id="antiSnipingBanner">
+          &bull; Anti-Sniping Protection Active: Clock reset threshold at 00:02:00
+        </div>
+      </div>
+
+      <div class="saleroom-telemetry-box">
+        <div class="chronometer-hero">
+          <div class="clock-title">Saleroom Closing Clock</div>
+          <div class="clock-display" id="mixedClock">00:01:45</div>
+        </div>
+
+        <!-- Live Telemetry Ticker -->
+        <ul class="mixed-feed-list" id="mixedFeed">
+          <li class="mixed-feed-item active-bid">
+            <span class="dept">Fine Art &bull; Lot 13</span>
+            <span class="price">$210,000 USD [Floor Paddle #512]</span>
+          </li>
+          <li class="mixed-feed-item">
+            <span class="dept">Numismatics &bull; Lot 07</span>
+            <span class="price">$105,000 USD [Online Paddle #3098]</span>
+          </li>
+          <li class="mixed-feed-item">
+            <span class="dept">Rare Books &bull; Lot 16</span>
+            <span class="price">$420,000 USD [Bookroom Paddle #8801]</span>
+          </li>
+        </ul>
+
+        <button class="btn-sniping-trigger" id="btnTriggerSoftClose">
+          Simulate Bid Under 120s (+120s Reset)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Object-Specific Inspection & Hold-to-Bid Paddle -->
+  <section class="section-inspection" id="inspection">
+    <div class="inspection-layout">
+      <!-- Interactive Optical Loupe -->
+      <div class="interactive-loupe-viewport" id="loupeViewport">
+        <div class="loupe-svg-wrapper">
+          <svg viewBox="0 0 240 240" fill="none" style="width: 75%; height: 75%;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="25" width="190" height="190" stroke="#C5A059" stroke-width="2" fill="#14110E"/>
+            <ellipse cx="120" cy="115" rx="45" ry="58" stroke="#FAF8F5" stroke-width="2"/>
+            <circle cx="120" cy="105" r="18" fill="#C5A059" opacity="0.3"/>
+            <text x="75" y="75" fill="#FAF8F5" font-family="'Instrument Serif', serif" font-size="12">REMBRANDT 1638</text>
+            <path d="M 70 190 Q 120 150 170 190" stroke="#C5A059" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="loupe-glass" id="loupeGlass"></div>
+        <div class="loupe-tagline">&bull; Move cursor across canvas for 2.5x craquelure inspection</div>
+      </div>
+
+      <!-- Dossier & Mechanical Bidding Paddle -->
+      <div class="inspection-dossier">
+        <div class="hero-eyebrow">Department Highlight Dossier</div>
+        <h3 style="font-family: var(--font-display); font-size: 38px; color: var(--color-ivory); margin-bottom: 16px;">
+          Rembrandt Studio: Portrait of a Scholar
+        </h3>
+        <p style="font-size: 14px; font-weight: 300; color: var(--color-stone); line-height: 1.65; margin-bottom: 24px;">
+          Cleaned and stabilized under the supervision of the Swiss National Conservation Institute in 2021. Features verified 17th-century Baltic oak substrate and documented provenance tracing back to the 1845 Collection of the 8th Duke of Hamilton.
+        </p>
+
+        <!-- Mechanical Hold-to-Bid Interaction -->
+        <div class="paddle-interaction-box">
+          <div class="paddle-info-line">
+            <span>Next Saleroom Ask:</span>
+            <span class="bold-val">$220,000 USD (+$10,000)</span>
+          </div>
+          <div class="paddle-info-line">
+            <span>Your Registered Paddle: <strong>#4102</strong></span>
+            <span>Vault Headroom: <strong>$150,000 USD</strong></span>
+          </div>
+
+          <button class="mechanical-bid-paddle" id="paddleButton" aria-label="Press and hold 350ms to bid $220,000 USD">
+            <span class="paddle-charge-fill" id="paddleFill"></span>
+            <span id="paddleText">Press &amp; Hold to Bid $220,000 USD</span>
+          </button>
+          <div style="font-family: var(--font-mono); font-size: 10px; color: var(--color-stone-muted); text-align: center; margin-top: 8px;">
+            &bull; 350ms intentional dwell prevents accidental clicks &bull; Releasing cancels
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6 & 7: Consignor Intake & Custodial Provenance -->
+  <section class="section-consign-trust">
+    <div class="consign-trust-grid">
+      <div class="consign-trust-card">
+        <div class="hallmark">Assay &bull; XRF</div>
+        <h5>Metallurgical Proof</h5>
+        <p>Quantitative XRF testing of coins and bullion to confirm ancient metallic composition and alloy density.</p>
+      </div>
+
+      <div class="consign-trust-card">
+        <div class="hallmark">Title &bull; Ledger</div>
+        <h5>Art Loss Register</h5>
+        <p>Immutable provenance verification cross-referenced against global lost-title and looted-art databases.</p>
+      </div>
+
+      <div class="consign-trust-card">
+        <div class="hallmark">Bonded &bull; Swiss</div>
+        <h5>Geneva FreePort</h5>
+        <p>Secure custodial storage in bonded vaults under high-security armouried courier agreements.</p>
+      </div>
+
+      <div class="consign-trust-card">
+        <div class="hallmark">Consignment</div>
+        <h5>Specialist Intake</h5>
+        <p>Direct curatorial appraisal within 48 hours for private collections across all six departments.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Archival Institutional Footer -->
+  <footer class="archival-footer">
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h6>ChronoBid Vault</h6>
+        <p style="font-size: 13px; color: var(--color-stone); line-height: 1.6;">
+          A global multi-category auction institution engineered for the scholarly acquisition of paintings, ancient numismatics, rare folios, fine horology, haute joaillerie, and classical antiquities.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h6>Departments</h6>
+        <ul>
+          <li><a href="#departments">Fine Art &amp; Paintings</a></li>
+          <li><a href="#departments">Historical Coins</a></li>
+          <li><a href="#departments">Rare Books &amp; Folios</a></li>
+          <li><a href="#departments">Fine Horology</a></li>
+          <li><a href="#departments">Haute Joaillerie</a></li>
+          <li><a href="#departments">Classical Antiquities</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Saleroom Governance</h6>
+        <ul>
+          <li><a href="#">Pre-Funded Vault Invariant</a></li>
+          <li><a href="#">Anti-Sniping Soft-Close (ADR-012)</a></li>
+          <li><a href="#">XRF &amp; Scientific Assay</a></li>
+          <li><a href="#">Custodial Escrow Registry</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Consignors</h6>
+        <ul>
+          <li><a href="#">Consign a Collection</a></li>
+          <li><a href="#">Specialist Appraisal Desk</a></li>
+          <li><a href="#">Private Treaty Transactions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Compliance</h6>
+        <ul>
+          <li><a href="#">Canonical USD Settlement</a></li>
+          <li><a href="#">Geneva FreePort Vault Rules</a></li>
+          <li><a href="#">Terms of Saleroom</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-legal-bar">
+      <div>&copy; 2026 ChronoBid Vault SA &bull; Geneve, Switzerland &bull; [STANDALONE MULTI-CATEGORY EXPERIMENT V2]</div>
+      <div>Canonical Currency: USD &bull; Prototype Only</div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       INTERACTIVE MULTI-CATEGORY JAVASCRIPT CONTROLLER (ZERO DEPENDENCIES)
+       ========================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Reduced Motion Toggle
+      const motionToggle = document.getElementById('motionToggle');
+      let isReduced = false;
+
+      function setReducedMotion(state) {
+        isReduced = state;
+        document.body.classList.toggle('reduced-motion', isReduced);
+        motionToggle.textContent = isReduced ? 'Motion: Reduced' : 'Motion: Fluid';
+        motionToggle.setAttribute('aria-pressed', isReduced ? 'true' : 'false');
+      }
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setReducedMotion(true);
+      }
+
+      motionToggle.addEventListener('click', () => {
+        setReducedMotion(!isReduced);
+      });
+
+      // 2. Multi-Category Department Data Registry (6 Distinct Disciplines)
+      const DEPARTMENTS = {
+        art: {
+          tag: 'Department I &bull; Fine Art',
+          flag: 'Lot 13 &bull; Verified Specimen',
+          title: 'Studio of Rembrandt: Portrait of a Scholar',
+          provenance: 'Oil on oak panel, dated 1638. Documented in the 1935 Hofstede de Groot catalogue raisonné and held in a distinguished Scottish ducal collection for over 180 years. Exceptional chiaroscuro preservation.',
+          ask: '$210,000 USD',
+          param1Label: 'Medium & Support',
+          param1Val: 'Oil on Oak Panel',
+          param2Label: 'Dimensions',
+          param2Val: '64.2 x 50.8 cm (1638)',
+          param3Label: 'Custody Location',
+          param3Val: 'Geneva FreePort Vault 2',
+          svg: `<rect x="20" y="20" width="160" height="200" stroke="#C5A059" stroke-width="2" fill="#14110E"/><rect x="30" y="30" width="140" height="180" stroke="#8E743F" stroke-width="1"/><ellipse cx="100" cy="95" rx="36" ry="46" stroke="#FAF8F5" stroke-width="2"/><path d="M 60 170 Q 100 135 140 170" stroke="#C5A059" stroke-width="2.5"/>`
+        },
+        coins: {
+          tag: 'Department II &bull; Historical Coins &amp; Numismatics',
+          flag: 'Lot 07 &bull; Verified Specimen',
+          title: 'Classical Athenian Silver Tetradrachm Owl',
+          provenance: 'Struck c. 450 BC in classical Athens on full thick flan. Features the helmeted head of Athena with crested helmet, and reverse owl standing right with olive sprig and crescent moon. Outstanding die relief.',
+          ask: '$105,000 USD',
+          param1Label: 'Denomination & Mint',
+          param1Val: 'Tetradrachm &bull; Athens',
+          param2Label: 'Grade & Weight',
+          param2Val: 'NGC Choice AU &bull; 17.18g',
+          param3Label: 'Die Axis',
+          param3Val: '12 o\'clock (Attic Standard)',
+          svg: `<circle cx="100" cy="100" r="75" stroke="#C5A059" stroke-width="2" stroke-dasharray="6 4"/><circle cx="100" cy="100" r="64" fill="#171512" stroke="#702C3B" stroke-width="1.5"/><ellipse cx="100" cy="95" rx="35" ry="42" stroke="#FAF8F5" stroke-width="2"/><circle cx="88" cy="90" r="10" stroke="#C5A059" stroke-width="1.5"/><circle cx="112" cy="90" r="10" stroke="#C5A059" stroke-width="1.5"/>`
+        },
+        books: {
+          tag: 'Department III &bull; Rare Books &amp; Manuscripts',
+          flag: 'Lot 16 &bull; Verified Specimen',
+          title: 'William Shakespeare: The First Folio (1623)',
+          provenance: 'The first collected edition of Shakespeare\'s Comedies, Histories, and Tragedies. Printed in London by Isaac Jaggard and Ed. Blount. Contemporary seventeenth-century calf binding with blind-tooled arabesques.',
+          ask: '$420,000 USD',
+          param1Label: 'Collation & Leaves',
+          param1Val: 'Folio &bull; 454 Leaves Complete',
+          param2Label: 'Binding',
+          param2Val: '17th C. Calf &bull; Blind Tooled',
+          param3Label: 'Census Reference',
+          param3Val: 'West-Lee Census #142',
+          svg: `<rect x="25" y="15" width="150" height="210" rx="3" stroke="#C5A059" stroke-width="2" fill="#1C1410"/><line x1="45" y1="15" x2="45" y2="225" stroke="#702C3B" stroke-width="3"/><rect x="58" y="35" width="105" height="170" stroke="#8E743F" stroke-width="1" stroke-dasharray="2 2"/><line x1="70" y1="65" x2="150" y2="65" stroke="#FAF8F5" stroke-width="1.5"/><line x1="70" y1="85" x2="150" y2="85" stroke="#FAF8F5" stroke-width="1.5"/>`
+        },
+        horology: {
+          tag: 'Department IV &bull; Fine Horology',
+          flag: 'Lot 01 &bull; Verified Specimen',
+          title: 'Patek Philippe Calatrava Ref. 3520D (1974)',
+          provenance: 'Preserved in pristine archival condition from a private Swiss collection. Features an unpolished 18k white gold case with sharp Clous de Paris hobnail bezel and original Certificate of Origin dated 1974.',
+          ask: '$22,000 USD',
+          param1Label: 'Calibre & Rate',
+          param1Val: 'Manual-Wind Cal. 175 (21,600 vph)',
+          param2Label: 'Case Metal',
+          param2Val: '18k White Gold (32.5mm)',
+          param3Label: 'Condition Grade',
+          param3Val: 'Grade 1.2 (Museum Class)',
+          svg: `<circle cx="100" cy="100" r="75" stroke="#C5A059" stroke-width="2"/><circle cx="100" cy="100" r="60" stroke="#FAF8F5" stroke-width="1"/><line x1="100" y1="100" x2="65" y2="75" stroke="#C5A059" stroke-width="2"/><line x1="100" y1="100" x2="135" y2="85" stroke="#FAF8F5" stroke-width="1.5"/><circle cx="100" cy="100" r="4" fill="#C5A059"/>`
+        },
+        jewelry: {
+          tag: 'Department V &bull; Haute Joaillerie',
+          flag: 'Lot 10 &bull; Verified Specimen',
+          title: 'Cartier Art Deco Colombian Emerald Sautoir (1925)',
+          provenance: 'Created c. 1925 in Cartier Paris workshops. Featuring a central 14.82ct untreated Colombian sugarloaf cabochon emerald suspended from a geometric platinum lattice set with old European-cut diamonds.',
+          ask: '$340,000 USD',
+          param1Label: 'Gemstone Weight',
+          param1Val: '14.82ct Sugarloaf Emerald',
+          param2Label: 'Metal & Origin',
+          param2Val: 'Platinum &bull; Cartier Paris',
+          param3Label: 'Certification',
+          param3Val: 'SSEF Minor Cedar Oil',
+          svg: `<polygon points="100,30 160,100 100,170 40,100" stroke="#C5A059" stroke-width="2" fill="#0F1F17"/><polygon points="100,55 140,100 100,145 60,100" stroke="#76DE5B" stroke-width="1.5"/><circle cx="100" cy="100" r="14" fill="#182720" stroke="#FAF8F5" stroke-width="1.5"/>`
+        },
+        antiquities: {
+          tag: 'Department VI &bull; Classical Antiquities',
+          flag: 'Lot 18 &bull; Verified Specimen',
+          title: 'Cycladic Marble Female Figure (Spedos Variety)',
+          provenance: 'Early Cycladic II period, c. 2700–2500 BC. Carved from Parian marble with backward-tilted lyre head, long triangular nose, folded arms across the abdomen, and tapering legs. Ex-Swiss private collection since 1968.',
+          ask: '$280,000 USD',
+          param1Label: 'Period & Culture',
+          param1Val: 'Early Cycladic II (c. 2700 BC)',
+          param2Label: 'Material & Height',
+          param2Val: 'Parian Marble &bull; 28.5 cm',
+          param3Label: 'Scientific Test',
+          param3Val: 'Surface Thermoluminescence Verified',
+          svg: `<ellipse cx="100" cy="60" rx="20" ry="30" stroke="#C5A059" stroke-width="2" fill="#1B1917"/><polygon points="90,95 110,95 125,180 75,180" stroke="#C5A059" stroke-width="2" fill="#1B1917"/><line x1="85" y1="120" x2="115" y2="120" stroke="#FAF8F5" stroke-width="2"/>`
+        }
+      };
+
+      const deptButtons = document.querySelectorAll('.dept-tab-btn, .department-nav a');
+      const deptFlag = document.getElementById('deptFlag');
+      const deptTag = document.getElementById('deptTag');
+      const deptTitle = document.getElementById('deptTitle');
+      const deptProvenance = document.getElementById('deptProvenance');
+      const deptAsk = document.getElementById('deptAsk');
+      const deptParam1 = document.getElementById('deptParam1');
+      const deptParam2 = document.getElementById('deptParam2');
+      const deptParam3 = document.getElementById('deptParam3');
+      const deptSvg = document.getElementById('deptSvg');
+
+      function switchDepartment(key) {
+        const item = DEPARTMENTS[key];
+        if (!item) return;
+
+        deptButtons.forEach(btn => {
+          if (btn.getAttribute('data-dept') === key) {
+            btn.classList.add('active');
+            if (btn.hasAttribute('aria-selected')) btn.setAttribute('aria-selected', 'true');
+          } else {
+            btn.classList.remove('active');
+            if (btn.hasAttribute('aria-selected')) btn.setAttribute('aria-selected', 'false');
+          }
+        });
+
+        deptFlag.textContent = item.flag;
+        deptTag.innerHTML = item.tag;
+        deptTitle.textContent = item.title;
+        deptProvenance.textContent = item.provenance;
+        deptAsk.textContent = item.ask;
+        deptParam1.textContent = item.param1Val;
+        deptParam2.textContent = item.param2Val;
+        deptParam3.textContent = item.param3Val;
+        deptSvg.innerHTML = item.svg;
+      }
+
+      deptButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const dept = btn.getAttribute('data-dept');
+          switchDepartment(dept);
+        });
+      });
+
+      // Hero Triptych Card Click Interactions
+      const triptychCards = document.querySelectorAll('.triptych-card');
+      triptychCards.forEach(card => {
+        card.addEventListener('click', () => {
+          triptychCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          const target = card.getAttribute('data-dept-target');
+          switchDepartment(target);
+        });
+      });
+
+      // 3. Saleroom Synchronized Clock & Anti-Sniping Simulation
+      const mixedClock = document.getElementById('mixedClock');
+      const antiSnipingBanner = document.getElementById('antiSnipingBanner');
+      const btnTriggerSoftClose = document.getElementById('btnTriggerSoftClose');
+      const mixedFeed = document.getElementById('mixedFeed');
+
+      let remainingSec = 105; // 00:01:45
+      let extensions = 0;
+      const MAX_EXTENSIONS = 10;
+
+      function formatClock(s) {
+        const min = Math.floor(s / 60).toString().padStart(2, '0');
+        const sec = (s % 60).toString().padStart(2, '0');
+        return `00:${min}:${sec}`;
+      }
+
+      setInterval(() => {
+        if (remainingSec > 0) {
+          remainingSec--;
+          mixedClock.textContent = formatClock(remainingSec);
+        } else {
+          mixedClock.textContent = '00:00:00 [HAMMER DOWN]';
+          mixedClock.style.color = 'var(--color-crimson)';
+        }
+      }, 1000);
+
+      btnTriggerSoftClose.addEventListener('click', () => {
+        if (remainingSec < 120 && extensions < MAX_EXTENSIONS) {
+          remainingSec = 120;
+          extensions++;
+          mixedClock.textContent = formatClock(remainingSec);
+          antiSnipingBanner.innerHTML = `<strong>Anti-Sniping Triggered:</strong> Clock extended to 00:02:00 (Extension ${extensions}/${MAX_EXTENSIONS}) &bull; Active hold in Pre-Funded Vault`;
+          antiSnipingBanner.style.borderColor = 'var(--color-crimson)';
+
+          const li = document.createElement('li');
+          li.className = 'mixed-feed-item active-bid';
+          li.innerHTML = `<span class="dept">Fine Art &bull; Lot 13</span><span class="price">$220,000 USD [Your Paddle #4102]</span>`;
+          mixedFeed.prepend(li);
+        } else if (extensions >= MAX_EXTENSIONS) {
+          antiSnipingBanner.textContent = 'Maximum soft-close extensions (10/10) reached. Clock will expire at 00:00:00.';
+        }
+      });
+
+      // 4. Optical Loupe Follower
+      const loupeViewport = document.getElementById('loupeViewport');
+      const loupeGlass = document.getElementById('loupeGlass');
+
+      loupeViewport.addEventListener('mouseenter', () => {
+        if (!isReduced) loupeGlass.style.display = 'block';
+      });
+
+      loupeViewport.addEventListener('mouseleave', () => {
+        loupeGlass.style.display = 'none';
+      });
+
+      loupeViewport.addEventListener('mousemove', (e) => {
+        if (isReduced) return;
+        const rect = loupeViewport.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const radius = 80;
+        loupeGlass.style.left = `${x - radius}px`;
+        loupeGlass.style.top = `${y - radius}px`;
+      });
+
+      // 5. Dual-Action Mechanical Bidding Paddle (350ms Hold)
+      const paddleButton = document.getElementById('paddleButton');
+      const paddleText = document.getElementById('paddleText');
+      let paddleTimer = null;
+      let isChargingPaddle = false;
+
+      function startPaddleHold(e) {
+        if (e.type === 'touchstart') e.preventDefault();
+        if (paddleButton.classList.contains('placed')) return;
+
+        isChargingPaddle = true;
+        paddleButton.classList.add('charging');
+        paddleText.textContent = 'Holding to Confirm...';
+
+        paddleTimer = setTimeout(() => {
+          paddleButton.classList.remove('charging');
+          paddleButton.classList.add('placed');
+          paddleText.textContent = 'Bid Placed: $220,000 USD [Vault Held]';
+
+          const li = document.createElement('li');
+          li.className = 'mixed-feed-item active-bid';
+          li.innerHTML = `<span class="dept">Fine Art &bull; Lot 13</span><span class="price">$220,000 USD [Your Paddle #4102]</span>`;
+          mixedFeed.prepend(li);
+        }, 350);
+      }
+
+      function cancelPaddleHold() {
+        if (!isChargingPaddle) return;
+        isChargingPaddle = false;
+        clearTimeout(paddleTimer);
+        paddleButton.classList.remove('charging');
+        if (!paddleButton.classList.contains('placed')) {
+          paddleText.textContent = 'Press & Hold to Bid $220,000 USD';
+        }
+      }
+
+      paddleButton.addEventListener('mousedown', startPaddleHold);
+      paddleButton.addEventListener('touchstart', startPaddleHold);
+      window.addEventListener('mouseup', cancelPaddleHold);
+      window.addEventListener('touchend', cancelPaddleHold);
+
+    })();
+  </script>
+</body>
+</html>

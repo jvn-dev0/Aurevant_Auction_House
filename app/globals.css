@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-warm-paper: #F4F0E8;
+  --color-deep-forest: #182720;
+  --color-acid-lime: #D7E65A;
+  --color-stone: #D8D0C2;
+  --color-stone-surface: #EDE7DC;
+}
+
+body {
+  background-color: #F4F0E8;
+  color: #182720;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced Motion Support (Mandatory Governance Rule §2.6) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible Focus Rings (WCAG 2.2 AA Target §12.1) */
+:focus-visible {
+  outline: 2px solid #182720;
+  outline-offset: 2px;
+}
+
