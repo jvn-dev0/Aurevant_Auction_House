@@ -1,0 +1,127 @@
+'use client';
+
+import React, { useState, useRef, useCallback } from 'react';
+import { Heart, User, ChevronDown, Menu } from 'lucide-react';
+import { SearchInput } from './SearchInput';
+import { MobileMenu } from './MobileMenu';
+
+const NAV_LINKS = [
+  { label: 'Auctions', href: '#auctions' },
+  { label: 'Categories', href: '#categories' },
+  { label: 'Stories', href: '#stories' },
+  { label: 'Sell with AUREVANT', href: '#sell' },
+  { label: 'About', href: '#about' },
+];
+
+export function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  const handleCloseMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+    toggleRef.current?.focus();
+  }, []);
+
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#101113]/35 backdrop-blur-md border-b border-[#F4F0E8]/10 transition-all duration-300">
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-[6vw] flex items-center justify-between h-[66px]">
+          {/* Left: Brand Wordmark & Primary Navigation */}
+          <div className="flex items-center space-x-8 lg:space-x-10 xl:space-x-12">
+            {/* Brand Wordmark */}
+            <a
+              href="/"
+              className="brand-wordmark flex flex-col items-start justify-center focus:outline-none focus:ring-1 focus:ring-[#C5A059] py-0.5 transition-opacity hover:opacity-90"
+              aria-label="AUREVANT AUCTION HOUSE Home"
+            >
+              <span className="font-serif tracking-[0.22em] text-2xl lg:text-[26px] text-[#F4F0E8] font-normal uppercase leading-none">
+                AUREVANT
+              </span>
+              <span className="text-[8px] lg:text-[8.5px] tracking-[0.32em] text-[#C5A059] uppercase font-mono mt-1 leading-none">
+                AUCTION HOUSE
+              </span>
+            </a>
+
+            {/* Primary Navigation Links (Desktop & Tablet) */}
+            <nav className="hidden md:flex items-center space-x-5 lg:space-x-[24px]" aria-label="Primary navigation">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-[11px] lg:text-[11.5px] xl:text-[12px] tracking-[0.16em] lg:tracking-[0.18em] uppercase text-[#D8D0C2] hover:text-[#E7C477] transition-colors duration-200 font-sans font-medium focus:outline-none focus:text-[#E7C477]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Right Header Controls (Search, Regional, Action Icons) */}
+          <div className="hidden md:flex items-center space-x-5 lg:space-x-6 xl:space-x-7">
+            <SearchInput />
+
+            {/* International & Language Selectors */}
+            <div className="flex items-center space-x-2.5 text-xs font-mono text-[#D8D0C2]">
+              <button
+                className="flex items-center space-x-1 hover:text-[#E7C477] transition-colors focus:outline-none text-[11px]"
+                aria-label="Region selector: INTERNATIONAL"
+              >
+                <span className="tracking-wider">INTERNATIONAL</span>
+                <ChevronDown className="w-3 h-3 text-[#E7C477]/80" />
+              </button>
+              <span className="text-[#F4F0E8]/20 select-none">|</span>
+              <button
+                className="flex items-center space-x-1 hover:text-[#E7C477] transition-colors focus:outline-none text-[11px]"
+                aria-label="Language selector: EN"
+              >
+                <span className="tracking-wider">EN</span>
+                <ChevronDown className="w-3 h-3 text-[#E7C477]/80" />
+              </button>
+            </div>
+
+            {/* Collector Action Icons */}
+            <div className="flex items-center space-x-3.5 pl-3 border-l border-[#F4F0E8]/12">
+              <button
+                type="button"
+                className="p-1.5 text-[#D8D0C2] hover:text-[#E7C477] transition-colors focus:outline-none focus:ring-1 focus:ring-[#C5A059]"
+                aria-label="Watchlist"
+              >
+                <Heart className="w-4 h-4 lg:w-[18px] lg:h-[18px] heart-icon stroke-[1.5]" />
+              </button>
+              <button
+                type="button"
+                className="p-1.5 text-[#D8D0C2] hover:text-[#E7C477] transition-colors focus:outline-none focus:ring-1 focus:ring-[#C5A059]"
+                aria-label="Account"
+              >
+                <User className="w-4 h-4 lg:w-[18px] lg:h-[18px] user-icon stroke-[1.5]" />
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Menu Trigger */}
+          <div className="md:hidden flex items-center space-x-3">
+            <button
+              ref={toggleRef}
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="mobile-menu-toggle p-2 text-[#F4F0E8] hover:text-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059]"
+              aria-label="Open navigation menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu-drawer"
+            >
+              <Menu className="w-6 h-6 hamburger-icon" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Accessible Mobile Drawer */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={handleCloseMobileMenu}
+        navLinks={NAV_LINKS}
+        triggerRef={toggleRef}
+      />
+    </>
+  );
+}

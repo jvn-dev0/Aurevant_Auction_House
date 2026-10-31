@@ -1,0 +1,11 @@
+Model Information:
+* title:	Old Wrist Watch DH
+* source:	https://sketchfab.com/3d-models/old-wrist-watch-dh-438651fc63e84a8aaf5f58202a79c157
+* author:	TwilightFox (https://sketchfab.com/twilightfox)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Old Wrist Watch DH" (https://sketchfab.com/3d-models/old-wrist-watch-dh-438651fc63e84a8aaf5f58202a79c157) by TwilightFox (https://sketchfab.com/twilightfox) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Museum Ground & Canvas Tokens */
+  --color-museum-dark: #101113;
+  --color-museum-dark-deep: #0B0D0C;
+  --color-museum-surface: #151817;
+  --color-museum-translucent: rgba(16, 17, 19, 0.85);
+
+  /* Typography / Ivory Tokens */
+  --color-warm-ivory: #F4F0E8;
+  --color-ivory-porcelain: #FAF8F5;
+  --color-ivory-subtle: #EDE7DC;
+
+  /* Antique Gold Accent Tokens */
+  --color-antique-gold: #C5A059;
+  --color-gold-hover: #D8B26A;
+  --color-gold-subtle: rgba(197, 160, 89, 0.22);
+  --color-gold-glow: rgba(197, 160, 89, 0.12);
+  --color-gold-hairline: rgba(197, 160, 89, 0.35);
+
+  /* Curatorial Stone Tokens */
+  --color-stone: #D8D0C2;
+  --color-stone-muted: #A7A39A;
+  --color-stone-smoke: #6E6A63;
+  --color-stone-hairline: rgba(216, 208, 194, 0.15);
+
+  /* Local Fallback Typography Stacks */
+  --font-instrument-serif: 'Instrument Serif', Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-manrope: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+}
+
+html {
+  background-color: #101113;
+  color: #F4F0E8;
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #101113;
+  color: #F4F0E8;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced Motion Enforcement (WCAG 2.2 AA & Requirement R4) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessible Visible Focus Indicators (WCAG 2.2 AA Target) */
+:focus-visible {
+  outline: 2px solid #C5A059;
+  outline-offset: 2px;
+}
+
+/* Curatorial Text Selection Highlight */
+::selection {
+  background-color: #C5A059;
+  color: #101113;
+}
+
+/* Specialized Museum & Plaque Utility Classes */
+@layer utilities {
+  .tracking-curatorial {
+    letter-spacing: 0.25em;
+  }
+
+  .tracking-curatorial-wide {
+    letter-spacing: 0.30em;
+  }
+
+  .border-hairline-gold {
+    border-color: rgba(197, 160, 89, 0.22);
+  }
+
+  .border-hairline-stone {
+    border-color: rgba(216, 208, 194, 0.15);
+  }
+
+  .glass-museum {
+    background: rgba(16, 17, 19, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-plaque {
+    background: rgba(21, 24, 23, 0.90);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+}

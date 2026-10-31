@@ -1,0 +1,12 @@
+import React from 'react';
+import { Navbar } from '../components/navbar/Navbar';
+import { HeroSection } from '../components/hero/HeroSection';
+
+export default function HomePage() {
+  return (
+    <main className="relative min-h-screen bg-[#101113] text-[#F4F0E8] overflow-x-hidden antialiased">
+      <Navbar />
+      <HeroSection />
+    </main>
+  );
+}
