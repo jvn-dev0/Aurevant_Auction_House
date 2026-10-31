@@ -147,3 +147,18 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+
+# ============================================
+# Project-Specific Ignores (AUREVANT Auction House)
+# ============================================
+**/node_modules/
+**/.next/
+**/*.tsbuildinfo
+**/*.log
+server.log
+.agent/
+.agents/
+.vscode/
+.DS_Store
+Thumbs.db
