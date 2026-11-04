@@ -1,0 +1,113 @@
+{
+  "testA": {
+    "heroBottom": 0,
+    "collectionsTop": 0,
+    "gap": 0,
+    "introVisible": true,
+    "introOpacity": 1,
+    "videoWidth": 835,
+    "videoHeight": 469,
+    "videoBorderRadius": "16px",
+    "videoCentered": true,
+    "totalVideosMounted": 1
+  },
+  "testB": {
+    "steps": [
+      {
+        "step": "B1-early-25pct",
+        "scrollY": 1200,
+        "width": 871,
+        "height": 495,
+        "borderRadius": "15px",
+        "introOpacity": 0.0078,
+        "isFullScreen": false,
+        "overflow": false
+      },
+      {
+        "step": "B2-mid-50pct",
+        "scrollY": 1500,
+        "width": 1197,
+        "height": 727,
+        "borderRadius": "6px",
+        "introOpacity": 0,
+        "isFullScreen": false,
+        "overflow": false
+      },
+      {
+        "step": "B3-near-full-75pct",
+        "scrollY": 1800,
+        "width": 1427,
+        "height": 891,
+        "borderRadius": "0px",
+        "introOpacity": 0,
+        "isFullScreen": false,
+        "overflow": false
+      },
+      {
+        "step": "B4-fullscreen-100pct",
+        "scrollY": 1980,
+        "width": 1440,
+        "height": 900,
+        "borderRadius": "0px",
+        "introOpacity": 0,
+        "isFullScreen": true,
+        "overflow": false
+      }
+    ]
+  },
+  "testC": {
+    "steps": [
+      {
+        "step": "C1-reverse-to-75pct",
+        "scrollY": 1800,
+        "width": 1427,
+        "height": 891,
+        "borderRadius": "0px",
+        "introOpacity": 0,
+        "restoredToCompact": false
+      },
+      {
+        "step": "C2-reverse-to-50pct",
+        "scrollY": 1500,
+        "width": 1198,
+        "height": 727,
+        "borderRadius": "6px",
+        "introOpacity": 0,
+        "restoredToCompact": false
+      },
+      {
+        "step": "C3-reverse-to-25pct",
+        "scrollY": 1200,
+        "width": 871,
+        "height": 495,
+        "borderRadius": "15px",
+        "introOpacity": 0.0075,
+        "restoredToCompact": false
+      },
+      {
+        "step": "C4-reverse-to-compact",
+        "scrollY": 900,
+        "width": 835,
+        "height": 469,
+        "borderRadius": "16px",
+        "introOpacity": 0.999,
+        "restoredToCompact": true
+      }
+    ]
+  },
+  "testD": {
+    "at1500_width": 1196,
+    "at1400_width": 1040,
+    "at1700_width": 1391,
+    "smoothReversal": true
+  },
+  "testE": {
+    "urlPreserved": true,
+    "totalVideosMounted": 1,
+    "hasHorizontalOverflow": false,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  "testF": {}
+}
