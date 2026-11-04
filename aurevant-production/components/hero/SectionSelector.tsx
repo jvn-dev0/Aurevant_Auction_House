@@ -9,7 +9,7 @@ export function SectionSelector() {
 
   return (
     <div
-      className="fixed right-6 sm:right-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-end space-y-4 z-20 section-selector"
+      className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-end space-y-4 z-20 section-selector pointer-events-auto"
       aria-label="Section selector"
     >
       {SECTIONS.map((sec) => {

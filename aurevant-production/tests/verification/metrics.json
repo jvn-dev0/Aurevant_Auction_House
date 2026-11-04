@@ -1,0 +1,116 @@
+[
+  {
+    "name": "1-hero-bottom",
+    "scrollY": 350,
+    "desc": "Bottom of the existing Hero transitioning into Collections",
+    "metrics": {
+      "scrollY": 350,
+      "video": {
+        "width": 835.1875,
+        "height": 470.65625,
+        "top": 1020.609375,
+        "borderRadius": "14px",
+        "styleWidth": "60%"
+      },
+      "heroBottom": 550,
+      "collectionsTop": 550,
+      "introVisible": true
+    },
+    "screenshot": "tests/verification/1-hero-bottom.png"
+  },
+  {
+    "name": "2-collections-intro",
+    "scrollY": 750,
+    "desc": "Beginning of the Collections introduction",
+    "metrics": {
+      "scrollY": 750,
+      "video": {
+        "width": 835.1875,
+        "height": 470.65625,
+        "top": 620.609375,
+        "borderRadius": "14px",
+        "styleWidth": "60%"
+      },
+      "heroBottom": 150,
+      "collectionsTop": 150,
+      "introVisible": true
+    },
+    "screenshot": "tests/verification/2-collections-intro.png"
+  },
+  {
+    "name": "3-initial-compact-video",
+    "scrollY": 1000,
+    "desc": "Initial compact centered video preview (Stage A)",
+    "metrics": {
+      "scrollY": 1000,
+      "video": {
+        "width": 835.1875,
+        "height": 470.65625,
+        "top": 370.609375,
+        "borderRadius": "14px",
+        "styleWidth": "60%"
+      },
+      "heroBottom": -100,
+      "collectionsTop": -100,
+      "introVisible": true
+    },
+    "screenshot": "tests/verification/3-initial-compact-video.png"
+  },
+  {
+    "name": "4-midway-expansion",
+    "scrollY": 1400,
+    "desc": "Midway through scroll-driven expansion (Stage B/C)",
+    "metrics": {
+      "scrollY": 1400,
+      "video": {
+        "width": 1113.90625,
+        "height": 524,
+        "top": -56.0625,
+        "borderRadius": "7.67692px",
+        "styleWidth": "80.0231%"
+      },
+      "heroBottom": -500,
+      "collectionsTop": -500,
+      "introVisible": false
+    },
+    "screenshot": "tests/verification/4-midway-expansion.png"
+  },
+  {
+    "name": "5-final-expanded-video",
+    "scrollY": 1800,
+    "desc": "Final cinematic expanded video presentation (Stage D)",
+    "metrics": {
+      "scrollY": 1726,
+      "video": {
+        "width": 1364.15625,
+        "height": 524,
+        "top": -382.0625,
+        "borderRadius": "2px",
+        "styleWidth": "98%"
+      },
+      "heroBottom": -826,
+      "collectionsTop": -826,
+      "introVisible": false
+    },
+    "screenshot": "tests/verification/5-final-expanded-video.png"
+  },
+  {
+    "name": "6-scroll-back-reverse",
+    "scrollY": 1100,
+    "desc": "Scrolling backwards from final state back to compact",
+    "metrics": {
+      "scrollY": 1100,
+      "video": {
+        "width": 835.1875,
+        "height": 470.65625,
+        "top": 270.609375,
+        "borderRadius": "14px",
+        "styleWidth": "60%"
+      },
+      "heroBottom": -200,
+      "collectionsTop": -200,
+      "introVisible": false
+    },
+    "screenshot": "tests/verification/6-scroll-back-reverse.png"
+  }
+]
