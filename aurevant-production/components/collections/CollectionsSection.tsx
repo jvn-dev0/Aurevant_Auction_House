@@ -8,17 +8,20 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
  * Cinematic Scroll-Driven Video Expansion Architecture:
  * - Scene 01 (0% scroll): Warm Ivory canvas (#F8F7F2), centered editorial intro,
  *   compact 16:9 video preview (58vw desktop, 16px radius, antique gold hairline, drop shadow)
- * - Scene 02 (100% scroll): 100vw × 100vh full-screen cinematic immersion
- * - Symmetrical expansion: Centered flexbox anchor expands seamlessly in all 4 directions
- * - Persistent Single Video Element: 1 <video> mounted, uninterrupted playback, zero restarts
- * - CSS Sticky + GSAP Scrub: Native compositor stability, zero layout shifts, zero .pin-spacer artifacts
+ * - Stage 4 Expanded Composition: Reaches approximately 90–95vw width and 50vh height
+ *   (NOT full-screen), keeping complete video subject visible without excessive cropping
+ * - Clean Scroll Pin Release: Un-pins smoothly after expansion, allowing normal page scroll
+ *   to reveal the "Explore Our Collections" catalogue directly underneath
+ * - Continuous Reversibility: Scrolling up seamlessly reverses expansion back to compact preview
+ *   and reveals the Hero section, preserving video playback position
+ * - Persistent Single Video Element: exactly 1 <video> mounted, zero reloads, zero pauses
  * 
  * Asset: /video/Marble_statues_at_luxury_auction_b2db8f87_1080p.mp4
  */
 
 export function CollectionsSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
@@ -79,17 +82,17 @@ export function CollectionsSection() {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReducedMotion(mq.matches);
 
-    const stage = stageRef.current;
+    const track = trackRef.current;
     const intro = introRef.current;
     const videoWrapper = videoWrapperRef.current;
     const section = sectionRef.current;
 
-    if (!stage || !intro || !videoWrapper || !section) return;
+    if (!track || !intro || !videoWrapper || !section) return;
 
     if (mq.matches) {
-      videoWrapper.style.width = '90vw';
-      videoWrapper.style.maxWidth = '1400px';
-      videoWrapper.style.height = '60vh';
+      videoWrapper.style.width = '92vw';
+      videoWrapper.style.maxWidth = '1440px';
+      videoWrapper.style.height = '50vh';
       videoWrapper.style.borderRadius = '8px';
       return;
     }
@@ -111,17 +114,26 @@ export function CollectionsSection() {
 
           // Initial Compact Geometry (Scene 01)
           const compactWidth = isMobile ? '88vw' : isTablet ? '72vw' : '58vw';
-          const compactMaxWidth = isMobile ? '500px' : isTablet ? '720px' : '840px';
+          const compactMaxWidth = isMobile ? '480px' : isTablet ? '700px' : '820px';
           const compactHeight = isMobile ? '49.5vw' : isTablet ? '40.5vw' : '32.6vw'; // 16:9
-          const compactMaxHeight = isMobile ? '320px' : isTablet ? '420px' : '472px';
+          const compactMaxHeight = isMobile ? '300px' : isTablet ? '400px' : '460px';
           const compactRadius = isMobile ? '12px' : '16px';
           const compactShadow = '0 24px 60px rgba(18, 61, 44, 0.14)';
           const compactBorder = '1px solid rgba(185, 148, 85, 0.28)';
 
+          // Target Expanded Geometry (Stage 4: ~90-95vw, ~50vh, NOT full-screen)
+          const expandedWidth = isMobile ? '94vw' : '92vw';
+          const expandedMaxWidth = '1440px';
+          const expandedHeight = isMobile ? '44vh' : '50vh';
+          const expandedMaxHeight = isMobile ? '420px' : '520px';
+          const expandedRadius = '8px';
+          const expandedShadow = '0 20px 50px rgba(18, 61, 44, 0.16)';
+          const expandedBorder = '1px solid rgba(185, 148, 85, 0.20)';
+
           // Master Scroll-Linked Timeline
           const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: stage,
+              trigger: track,
               start: 'top top',
               end: 'bottom bottom',
               scrub: 0.5,
@@ -129,21 +141,21 @@ export function CollectionsSection() {
             },
           });
 
-          // 1. Editorial Intro Fades Out and Shifts Up (0.0 → 0.28)
+          // 1. Editorial Intro Fades Out and Gently Rises (0.0 → 0.32)
           tl.fromTo(
             intro,
             { opacity: 1, y: 0 },
             {
               opacity: 0,
-              y: -40,
+              y: -35,
               ease: 'power1.out',
-              duration: 0.28,
+              duration: 0.32,
             },
             0
           );
 
-          // 2. Video Wrapper Expands Symmetrically in All 4 Directions (0.04 → 0.88)
-          // Holds at 100vw × 100vh full-screen for the final ~12% of the scroll track
+          // 2. Video Wrapper Expands Symmetrically to 92vw × 50vh (0.05 → 0.82)
+          // Holds at the approved Stage 4 composition for the final portion before clean release
           tl.fromTo(
             videoWrapper,
             {
@@ -156,17 +168,17 @@ export function CollectionsSection() {
               border: compactBorder,
             },
             {
-              width: '100vw',
-              maxWidth: '100vw',
-              height: '100vh',
-              maxHeight: '100vh',
-              borderRadius: '0px',
-              boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
-              border: '0px solid transparent',
-              ease: 'power2.inOut',
-              duration: 0.88,
+              width: expandedWidth,
+              maxWidth: expandedMaxWidth,
+              height: expandedHeight,
+              maxHeight: expandedMaxHeight,
+              borderRadius: expandedRadius,
+              boxShadow: expandedShadow,
+              border: expandedBorder,
+              ease: 'power1.inOut',
+              duration: 0.77,
             },
-            0.04
+            0.05
           );
         }, section);
       } catch (err) {
@@ -189,13 +201,14 @@ export function CollectionsSection() {
       aria-label="Collections"
     >
       {/* 
-        Scroll Track: 220vh total height
-        Provides exactly 120vh of smooth, scrubbed expansion distance
+        Scroll Track: 180vh total height
+        Provides approximately 80vh of smooth scrubbed expansion distance,
+        then cleanly releases to allow normal page scrolling into the next section
       */}
       <div
-        ref={stageRef}
+        ref={trackRef}
         className="relative w-full"
-        style={{ minHeight: reducedMotion ? 'auto' : '220vh' }}
+        style={{ minHeight: reducedMotion ? 'auto' : '180vh' }}
       >
         {/*
           Pinned Viewport Canvas:
@@ -206,7 +219,7 @@ export function CollectionsSection() {
           ref={viewportRef}
           className={`${
             reducedMotion
-              ? 'relative min-h-[90vh] py-16 px-4 flex flex-col items-center justify-center'
+              ? 'relative min-h-[85vh] py-16 px-4 flex flex-col items-center justify-center'
               : 'sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center'
           }`}
           style={{ backgroundColor: '#F8F7F2' }}
@@ -252,16 +265,17 @@ export function CollectionsSection() {
 
           {/* 
             ── The Persistent Video Canvas ──
-            Animates symmetrically from compact (58vw, 16px radius) to 100vw × 100vh
+            Animates symmetrically from compact (58vw, 16px radius)
+            to Stage 4 composition (~92vw × 50vh, 8px radius)
           */}
           <div
             ref={videoWrapperRef}
             className="relative z-10 overflow-hidden will-change-[width,height,border-radius,box-shadow]"
             style={{
-              width: reducedMotion ? '90vw' : '58vw',
-              maxWidth: reducedMotion ? '1400px' : '840px',
-              height: reducedMotion ? '60vh' : '32.6vw',
-              maxHeight: reducedMotion ? '60vh' : '472px',
+              width: reducedMotion ? '92vw' : '58vw',
+              maxWidth: reducedMotion ? '1440px' : '820px',
+              height: reducedMotion ? '50vh' : '32.6vw',
+              maxHeight: reducedMotion ? '520px' : '460px',
               borderRadius: reducedMotion ? '8px' : '16px',
               boxShadow: '0 24px 60px rgba(18, 61, 44, 0.14)',
               border: '1px solid rgba(185, 148, 85, 0.28)',
