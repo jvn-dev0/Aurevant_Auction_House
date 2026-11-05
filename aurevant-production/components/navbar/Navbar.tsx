@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Heart, User, ChevronDown, Menu } from 'lucide-react';
 import { SearchInput } from './SearchInput';
 import { MobileMenu } from './MobileMenu';
@@ -15,6 +15,7 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const handleCloseMobileMenu = useCallback(() => {
@@ -22,9 +23,25 @@ export function Navbar() {
     toggleRef.current?.focus();
   }, []);
 
+  // Listen to scroll to adapt navbar background over cream/light sections
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 80);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#101113]/35 backdrop-blur-md border-b border-[#F4F0E8]/10 transition-all duration-300">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+          isScrolled
+            ? 'bg-[#101113]/90 backdrop-blur-md border-[#F4F0E8]/12 shadow-[0_4px_24px_rgba(0,0,0,0.35)]'
+            : 'bg-[#101113]/35 backdrop-blur-md border-[#F4F0E8]/10'
+        }`}
+      >
         <div className="max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-[6vw] flex items-center justify-between h-[66px]">
           {/* Left: Brand Wordmark & Primary Navigation */}
           <div className="flex items-center space-x-8 lg:space-x-10 xl:space-x-12">

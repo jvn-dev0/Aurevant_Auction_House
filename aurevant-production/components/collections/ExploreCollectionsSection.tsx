@@ -75,7 +75,7 @@ export function ExploreCollectionsSection() {
   return (
     <section
       id="categories"
-      className="relative w-full bg-[#F8F7F2] text-[#123D2C] z-10 pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-32 px-6 sm:px-10 lg:px-16"
+      className="relative w-full bg-[#F8F7F2] text-[#123D2C] z-10 pt-8 sm:pt-10 lg:pt-12 pb-24 sm:pb-32 px-6 sm:px-10 lg:px-16"
       aria-label="Explore Our Collections"
     >
       <div className="max-w-[1600px] mx-auto">

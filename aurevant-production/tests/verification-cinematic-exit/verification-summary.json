@@ -1,0 +1,421 @@
+{
+  "checkpointA_compact": {
+    "scrollY": 834,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 341,
+      "bottom": 801,
+      "left": 310,
+      "right": 1130,
+      "width": 820,
+      "height": 460,
+      "vw": 57,
+      "vh": 51,
+      "borderRadius": "16px"
+    },
+    "intro": {
+      "top": 162,
+      "bottom": 293,
+      "opacity": 0.9998
+    },
+    "gapIntroVideo": 163,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1741,
+      "bottom": 2754,
+      "visible": false
+    },
+    "gapVideoCatalogue": 940,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": 66
+    }
+  },
+  "checkpointB_expanding": {
+    "scrollY": 1150,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 321,
+      "bottom": 779,
+      "left": 149,
+      "right": 1291,
+      "width": 1143,
+      "height": 458,
+      "vw": 79,
+      "vh": 51,
+      "borderRadius": "11px"
+    },
+    "intro": {
+      "top": 132,
+      "bottom": 263,
+      "opacity": 0
+    },
+    "gapIntroVideo": 173,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1425,
+      "bottom": 2438,
+      "visible": false
+    },
+    "gapVideoCatalogue": 646,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": -250
+    }
+  },
+  "checkpointCD_expandedHold1": {
+    "scrollY": 1500,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 306,
+      "bottom": 756,
+      "left": 36,
+      "right": 1404,
+      "width": 1368,
+      "height": 450,
+      "vw": 95,
+      "vh": 50,
+      "borderRadius": "8px"
+    },
+    "intro": {
+      "top": 132,
+      "bottom": 263,
+      "opacity": 0
+    },
+    "gapIntroVideo": 158,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1075,
+      "bottom": 2088,
+      "visible": false
+    },
+    "gapVideoCatalogue": 319,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": -600
+    }
+  },
+  "checkpointCD_expandedHold2": {
+    "scrollY": 1650,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 306,
+      "bottom": 756,
+      "left": 36,
+      "right": 1404,
+      "width": 1368,
+      "height": 450,
+      "vw": 95,
+      "vh": 50,
+      "borderRadius": "8px"
+    },
+    "intro": {
+      "top": 132,
+      "bottom": 263,
+      "opacity": 0
+    },
+    "gapIntroVideo": 158,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 925,
+      "bottom": 1938,
+      "visible": false
+    },
+    "gapVideoCatalogue": 169,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": -750
+    }
+  },
+  "checkpointE_handoffEntry": {
+    "scrollY": 1850,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 190,
+      "bottom": 640,
+      "left": 36,
+      "right": 1404,
+      "width": 1368,
+      "height": 450,
+      "vw": 95,
+      "vh": 50,
+      "borderRadius": "8px"
+    },
+    "intro": {
+      "top": 16,
+      "bottom": 147,
+      "opacity": 0
+    },
+    "gapIntroVideo": 158,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 725,
+      "bottom": 1738,
+      "visible": true
+    },
+    "gapVideoCatalogue": 85,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": -950
+    }
+  },
+  "checkpointE2_catalogueFull": {
+    "scrollY": 2250,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": -210,
+      "bottom": 240,
+      "left": 36,
+      "right": 1404,
+      "width": 1368,
+      "height": 450,
+      "vw": 95,
+      "vh": 50,
+      "borderRadius": "8px"
+    },
+    "intro": {
+      "top": -384,
+      "bottom": -253,
+      "opacity": 0
+    },
+    "gapIntroVideo": 158,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 325,
+      "bottom": 1338,
+      "visible": true
+    },
+    "gapVideoCatalogue": 85,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": -1350
+    }
+  },
+  "checkpointG_reverseExpanded": {
+    "scrollY": 1550,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 306,
+      "bottom": 756,
+      "left": 36,
+      "right": 1404,
+      "width": 1368,
+      "height": 450,
+      "vw": 95,
+      "vh": 50,
+      "borderRadius": "8px"
+    },
+    "intro": {
+      "top": 132,
+      "bottom": 263,
+      "opacity": 0
+    },
+    "gapIntroVideo": 158,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1025,
+      "bottom": 2038,
+      "visible": false
+    },
+    "gapVideoCatalogue": 269,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": -650
+    }
+  },
+  "checkpointH_reverseCompact": {
+    "scrollY": 834,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 341,
+      "bottom": 801,
+      "left": 310,
+      "right": 1130,
+      "width": 820,
+      "height": 460,
+      "vw": 57,
+      "vh": 51,
+      "borderRadius": "16px"
+    },
+    "intro": {
+      "top": 162,
+      "bottom": 293,
+      "opacity": 1
+    },
+    "gapIntroVideo": 163,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1741,
+      "bottom": 2754,
+      "visible": false
+    },
+    "gapVideoCatalogue": 940,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": 66
+    }
+  },
+  "checkpointI_heroRestored": {
+    "scrollY": 0,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 1175,
+      "bottom": 1635,
+      "left": 310,
+      "right": 1130,
+      "width": 820,
+      "height": 460,
+      "vw": 57,
+      "vh": 51,
+      "borderRadius": "16px"
+    },
+    "intro": {
+      "top": 996,
+      "bottom": 1127,
+      "opacity": 1
+    },
+    "gapIntroVideo": 163,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 2575,
+      "bottom": 3588,
+      "visible": false
+    },
+    "gapVideoCatalogue": 940,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.35)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": 900
+    }
+  },
+  "laptopCheck": {
+    "scrollY": 700,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 341,
+      "bottom": 786,
+      "left": 287,
+      "right": 1079,
+      "width": 792,
+      "height": 445,
+      "vw": 58,
+      "vh": 58,
+      "borderRadius": "16px"
+    },
+    "intro": {
+      "top": 164,
+      "bottom": 293,
+      "opacity": 1
+    },
+    "gapIntroVideo": 161,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1594,
+      "bottom": 2584,
+      "visible": false
+    },
+    "gapVideoCatalogue": 808,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": 68
+    }
+  },
+  "mobileCheck": {
+    "scrollY": 700,
+    "videoCount": 1,
+    "hasHorizontalOverflow": false,
+    "video": {
+      "top": 642,
+      "bottom": 769,
+      "left": 82,
+      "right": 308,
+      "width": 226,
+      "height": 127,
+      "vw": 58,
+      "vh": 15,
+      "borderRadius": "16px"
+    },
+    "intro": {
+      "top": 483,
+      "bottom": 610,
+      "opacity": 1
+    },
+    "gapIntroVideo": 144,
+    "isIntroOverlapping": false,
+    "catalogue": {
+      "top": 1636,
+      "bottom": 4580,
+      "visible": false
+    },
+    "gapVideoCatalogue": 868,
+    "navbar": {
+      "visible": true,
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)",
+      "zIndex": "50"
+    },
+    "hero": {
+      "bottom": 419
+    }
+  },
+  "consoleErrors": []
+}
