@@ -6,7 +6,7 @@ import { ExploreCollectionsSection } from '../components/collections/ExploreColl
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen bg-[#101113] text-[#F4F0E8] overflow-x-hidden antialiased">
+    <main className="relative min-h-screen bg-[#101113] text-[#F4F0E8] overflow-x-clip antialiased">
       <Navbar />
       <HeroSection />
       <CollectionsSection />

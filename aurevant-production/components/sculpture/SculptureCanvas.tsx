@@ -43,7 +43,7 @@ export function SculptureCanvas({
 
     const scene = new (THREE as any).Scene();
     const camera = new (THREE as any).PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 0.12, 3.2);
+    camera.position.set(0, 0.08, 3.2);
 
     let renderer: any;
     try {
@@ -126,11 +126,11 @@ export function SculptureCanvas({
         const center = box.getCenter(new (THREE as any).Vector3());
         const size = box.getSize(new (THREE as any).Vector3());
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1.62 / maxDim;
+        const scale = 1.50 / maxDim;
 
         modelGroup.scale.setScalar(scale);
         modelGroup.position.x = -center.x * scale;
-        modelGroup.position.y = -center.y * scale - 0.02;
+        modelGroup.position.y = -center.y * scale;
         modelGroup.position.z = -center.z * scale;
 
         // Enhance marble material appearance

@@ -21,7 +21,7 @@ export function SculptureFallback({
       <img
         src={imageSrc}
         alt="Antique Roman Classical Marble Bust"
-        className="max-h-[540px] lg:max-h-[640px] xl:max-h-[700px] w-auto object-contain filter drop-shadow-[0_24px_48px_rgba(0,0,0,0.85)] transform transition-transform duration-700 ease-out"
+        className="max-h-[420px] sm:max-h-[450px] lg:max-h-[470px] xl:max-h-[480px] w-auto object-contain filter drop-shadow-[0_24px_48px_rgba(0,0,0,0.85)] select-none"
         style={{
           maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',

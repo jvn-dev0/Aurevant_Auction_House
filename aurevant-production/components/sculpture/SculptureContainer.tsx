@@ -29,7 +29,7 @@ export function SculptureContainer({
 
   return (
     <div
-      className={`sculpture-container relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-[540px] xl:min-h-[580px] h-[58vh] max-h-[640px] flex items-center justify-center ${className}`}
+      className={`sculpture-container relative w-full h-full min-h-[420px] sm:min-h-[460px] lg:min-h-[480px] xl:min-h-[500px] h-[52vh] max-h-[520px] flex items-center justify-center ${className}`}
       data-model={modelPath}
     >
       {/* Fallback image (visible when loading or if WebGL fails) */}
