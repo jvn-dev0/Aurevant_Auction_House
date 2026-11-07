@@ -5,16 +5,14 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 /**
  * AUREVANT AUCTION HOUSE — Collections Section
  * 
- * Cinematic Scroll-Driven Video Expansion Architecture:
- * - Scene 01 (0% scroll): Warm Ivory canvas (#F8F7F2), centered editorial intro,
- *   compact 16:9 video preview (58vw desktop, 16px radius, antique gold hairline, drop shadow)
- * - Stage 4 Expanded Composition: Reaches approximately 90–95vw width and 50vh height
- *   (NOT full-screen), keeping complete video subject visible without excessive cropping
- * - Clean Scroll Pin Release: Un-pins smoothly after expansion, allowing normal page scroll
- *   to reveal the "Explore Our Collections" catalogue directly underneath
- * - Continuous Reversibility: Scrolling up seamlessly reverses expansion back to compact preview
- *   and reveals the Hero section, preserving video playback position
- * - Persistent Single Video Element: exactly 1 <video> mounted, zero reloads, zero pauses
+ * Four-Stage Cinematic Scroll Expansion Architecture:
+ * - Stage 1: Collections introduction with compact square video (1:1 ratio, 280px, 16px radius)
+ * - Stage 2: Beginning to expand (still square, larger 420px, intro remains visible)
+ * - Stage 3: Mid expansion (transitioning from square to wide rectangle ~68vw x 440px, intro lifts & fades)
+ * - Stage 4: Near full expansion (video fills viewport ~95vw x 82vh, rounded edges fade to 0-2px)
+ * 
+ * Persistent Single Video Element: exactly 1 <video> mounted, continuous looping playback,
+ * smooth scrubbed bidirectional reverse when scrolling upwards back to Stage 1 and Hero.
  * 
  * Asset: /video/Marble_statues_at_luxury_auction_b2db8f87_1080p.mp4
  */
@@ -77,7 +75,7 @@ export function CollectionsSection() {
     return () => observer.disconnect();
   }, []);
 
-  /* ── Coordinated Scroll-Driven GSAP Timeline ── */
+  /* ── Coordinated Scroll-Driven GSAP Timeline Across 4 Stages ── */
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReducedMotion(mq.matches);
@@ -90,10 +88,10 @@ export function CollectionsSection() {
     if (!track || !intro || !videoWrapper || !section) return;
 
     if (mq.matches) {
-      videoWrapper.style.width = '92vw';
-      videoWrapper.style.maxWidth = '1440px';
-      videoWrapper.style.height = '50vh';
-      videoWrapper.style.borderRadius = '8px';
+      videoWrapper.style.width = '95vw';
+      videoWrapper.style.maxWidth = '1560px';
+      videoWrapper.style.height = '78vh';
+      videoWrapper.style.borderRadius = '4px';
       return;
     }
 
@@ -112,23 +110,32 @@ export function CollectionsSection() {
           const isMobile = window.innerWidth < 768;
           const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-          // Initial Compact Geometry (Scene 01)
-          const compactWidth = isMobile ? '88vw' : isTablet ? '70vw' : '58vw';
-          const compactMaxWidth = isMobile ? '480px' : isTablet ? '680px' : '820px';
-          const compactHeight = isMobile ? '49.5vw' : isTablet ? '39.4vw' : '32.6vw'; // 16:9
-          const compactMaxHeight = isMobile ? '280px' : isTablet ? '380px' : '450px';
-          const compactRadius = isMobile ? '12px' : '16px';
-          const compactShadow = '0 24px 60px rgba(18, 61, 44, 0.14)';
-          const compactBorder = '1px solid rgba(185, 148, 85, 0.28)';
+          // Stage 1: Compact Square Video Geometry (1:1 Ratio)
+          const s1Width = isMobile ? '230px' : isTablet ? '260px' : '290px';
+          const s1Height = isMobile ? '230px' : isTablet ? '260px' : '290px';
+          const s1Radius = '16px';
+          const s1Shadow = '0 24px 60px rgba(18, 61, 44, 0.14)';
+          const s1Border = '1px solid rgba(197, 160, 89, 0.28)';
 
-          // Target Expanded Geometry (Stage 4: ~90-95vw, ~50vh, NOT full-screen)
-          const expandedWidth = isMobile ? '94vw' : '93vw';
-          const expandedMaxWidth = '1440px';
-          const expandedHeight = isMobile ? '45vh' : '50vh';
-          const expandedMaxHeight = isMobile ? '420px' : '520px';
-          const expandedRadius = '8px';
-          const expandedShadow = '0 20px 50px rgba(18, 61, 44, 0.16)';
-          const expandedBorder = '1px solid rgba(185, 148, 85, 0.20)';
+          // Stage 2: Larger Square Video Geometry (1:1 Ratio, expanding)
+          const s2Width = isMobile ? '310px' : isTablet ? '360px' : '420px';
+          const s2Height = isMobile ? '310px' : isTablet ? '360px' : '420px';
+          const s2Radius = '14px';
+
+          // Stage 3: Mid Expansion (Transitioning from Square to Wide Rectangle)
+          const s3Width = isMobile ? '88vw' : isTablet ? '75vw' : '68vw';
+          const s3MaxWidth = '1020px';
+          const s3Height = isMobile ? '48vw' : isTablet ? '42vw' : '440px';
+          const s3Radius = '8px';
+
+          // Stage 4: Near Full Expansion (Fills Viewport, Rounded Edges Fade)
+          const s4Width = isMobile ? '96vw' : '95vw';
+          const s4MaxWidth = '1560px';
+          const s4Height = isMobile ? '58vh' : isTablet ? '72vh' : '82vh';
+          const s4MaxHeight = isMobile ? '480px' : isTablet ? '640px' : '740px';
+          const s4Radius = '2px';
+          const s4Shadow = '0 30px 80px rgba(0, 0, 0, 0.42)';
+          const s4Border = '1px solid rgba(197, 160, 89, 0.15)';
 
           // Master Scroll-Linked Timeline
           const tl = gsap.timeline({
@@ -136,50 +143,95 @@ export function CollectionsSection() {
               trigger: track,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: 0.5,
+              scrub: 0.6,
               invalidateOnRefresh: true,
             },
           });
 
-          // 1. Editorial Intro Fades Out and Gently Rises (0.0 → 0.28)
+          // ── Phase 1 (0.00 → 0.32): Stage 1 to Stage 2 (Expand Square) ──
+          // Video expands while maintaining 1:1 square ratio; intro remains visible
           tl.fromTo(
-            intro,
-            { opacity: 1, y: 0 },
+            videoWrapper,
             {
-              opacity: 0,
-              y: -25,
+              width: s1Width,
+              maxWidth: s1Width,
+              height: s1Height,
+              maxHeight: s1Height,
+              borderRadius: s1Radius,
+              boxShadow: s1Shadow,
+              border: s1Border,
+            },
+            {
+              width: s2Width,
+              maxWidth: s2Width,
+              height: s2Height,
+              maxHeight: s2Height,
+              borderRadius: s2Radius,
               ease: 'power1.out',
-              duration: 0.28,
+              duration: 0.32,
             },
             0
           );
 
-          // 2. Video Wrapper Expands Symmetrically to 93vw × 50vh (0.04 → 0.84)
-          // Holds at Stage 4 composition (0.84 → 1.0) before clean pin release
           tl.fromTo(
+            intro,
+            { opacity: 1, y: 0 },
+            {
+              opacity: 0.95,
+              y: -5,
+              ease: 'none',
+              duration: 0.32,
+            },
+            0
+          );
+
+          // ── Phase 2 (0.32 → 0.66): Stage 2 to Stage 3 (Transition to Wide) ──
+          // Video widens to 68vw; intro text lifts and fades
+          tl.to(
             videoWrapper,
             {
-              width: compactWidth,
-              maxWidth: compactMaxWidth,
-              height: compactHeight,
-              maxHeight: compactMaxHeight,
-              borderRadius: compactRadius,
-              boxShadow: compactShadow,
-              border: compactBorder,
-            },
-            {
-              width: expandedWidth,
-              maxWidth: expandedMaxWidth,
-              height: expandedHeight,
-              maxHeight: expandedMaxHeight,
-              borderRadius: expandedRadius,
-              boxShadow: expandedShadow,
-              border: expandedBorder,
+              width: s3Width,
+              maxWidth: s3MaxWidth,
+              height: s3Height,
+              maxHeight: s3Height,
+              borderRadius: s3Radius,
               ease: 'power1.inOut',
-              duration: 0.80,
+              duration: 0.34,
             },
-            0.04
+            0.32
           );
+
+          tl.to(
+            intro,
+            {
+              opacity: 0,
+              y: -28,
+              ease: 'power1.out',
+              duration: 0.26,
+            },
+            0.32
+          );
+
+          // ── Phase 3 (0.66 → 0.92): Stage 3 to Stage 4 (Near Full Expansion) ──
+          // Video fills the viewport (~95vw x 82vh), rounded edges fade to 2px
+          tl.to(
+            videoWrapper,
+            {
+              width: s4Width,
+              maxWidth: s4MaxWidth,
+              height: s4Height,
+              maxHeight: s4MaxHeight,
+              borderRadius: s4Radius,
+              boxShadow: s4Shadow,
+              border: s4Border,
+              ease: 'power1.inOut',
+              duration: 0.26,
+            },
+            0.66
+          );
+
+          // ── Phase 4 (0.92 → 1.00): Steady Hold at Final State ──
+          // Gives visitor complete view of Stage 4 composition before pin releases
         }, section);
       } catch (err) {
         console.warn('GSAP ScrollTrigger initialization notice:', err);
@@ -197,23 +249,23 @@ export function CollectionsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#F8F7F2] text-[#123D2C] z-10 selection:bg-[#B99455]/30 selection:text-[#0B2B20]"
+      className="relative w-full bg-[#F8F7F2] text-[#183D30] z-10 selection:bg-[#C5A059]/30 selection:text-[#0B2B20]"
       aria-label="Collections"
     >
       {/* 
-        Scroll Track: 180vh total height
-        Provides approximately 80vh of smooth scrubbed expansion distance,
-        then cleanly releases to allow normal page scrolling into the next section
+        Scroll Track: 240vh total height
+        Provides smooth, progressive scroll progression across all 4 stages:
+        Stage 1 (Compact Square) -> Stage 2 (Large Square) -> Stage 3 (Wide Rect) -> Stage 4 (Full Expansion)
       */}
       <div
         ref={trackRef}
         className="relative w-full"
-        style={{ minHeight: reducedMotion ? 'auto' : '180vh' }}
+        style={{ minHeight: reducedMotion ? 'auto' : '240vh' }}
       >
         {/*
           Pinned Viewport Canvas:
           Native CSS position: sticky; top: 0; height: 100vh
-          Renders 100% warm ivory at all times. Zero gap, zero spacer bugs.
+          Renders warm ivory canvas (#F8F7F2) with zero layout shift
         */}
         <div
           ref={viewportRef}
@@ -224,62 +276,55 @@ export function CollectionsSection() {
           }`}
           style={{ backgroundColor: '#F8F7F2' }}
         >
-          {/* ── Scene 01: Editorial Typography Header ── */}
+          {/* ── Stage 1 & 2: Editorial Typography Header ── */}
           <div
             ref={introRef}
             className="relative z-20 px-6 text-center max-w-[840px] mx-auto mb-8 sm:mb-10 lg:mb-12 pointer-events-none will-change-[transform,opacity]"
           >
-            {/* Subtle Eyebrow with Antique Gold Separators */}
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2 sm:mb-2.5">
-              <span className="block w-8 sm:w-12 h-px bg-[#B99455]/50" />
-              <span className="block w-1.5 h-1.5 rounded-full bg-[#B99455]/60" />
-              <p className="text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.32em] text-[#B99455] font-mono font-medium">
-                COLLECTIONS
+            {/* Curated Departments Eyebrow flanked by horizontal gold divider lines */}
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-3.5">
+              <span className="block w-8 sm:w-12 h-px bg-[#C5A059]/60" />
+              <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-[#C5A059] font-mono font-medium">
+                CURATED DEPARTMENTS
               </p>
-              <span className="block w-1.5 h-1.5 rounded-full bg-[#B99455]/60" />
-              <span className="block w-8 sm:w-12 h-px bg-[#B99455]/50" />
+              <span className="block w-8 sm:w-12 h-px bg-[#C5A059]/60" />
             </div>
 
-            {/* Main Headline — Editorial Serif */}
+            {/* Main Headline — High-Contrast Editorial Serif */}
             <h2
-              className="font-serif font-normal text-[#123D2C] leading-[1.10] tracking-tight mb-1.5 sm:mb-2 drop-shadow-sm"
-              style={{ fontSize: 'clamp(1.85rem, 3.1vw, 2.75rem)' }}
+              className="font-serif font-normal text-[#183D30] leading-[1.08] tracking-tight mb-2 sm:mb-2.5 drop-shadow-sm"
+              style={{ fontSize: 'clamp(2.1rem, 3.5vw, 3.25rem)' }}
             >
-              Rare pieces. Timeless value.
+              Explore Our Collections
             </h2>
 
-            {/* Supporting Headline — Italic Serif */}
+            {/* Supporting Description — Refined Curatorial Text */}
             <p
-              className="font-serif italic text-[#0B2B20]/75 leading-[1.4] max-w-[560px] mx-auto text-[14px] sm:text-[15px] lg:text-[16px]"
+              className="font-sans text-[#183D30]/80 leading-[1.5] max-w-[620px] mx-auto text-[14px] sm:text-[15px] lg:text-[16px]"
             >
-              Explore our curated collections of exceptional treasures.
+              Authenticated objects of historical resonance, academic significance, and exceptional market provenance.
             </p>
-
-            {/* Subtle Architectural Divider */}
-            <div className="flex items-center justify-center gap-2 mt-3.5 sm:mt-4">
-              <span className="block w-5 h-px bg-[#123D2C]/15" />
-              <span className="block w-1 h-1 rounded-full bg-[#B99455]/40" />
-              <span className="block w-5 h-px bg-[#123D2C]/15" />
-            </div>
           </div>
 
           {/* 
             ── The Persistent Video Canvas ──
-            Animates symmetrically from compact (58vw, 16px radius)
-            to Stage 4 composition (~93vw × 50vh, 8px radius)
+            Animates symmetrically from Stage 1 Compact Square (290px x 290px, 16px radius)
+            to Stage 2 Larger Square (420px x 420px)
+            to Stage 3 Wide Rectangle (~68vw x 440px)
+            to Stage 4 Near Full Expansion (~95vw x 82vh, 2px radius)
           */}
           <div
             ref={videoWrapperRef}
             className="relative z-10 overflow-hidden will-change-[width,height,border-radius,box-shadow]"
             style={{
-              width: reducedMotion ? '93vw' : '58vw',
-              maxWidth: reducedMotion ? '1440px' : '820px',
-              height: reducedMotion ? '50vh' : '32.6vw',
-              maxHeight: reducedMotion ? '520px' : '450px',
-              borderRadius: reducedMotion ? '8px' : '16px',
+              width: reducedMotion ? '95vw' : '290px',
+              maxWidth: reducedMotion ? '1560px' : '290px',
+              height: reducedMotion ? '78vh' : '290px',
+              maxHeight: reducedMotion ? '740px' : '290px',
+              borderRadius: reducedMotion ? '2px' : '16px',
               boxShadow: '0 24px 60px rgba(18, 61, 44, 0.14)',
-              border: '1px solid rgba(185, 148, 85, 0.28)',
-              backgroundColor: '#0B2B20',
+              border: '1px solid rgba(197, 160, 89, 0.28)',
+              backgroundColor: '#111312',
             }}
           >
             {/* Inner Video Container (Always 100% of Wrapper) */}
@@ -292,47 +337,47 @@ export function CollectionsSection() {
                 muted
                 playsInline
                 preload="auto"
-                aria-label="Rare marble sculpture collection displayed in a luxury auction saleroom"
+                aria-label="AUREVANT Curated Collections cinematic exhibition preview"
               />
 
               {/* Ambient Saleroom Vignette */}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0B2B20]/25 via-transparent to-[#0B2B20]/15" />
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#111312]/30 via-transparent to-[#111312]/15" />
 
-              {/* Center Play/Pause Control Overlay */}
+              {/* Center Play/Pause Circular Control Button */}
               <button
                 type="button"
                 onClick={togglePlay}
-                className={`absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B99455] ${
+                className={`absolute inset-0 z-20 flex items-center justify-center transition-opacity duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] ${
                   isPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'
                 }`}
                 aria-label={isPlaying ? 'Pause video presentation' : 'Play video presentation'}
               >
-                {/* Translucent backdrop scrim */}
-                <div className="absolute inset-0 bg-[#0B2B20]/20 transition-colors duration-200" />
+                {/* Subtle scrim on hover/pause */}
+                <div className="absolute inset-0 bg-[#111312]/15 transition-colors duration-200" />
 
-                {/* Circular Glassmorphic Control Pill */}
-                <div className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 lg:w-[68px] lg:h-[68px] rounded-full border border-[#F8F7F2]/80 bg-[#0B2B20]/45 backdrop-blur-md flex items-center justify-center shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-[#0B2B20]/65 hover:border-[#F8F7F2]">
+                {/* Circular Glassmorphic Control Button */}
+                <div className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border border-[#F4F0E8]/80 bg-[#111312]/50 backdrop-blur-md flex items-center justify-center shadow-xl transition-transform duration-200 hover:scale-105 hover:bg-[#111312]/70 hover:border-[#F4F0E8]">
                   {isPlaying ? (
-                    /* Pause Icon */
+                    /* Pause Icon (⏸) */
                     <svg
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
                       fill="none"
-                      className="text-[#F8F7F2] sm:w-6 sm:h-6"
+                      className="text-[#F4F0E8] sm:w-5 sm:h-5"
                       aria-hidden="true"
                     >
                       <rect x="6" y="4" width="4" height="16" rx="1" fill="currentColor" />
                       <rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor" />
                     </svg>
                   ) : (
-                    /* Play Icon */
+                    /* Play Icon (▶) */
                     <svg
                       width="20"
                       height="20"
                       viewBox="0 0 24 24"
                       fill="none"
-                      className="text-[#F8F7F2] ml-0.5 sm:w-6 sm:h-6"
+                      className="text-[#F4F0E8] ml-0.5 sm:w-5 sm:h-5"
                       aria-hidden="true"
                     >
                       <path

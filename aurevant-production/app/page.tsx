@@ -2,7 +2,6 @@ import React from 'react';
 import { Navbar } from '../components/navbar/Navbar';
 import { HeroSection } from '../components/hero/HeroSection';
 import { CollectionsSection } from '../components/collections/CollectionsSection';
-import { ExploreCollectionsSection } from '../components/collections/ExploreCollectionsSection';
 
 export default function HomePage() {
   return (
@@ -10,7 +9,6 @@ export default function HomePage() {
       <Navbar />
       <HeroSection />
       <CollectionsSection />
-      <ExploreCollectionsSection />
     </main>
   );
 }
