@@ -11,10 +11,11 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
  * 3. Transition to Wide (Stage 3): 75vw x 58vh, intro lifts & fades, footprint collapses smoothly
  * 4. Second Hero Transformation (Stage 4): EXACT SAME HEIGHT & WIDTH AS FIRST HERO (100vw x 100svh/100vh),
  *    border-radius fades to 0px, edge-to-edge cinematic scene filling the complete screen.
- * 5. Pin Release directly into Closing Soon: The pin releases cleanly so that Closing Soon | LIVE AUCTIONS
+ * 5. Pacing: Generous 360vh scroll track + scrub: 1.0 ensures a slow, majestic, highly controlled zoom pace.
+ * 6. Pin Release directly into Closing Soon: The pin releases cleanly so that Closing Soon | LIVE AUCTIONS
  *    begins immediately beneath the second hero with zero extra blank space.
- * 6. Smooth Bidirectional Reversibility: Scrolling up smoothly reverses every stage back to Hero 1.
- * 7. Single persistent video instance with uninterrupted looping playback.
+ * 7. Smooth Bidirectional Reversibility: Scrolling up smoothly reverses every stage back to Hero 1.
+ * 8. Single persistent video instance with uninterrupted looping playback.
  */
 
 export function CollectionsSection() {
@@ -145,19 +146,19 @@ export function CollectionsSection() {
           const s4Shadow = 'none';
           const s4Border = '0px solid transparent';
 
-          // Master Scroll-Linked Timeline across the track
+          // Master Scroll-Linked Timeline across the lengthened track (scrub: 1.0 for luxurious damping)
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: track,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: 0.6,
+              scrub: 1.0,
               invalidateOnRefresh: true,
             },
           });
 
-          // ── Phase 1 (0.00 → 0.28): Stage 1 to Stage 2 (Expand Square) ──
-          // Video expands while maintaining 1:1 square ratio; intro text remains fully visible
+          // ── Phase 1 (0.00 → 0.24): Stage 1 to Stage 2 (Expand Square) ──
+          // Video expands gently while maintaining 1:1 square ratio; intro text remains fully visible
           tl.fromTo(
             videoWrapper,
             {
@@ -176,7 +177,7 @@ export function CollectionsSection() {
               maxHeight: s2Height,
               borderRadius: s2Radius,
               ease: 'power1.out',
-              duration: 0.28,
+              duration: 0.24,
             },
             0
           );
@@ -189,13 +190,13 @@ export function CollectionsSection() {
               y: -4,
               marginBottom: 24,
               ease: 'none',
-              duration: 0.28,
+              duration: 0.24,
             },
             0
           );
 
-          // ── Phase 2 (0.28 → 0.62): Stage 2 to Stage 3 (Transition to Wide Rectangle) ──
-          // Video widens to 75vw; intro lifts & fades; intro footprint smoothly collapses
+          // ── Phase 2 (0.24 → 0.54): Stage 2 to Stage 3 (Transition to Wide Rectangle) ──
+          // Video gently widens to 75vw; intro lifts & fades; intro footprint smoothly collapses
           tl.to(
             videoWrapper,
             {
@@ -205,9 +206,9 @@ export function CollectionsSection() {
               maxHeight: s3Height,
               borderRadius: s3Radius,
               ease: 'power1.inOut',
-              duration: 0.34,
+              duration: 0.30,
             },
-            0.28
+            0.24
           );
 
           tl.to(
@@ -217,13 +218,13 @@ export function CollectionsSection() {
               y: -25,
               marginBottom: -introHeight,
               ease: 'power1.inOut',
-              duration: 0.34,
+              duration: 0.30,
             },
-            0.28
+            0.24
           );
 
-          // ── Phase 3 (0.62 → 0.90): Stage 3 to Stage 4 (Full Zoom — Same Height & Width as Hero) ──
-          // Video reaches 100vw x 100vh / 100svh, border radius fades to 0px
+          // ── Phase 3 (0.54 → 0.88): Stage 3 to Stage 4 (Slow, Majestic Full Zoom) ──
+          // Generously paced zoom expansion to 100vw x 100vh, border-radius softly dissolves to 0px
           tl.to(
             videoWrapper,
             {
@@ -235,13 +236,13 @@ export function CollectionsSection() {
               boxShadow: s4Shadow,
               border: s4Border,
               ease: 'power1.inOut',
-              duration: 0.28,
+              duration: 0.34,
             },
-            0.62
+            0.54
           );
 
-          // ── Phase 4 (0.90 → 1.00): Steady Hold at Full-Screen Second Hero State ──
-          // Holds the full-screen cinematic composition before the pin releases into Closing Soon
+          // ── Phase 4 (0.88 → 1.00): Steady Hold at Full-Screen Second Hero State ──
+          // Holds the full-screen cinematic composition before the pin releases smoothly into Closing Soon
         }, section);
       } catch (err) {
         console.warn('GSAP ScrollTrigger initialization notice:', err);
@@ -263,14 +264,14 @@ export function CollectionsSection() {
       aria-label="Collections"
     >
       {/* 
-        Scroll Track: 240vh total height
+        Scroll Track: 360vh total height (calm, slower, more cinematic scroll pacing)
         Provides smooth, progressive scroll progression across all 4 stages:
         Stage 1 (Compact Square) -> Stage 2 (Large Square) -> Stage 3 (Wide Rect) -> Stage 4 (Full Hero: 100vw x 100vh)
       */}
       <div
         ref={trackRef}
         className="relative w-full"
-        style={{ minHeight: reducedMotion ? 'auto' : '240vh' }}
+        style={{ minHeight: reducedMotion ? 'auto' : '360vh' }}
       >
         {/*
           Pinned Viewport Canvas:
@@ -283,7 +284,7 @@ export function CollectionsSection() {
           className={`${
             reducedMotion
               ? 'relative min-h-[100svh] py-16 px-4 flex flex-col items-center justify-center'
-              : 'sticky top-0 w-full h-[100svh] lg:h-[100svh] overflow-hidden flex flex-col items-center justify-center'
+              : 'sticky top-0 w-full h-[100svh] lg:h-[100svh] overflow-hidden flex flex-col items-center justify-center pt-[66px]'
           }`}
           style={{
             backgroundColor: '#F8F7F2',
