@@ -7,10 +7,10 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
  * 
  * Cinematic Video as the Second Hero Section:
  * 1. Compact Square (Stage 1): 290px x 290px (1:1 ratio), 16px radius, warm ivory canvas (#F8F7F2)
- * 2. Beginning to Expand (Stage 2): 420px x 420px, intro typography remains clearly visible
- * 3. Transition to Wide (Stage 3): 70vw x 440px, intro lifts & fades, footprint collapses smoothly
- * 4. Second Hero Transformation (Stage 4): 94vw x 50vh (~500px), settles in prominent upper hero position
- *    (top: ~86px under navbar), becoming the dominant visual element without card-like styling.
+ * 2. Beginning to Expand (Stage 2): 400px x 400px, intro typography remains clearly visible
+ * 3. Transition to Wide (Stage 3): 75vw x 58vh, intro lifts & fades, footprint collapses smoothly
+ * 4. Second Hero Transformation (Stage 4): EXACT SAME HEIGHT & WIDTH AS FIRST HERO (100vw x 100svh/100vh),
+ *    border-radius fades to 0px, edge-to-edge cinematic scene filling the complete screen.
  * 5. Pin Release directly into Closing Soon: The pin releases cleanly so that Closing Soon | LIVE AUCTIONS
  *    begins immediately beneath the second hero with zero extra blank space.
  * 6. Smooth Bidirectional Reversibility: Scrolling up smoothly reverses every stage back to Hero 1.
@@ -88,11 +88,11 @@ export function CollectionsSection() {
     if (!track || !intro || !videoWrapper || !section) return;
 
     if (mq.matches) {
-      videoWrapper.style.width = '94vw';
-      videoWrapper.style.maxWidth = '1560px';
-      videoWrapper.style.height = '50vh';
-      videoWrapper.style.maxHeight = '520px';
-      videoWrapper.style.borderRadius = '6px';
+      videoWrapper.style.width = '100vw';
+      videoWrapper.style.maxWidth = '100vw';
+      videoWrapper.style.height = '100vh';
+      videoWrapper.style.maxHeight = '100vh';
+      videoWrapper.style.borderRadius = '0px';
       if (intro) {
         intro.style.opacity = '0';
         intro.style.display = 'none';
@@ -116,7 +116,7 @@ export function CollectionsSection() {
           const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
           // Compute exact natural height of intro block for smooth collapse
-          const introHeight = intro.offsetHeight || 140;
+          const introHeight = intro.offsetHeight || 180;
 
           // Stage 1: Compact Square Video Geometry (1:1 Ratio)
           const s1Width = isMobile ? '230px' : isTablet ? '260px' : '290px';
@@ -131,19 +131,19 @@ export function CollectionsSection() {
           const s2Radius = '14px';
 
           // Stage 3: Mid Expansion (Transitioning from Square to Wide Rectangle)
-          const s3Width = isMobile ? '88vw' : isTablet ? '76vw' : '70vw';
-          const s3MaxWidth = '1080px';
-          const s3Height = isMobile ? '46vw' : isTablet ? '40vw' : '440px';
+          const s3Width = isMobile ? '88vw' : isTablet ? '80vw' : '75vw';
+          const s3MaxWidth = '1200px';
+          const s3Height = isMobile ? '50vh' : isTablet ? '55vh' : '58vh';
           const s3Radius = '8px';
 
-          // Stage 4: Second Hero Cinematic Expansion (Fills upper hero spot, 92-96vw x 48-55vh)
-          const s4Width = isMobile ? '95vw' : '94vw';
-          const s4MaxWidth = '1560px';
-          const s4Height = isMobile ? '48vh' : isTablet ? '50vh' : '50vh';
-          const s4MaxHeight = isMobile ? '420px' : isTablet ? '460px' : '500px';
-          const s4Radius = '6px';
-          const s4Shadow = '0 30px 80px rgba(0, 0, 0, 0.38)';
-          const s4Border = '1px solid rgba(197, 160, 89, 0.20)';
+          // Stage 4: Second Hero Cinematic Expansion — SAME HEIGHT & WIDTH AS FIRST HERO (100vw x 100vh/100svh)
+          const s4Width = '100vw';
+          const s4MaxWidth = '100vw';
+          const s4Height = isMobile ? '100svh' : '100vh';
+          const s4MaxHeight = isMobile ? '100svh' : '100vh';
+          const s4Radius = '0px';
+          const s4Shadow = 'none';
+          const s4Border = '0px solid transparent';
 
           // Master Scroll-Linked Timeline across the track
           const tl = gsap.timeline({
@@ -156,7 +156,7 @@ export function CollectionsSection() {
             },
           });
 
-          // ── Phase 1 (0.00 → 0.30): Stage 1 to Stage 2 (Expand Square) ──
+          // ── Phase 1 (0.00 → 0.28): Stage 1 to Stage 2 (Expand Square) ──
           // Video expands while maintaining 1:1 square ratio; intro text remains fully visible
           tl.fromTo(
             videoWrapper,
@@ -176,26 +176,26 @@ export function CollectionsSection() {
               maxHeight: s2Height,
               borderRadius: s2Radius,
               ease: 'power1.out',
-              duration: 0.30,
+              duration: 0.28,
             },
             0
           );
 
           tl.fromTo(
             intro,
-            { opacity: 1, y: 0, marginBottom: 20 },
+            { opacity: 1, y: 0, marginBottom: 24 },
             {
               opacity: 0.95,
               y: -4,
-              marginBottom: 20,
+              marginBottom: 24,
               ease: 'none',
-              duration: 0.30,
+              duration: 0.28,
             },
             0
           );
 
-          // ── Phase 2 (0.30 → 0.65): Stage 2 to Stage 3 (Transition to Wide Rectangle) ──
-          // Video widens to 70vw; intro lifts & fades; intro footprint smoothly collapses
+          // ── Phase 2 (0.28 → 0.62): Stage 2 to Stage 3 (Transition to Wide Rectangle) ──
+          // Video widens to 75vw; intro lifts & fades; intro footprint smoothly collapses
           tl.to(
             videoWrapper,
             {
@@ -205,25 +205,25 @@ export function CollectionsSection() {
               maxHeight: s3Height,
               borderRadius: s3Radius,
               ease: 'power1.inOut',
-              duration: 0.35,
+              duration: 0.34,
             },
-            0.30
+            0.28
           );
 
           tl.to(
             intro,
             {
               opacity: 0,
-              y: -20,
+              y: -25,
               marginBottom: -introHeight,
               ease: 'power1.inOut',
-              duration: 0.35,
+              duration: 0.34,
             },
-            0.30
+            0.28
           );
 
-          // ── Phase 3 (0.65 → 0.90): Stage 3 to Stage 4 (Second Hero Transformation) ──
-          // Video reaches 94vw x 50vh (~500px), cleanly positioned under the navbar as Second Hero
+          // ── Phase 3 (0.62 → 0.90): Stage 3 to Stage 4 (Full Zoom — Same Height & Width as Hero) ──
+          // Video reaches 100vw x 100vh / 100svh, border radius fades to 0px
           tl.to(
             videoWrapper,
             {
@@ -235,13 +235,13 @@ export function CollectionsSection() {
               boxShadow: s4Shadow,
               border: s4Border,
               ease: 'power1.inOut',
-              duration: 0.25,
+              duration: 0.28,
             },
-            0.65
+            0.62
           );
 
-          // ── Phase 4 (0.90 → 1.00): Steady Hold at Second Hero State ──
-          // Holds the Second Hero composition before the pin releases cleanly into Closing Soon
+          // ── Phase 4 (0.90 → 1.00): Steady Hold at Full-Screen Second Hero State ──
+          // Holds the full-screen cinematic composition before the pin releases into Closing Soon
         }, section);
       } catch (err) {
         console.warn('GSAP ScrollTrigger initialization notice:', err);
@@ -263,41 +263,37 @@ export function CollectionsSection() {
       aria-label="Collections"
     >
       {/* 
-        Scroll Track: 220vh total height
+        Scroll Track: 240vh total height
         Provides smooth, progressive scroll progression across all 4 stages:
-        Stage 1 (Compact Square) -> Stage 2 (Large Square) -> Stage 3 (Wide Rect) -> Stage 4 (Second Hero)
+        Stage 1 (Compact Square) -> Stage 2 (Large Square) -> Stage 3 (Wide Rect) -> Stage 4 (Full Hero: 100vw x 100vh)
       */}
       <div
         ref={trackRef}
         className="relative w-full"
-        style={{ minHeight: reducedMotion ? 'auto' : '220vh' }}
+        style={{ minHeight: reducedMotion ? 'auto' : '240vh' }}
       >
         {/*
           Pinned Viewport Canvas:
           Native CSS position: sticky; top: 0
-          Height matches Second Hero content bounds (~calc(50vh + 105px), ~600px)
-          so that when the track ends, Closing Soon begins IMMEDIATELY beneath the video
-          with ZERO unwanted blank space!
+          Height matches First Hero viewport (100svh / 100vh)
+          When track ends, Closing Soon begins immediately beneath the full-screen video!
         */}
         <div
           ref={viewportRef}
           className={`${
             reducedMotion
-              ? 'relative min-h-[85vh] py-16 px-4 flex flex-col items-center justify-center'
-              : 'sticky top-0 w-full overflow-hidden flex flex-col items-center justify-start pt-[78px] sm:pt-[82px] lg:pt-[86px] pb-6'
+              ? 'relative min-h-[100svh] py-16 px-4 flex flex-col items-center justify-center'
+              : 'sticky top-0 w-full h-[100svh] lg:h-[100svh] overflow-hidden flex flex-col items-center justify-center'
           }`}
           style={{
-            height: reducedMotion ? 'auto' : 'calc(50vh + 105px)',
-            minHeight: reducedMotion ? 'auto' : '540px',
-            maxHeight: reducedMotion ? 'none' : '620px',
             backgroundColor: '#F8F7F2',
           }}
         >
           {/* ── Stage 1 & 2: Editorial Typography Header ── */}
           <div
             ref={introRef}
-            className="relative z-20 px-6 text-center max-w-[840px] mx-auto pointer-events-none will-change-[transform,opacity,margin-bottom]"
-            style={{ marginBottom: '20px' }}
+            className="relative z-20 px-6 text-center max-w-[840px] mx-auto pointer-events-none will-change-[transform,opacity,margin-bottom] pt-[78px] sm:pt-[84px] lg:pt-[88px]"
+            style={{ marginBottom: '24px' }}
           >
             {/* Curated Departments Eyebrow flanked by horizontal gold divider lines */}
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-2.5 sm:mb-3">
@@ -326,18 +322,18 @@ export function CollectionsSection() {
             ── The Persistent Video Canvas (Second Hero) ──
             Animates symmetrically from Stage 1 Compact Square (290px x 290px, 16px radius)
             to Stage 2 Larger Square (400px x 400px)
-            to Stage 3 Wide Rectangle (~70vw x 440px)
-            to Stage 4 Second Hero (~94vw x 50vh, ~500px max, right under navbar)
+            to Stage 3 Wide Rectangle (75vw x 58vh)
+            to Stage 4 Full Second Hero: 100vw x 100vh / 100svh (Same height and width as First Hero!)
           */}
           <div
             ref={videoWrapperRef}
             className="relative z-10 overflow-hidden will-change-[width,height,border-radius,box-shadow]"
             style={{
-              width: reducedMotion ? '94vw' : '290px',
-              maxWidth: reducedMotion ? '1560px' : '290px',
-              height: reducedMotion ? '50vh' : '290px',
-              maxHeight: reducedMotion ? '500px' : '290px',
-              borderRadius: reducedMotion ? '6px' : '16px',
+              width: reducedMotion ? '100vw' : '290px',
+              maxWidth: reducedMotion ? '100vw' : '290px',
+              height: reducedMotion ? '100vh' : '290px',
+              maxHeight: reducedMotion ? '100vh' : '290px',
+              borderRadius: reducedMotion ? '0px' : '16px',
               boxShadow: '0 24px 60px rgba(18, 61, 44, 0.12)',
               border: '1px solid rgba(197, 160, 89, 0.28)',
               backgroundColor: '#111312',
