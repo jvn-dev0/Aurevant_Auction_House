@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "3d6b7ad2-147f-4ecc-a2a2-ba77709c6879",
+  "status": "current",
+  "command": "deliver",
+  "type": "sequence",
+  "input": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\candidate.json",
+  "output": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\cache-miss-web-request.html",
+  "specification": {
+    "sha256": "dc027065a928a7c9ad20fc53336ff27872609d9dfd8fa11558c61ff38f11a241",
+    "bytes": 3905
+  },
+  "artifact": {
+    "sha256": "0abfb52200f7c1a13182901871a3748830b712f486a6183a62b2da0ab933fd71",
+    "bytes": 834361
+  }
+}

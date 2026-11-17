@@ -3,6 +3,8 @@ import { Navbar } from '../components/navbar/Navbar';
 import { HeroSection } from '../components/hero/HeroSection';
 import { CollectionsSection } from '../components/collections/CollectionsSection';
 import { ClosingSoonSection } from '../components/collections/ClosingSoonSection';
+import { ExploreCollectionsSection } from '../components/collections/ExploreCollectionsSection';
+import { StorySection } from '../components/story/StorySection';
 
 export default function HomePage() {
   return (
@@ -11,6 +13,8 @@ export default function HomePage() {
       <HeroSection />
       <CollectionsSection />
       <ClosingSoonSection />
+      <ExploreCollectionsSection />
+      <StorySection />
     </main>
   );
 }

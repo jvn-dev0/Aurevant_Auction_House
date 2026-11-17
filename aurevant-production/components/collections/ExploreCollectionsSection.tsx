@@ -1,174 +1,509 @@
 'use client';
 
-import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { GuestAccessNotice } from './GuestAccessNotice';
 
 /**
- * AUREVANT AUCTION HOUSE — Explore Our Collections
+ * AUREVANT AUCTION HOUSE — Explore the Collections
  * 
- * Luxury Curatorial Catalogue Section:
- * - Direct continuation underneath the expanded collections video
- * - Warm Ivory Canvas (#F8F7F2) with Forest Green (#123D2C) & Antique Gold (#B99455)
- * - 4 Curated Auction Departments:
- *   1. Art & Paintings
- *   2. Rare Coins
- *   3. Fine Watches
- *   4. Rare Books
- * - High-resolution existing project photography with tactile hover interactions
+ * Reconstructed Exhibition Gallery Architecture:
+ * Recreates the supplied reference design:
+ * 1. Deep burgundy architectural background with sweeping gold arches on left & right.
+ * 2. Centered header:
+ *    - Eyebrow: "— CURATED DEPARTMENTS —" in antique gold with flanking horizontal lines.
+ *    - Headline: "Explore the collections" in editorial serif (Instrument Serif).
+ *    - Supporting copy: "SIX DISCIPLINES. A WORLD OF EXCEPTIONAL OBJECTS."
+ *    - Top-right link: "View all categories →"
+ * 3. Six continuous framed exhibition panels closely grouped with concave perspective:
+ *    - 01: Fine Art (Paintings · Drawings / Sculpture · Prints)
+ *    - 02: Horology (Collectible Watches / Clocks · Instruments)
+ *    - 03: Numismatics (Ancient Coins · Medals / Currency · Tokens)
+ *    - 04: Rare Books (First Editions · Manuscripts / Maps · Documents)
+ *    - 05: Jewellery (Fine Jewellery · Gemstones / Signed Pieces)
+ *    - 06: Antiquities (Classical · Asian · Egyptian / Historic Objects)
+ * 4. Realistic gold picture frame borders with outer bevels and metallic light accents.
+ * 5. Polished dark lacquer reflective gallery floor with downward mirrored reflections.
+ * 6. Center warm golden floor light pooling at the base between Numismatics & Rare Books.
+ * 7. Centered pagination dots (● ○ ○ ○ ○ ○).
+ * 8. Compact informational Guest Access Notice upon interaction.
  */
 
-interface CollectionCategory {
+interface ExhibitionPanel {
   id: string;
   deptNumber: string;
   title: string;
-  subtitle: string;
-  description: string;
-  lotsCount: string;
+  subtitleLine1: string;
+  subtitleLine2: string;
   image: string;
-  href: string;
+  rotationY: number;
+  translateZ: number;
+  transformOrigin: string;
+  edgeBevelStyle?: React.CSSProperties;
 }
 
-const COLLECTIONS: CollectionCategory[] = [
+const EXHIBITION_PANELS: ExhibitionPanel[] = [
   {
-    id: 'art-paintings',
-    deptNumber: 'DEPT 01',
-    title: 'Art & Paintings',
-    subtitle: 'Old Masters & European Works',
-    description: 'Museum-grade European paintings, landmark sculptures, and canonical modern compositions with verified institutional provenance.',
-    lotsCount: '18 Lots Available',
-    image: '/images/collections/art-paintings.jpg',
-    href: '#art-paintings',
+    id: 'fine-art',
+    deptNumber: '01',
+    title: 'Fine Art',
+    subtitleLine1: 'Paintings · Drawings',
+    subtitleLine2: 'Sculpture · Prints',
+    image: '/images/painting.jpg',
+    rotationY: 15,
+    translateZ: -16,
+    transformOrigin: 'right center',
+    edgeBevelStyle: {
+      boxShadow: '-3px 0 0 #B99455, -5px 0 15px rgba(0, 0, 0, 0.7), 0 16px 40px rgba(0, 0, 0, 0.8)',
+    },
   },
   {
-    id: 'rare-coins',
-    deptNumber: 'DEPT 02',
-    title: 'Rare Coins',
-    subtitle: 'Ancient & Imperial Numismatics',
-    description: 'Classical Greek tetradrachms, Roman imperial aurei, and historical gold currencies preserved to exceptional numismatic grades.',
-    lotsCount: '24 Lots Available',
-    image: '/images/collections/rare-coins.jpg',
-    href: '#rare-coins',
+    id: 'horology',
+    deptNumber: '02',
+    title: 'Horology',
+    subtitleLine1: 'Collectible Watches',
+    subtitleLine2: 'Clocks · Instruments',
+    image: '/images/vintage%20watch.jpg',
+    rotationY: 9,
+    translateZ: -6,
+    transformOrigin: 'right center',
+    edgeBevelStyle: {
+      boxShadow: '0 16px 40px rgba(0, 0, 0, 0.8)',
+    },
   },
   {
-    id: 'fine-watches',
-    deptNumber: 'DEPT 03',
-    title: 'Fine Watches',
-    subtitle: 'Haute Horology & Complications',
-    description: 'Important vintage references, perpetual calendars, and historic Swiss complications from premier horological manufactures.',
-    lotsCount: '16 Lots Available',
-    image: '/images/collections/fine-watches.jpg',
-    href: '#fine-watches',
+    id: 'numismatics',
+    deptNumber: '03',
+    title: 'Numismatics',
+    subtitleLine1: 'Ancient Coins · Medals',
+    subtitleLine2: 'Currency · Tokens',
+    image: '/images/roman%20coin.jpg',
+    rotationY: 2.5,
+    translateZ: 0,
+    transformOrigin: 'right center',
+    edgeBevelStyle: {
+      boxShadow: '0 16px 40px rgba(0, 0, 0, 0.8)',
+    },
   },
   {
     id: 'rare-books',
-    deptNumber: 'DEPT 04',
+    deptNumber: '04',
     title: 'Rare Books',
-    subtitle: 'Manuscripts & First Editions',
-    description: 'Landmark literary first folios, illuminated medieval codices, and historical manuscripts curated from distinguished private libraries.',
-    lotsCount: '12 Lots Available',
-    image: '/images/collections/rare-books.jpg',
-    href: '#rare-books',
+    subtitleLine1: 'First Editions · Manuscripts',
+    subtitleLine2: 'Maps · Documents',
+    image: '/images/old%20books.jpg',
+    rotationY: -2.5,
+    translateZ: 0,
+    transformOrigin: 'left center',
+    edgeBevelStyle: {
+      boxShadow: '0 16px 40px rgba(0, 0, 0, 0.8)',
+    },
+  },
+  {
+    id: 'jewellery',
+    deptNumber: '05',
+    title: 'Jewellery',
+    subtitleLine1: 'Fine Jewellery · Gemstones',
+    subtitleLine2: 'Signed Pieces',
+    image: '/images/jwellery.jpg',
+    rotationY: -9,
+    translateZ: -6,
+    transformOrigin: 'left center',
+    edgeBevelStyle: {
+      boxShadow: '0 16px 40px rgba(0, 0, 0, 0.8)',
+    },
+  },
+  {
+    id: 'antiquities',
+    deptNumber: '06',
+    title: 'Antiquities',
+    subtitleLine1: 'Classical · Asian · Egyptian',
+    subtitleLine2: 'Historic Objects',
+    image: '/images/vintage%20statue.jpg',
+    rotationY: -15,
+    translateZ: -16,
+    transformOrigin: 'left center',
+    edgeBevelStyle: {
+      boxShadow: '3px 0 0 #B99455, 5px 0 15px rgba(0, 0, 0, 0.7), 0 16px 40px rgba(0, 0, 0, 0.8)',
+    },
   },
 ];
 
 export function ExploreCollectionsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isSectionVisible, setIsSectionVisible] = useState(true);
+  const [hoveredPanelId, setHoveredPanelId] = useState<string | null>(null);
+  const [activeDotIndex, setActiveDotIndex] = useState(0);
+
+  // Guest Notice State
+  const [isNoticeOpen, setIsNoticeOpen] = useState(false);
+  const [selectedPanelTitle, setSelectedPanelTitle] = useState<string | undefined>(undefined);
+
+  // Check if visitor is authenticated via session
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem('cbv_demo_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed?.isLoggedIn) {
+          setIsAuthenticated(true);
+        }
+      }
+    } catch (_) {}
+  }, []);
+
+  // IntersectionObserver for scroll-driven gallery entrance
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsSectionVisible(true);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
+    }
+
+    return () => {
+      if (currentSection) observer.unobserve(currentSection);
+    };
+  }, []);
+
+  // Handle panel interaction
+  const handlePanelClick = (e: React.MouseEvent, panel: ExhibitionPanel) => {
+    e.preventDefault();
+    if (isAuthenticated) {
+      return;
+    }
+    // Guest: display informational notice
+    setSelectedPanelTitle(panel.title);
+    setIsNoticeOpen(true);
+  };
+
+  // Sync mobile scroll position with pagination dots
+  const handleMobileScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    if (maxScroll <= 0) return;
+    const ratio = scrollLeft / maxScroll;
+    const index = Math.min(5, Math.max(0, Math.round(ratio * 5)));
+    setActiveDotIndex(index);
+  };
+
   return (
     <section
+      ref={sectionRef}
       id="categories"
-      className="relative w-full bg-[#F8F7F2] text-[#123D2C] z-10 pt-8 sm:pt-10 lg:pt-12 pb-24 sm:pb-32 px-6 sm:px-10 lg:px-16"
-      aria-label="Explore Our Collections"
+      className="relative w-full overflow-hidden bg-[#241014] text-[#F4F0E8] z-10 pt-16 sm:pt-20 lg:pt-24 pb-20 sm:pb-28 lg:pb-36 select-none"
+      aria-label="Explore the collections"
+      style={{
+        background: 'radial-gradient(ellipse 95% 70% at 50% 25%, #461420 0%, #300E17 38%, #1F080F 70%, #120407 100%)',
+      }}
     >
-      <div className="max-w-[1600px] mx-auto">
-        {/* ── Section Header ── */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 pb-8 border-b border-[#B99455]/20">
-          <div className="max-w-[720px]">
-            {/* Curatorial Eyebrow */}
-            <div className="flex items-center gap-3 mb-3">
-              <span className="block w-6 sm:w-8 h-px bg-[#B99455]/60" />
-              <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-[#B99455] font-mono font-medium">
-                Curated Departments
-              </p>
-            </div>
+      {/* ── Left Sweeping Gold Architectural Arch ── */}
+      <svg
+        className="pointer-events-none absolute -left-12 sm:left-0 top-12 sm:top-16 lg:top-20 w-[220px] sm:w-[320px] lg:w-[440px] h-[480px] sm:h-[600px] lg:h-[720px] z-10 opacity-75"
+        viewBox="0 0 440 720"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M 60 -40 C 60 220, 280 480, 240 740"
+          stroke="url(#leftGoldGradient)"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          filter="url(#leftGoldGlow)"
+        />
+        <path
+          d="M 60 -40 C 60 220, 280 480, 240 740"
+          stroke="#FFF0C4"
+          strokeWidth="0.8"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
+        <defs>
+          <linearGradient id="leftGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#C5A059" stopOpacity="0.2" />
+            <stop offset="40%" stopColor="#E7C477" stopOpacity="0.95" />
+            <stop offset="70%" stopColor="#C5A059" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#8A6B30" stopOpacity="0.1" />
+          </linearGradient>
+          <filter id="leftGoldGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
 
-            {/* Main Headline */}
-            <h2
-              className="font-serif font-normal text-[#123D2C] leading-[1.08] tracking-tight mb-3"
-              style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3.25rem)' }}
-            >
-              Explore Our Collections
-            </h2>
+      {/* ── Right Sweeping Gold Architectural Arch ── */}
+      <svg
+        className="pointer-events-none absolute -right-12 sm:right-0 top-12 sm:top-16 lg:top-20 w-[220px] sm:w-[320px] lg:w-[440px] h-[480px] sm:h-[600px] lg:h-[720px] z-10 opacity-75"
+        viewBox="0 0 440 720"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M 380 -40 C 380 220, 160 480, 200 740"
+          stroke="url(#rightGoldGradient)"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          filter="url(#rightGoldGlow)"
+        />
+        <path
+          d="M 380 -40 C 380 220, 160 480, 200 740"
+          stroke="#FFF0C4"
+          strokeWidth="0.8"
+          strokeLinecap="round"
+          opacity="0.85"
+        />
+        <defs>
+          <linearGradient id="rightGoldGradient" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#C5A059" stopOpacity="0.2" />
+            <stop offset="40%" stopColor="#E7C477" stopOpacity="0.95" />
+            <stop offset="70%" stopColor="#C5A059" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#8A6B30" stopOpacity="0.1" />
+          </linearGradient>
+          <filter id="rightGoldGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
 
-            {/* Supporting Copy */}
-            <p className="font-sans text-[14px] sm:text-[15px] lg:text-[16px] text-[#0B2B20]/75 leading-relaxed">
-              Authenticated objects of historical resonance, academic significance, and exceptional market provenance.
+      {/* Velvet Deep Wine Drapery Texture */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(92,25,41,0.4)_0%,transparent_65%)]"
+        aria-hidden="true"
+      />
+
+      {/* ── Main Curatorial Header ── */}
+      <div className="relative max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 z-20">
+        <div className="flex flex-col items-center justify-center text-center relative mb-10 sm:mb-12 lg:mb-14">
+          {/* Eyebrow: — CURATED DEPARTMENTS — */}
+          <div
+            className={`flex items-center justify-center gap-3 sm:gap-4 mb-2.5 transition-all duration-700 ${
+              isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+            }`}
+          >
+            <span className="w-10 sm:w-16 h-px bg-[#C5A059]/70" />
+            <p className="text-[10px] sm:text-[11px] font-mono tracking-[0.28em] text-[#C5A059] uppercase font-semibold">
+              CURATED DEPARTMENTS
             </p>
+            <span className="w-10 sm:w-16 h-px bg-[#C5A059]/70" />
           </div>
 
-          {/* Department Overview Metric */}
-          <div className="mt-6 md:mt-0 flex items-center gap-6 text-xs font-mono text-[#0B2B20]/60">
-            <span>4 CORE DIVISIONS</span>
-            <span className="text-[#B99455]/40">•</span>
-            <span>70 TOTAL LOTS</span>
-          </div>
-        </div>
+          {/* Main Editorial Headline: Explore the collections */}
+          <h2
+            className={`font-serif font-normal text-[#F4F0E8] leading-[1.08] tracking-tight mb-2 sm:mb-2.5 transition-all duration-700 delay-100 ${
+              isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+            style={{
+              fontSize: 'clamp(2.5rem, 4.2vw, 3.75rem)',
+              textShadow: '0 2px 14px rgba(0,0,0,0.6)',
+            }}
+          >
+            Explore the collections
+          </h2>
 
-        {/* ── 4-Department Curatorial Cards Grid ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
-          {COLLECTIONS.map((cat) => (
-            <a
-              key={cat.id}
-              href={cat.href}
-              className="group flex flex-col bg-[#FAF8F5] border border-[#B99455]/25 rounded-md overflow-hidden transition-all duration-300 hover:border-[#B99455]/60 hover:shadow-[0_16px_36px_rgba(18,61,44,0.10)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B99455]"
+          {/* Supporting Copy: SIX DISCIPLINES. A WORLD OF EXCEPTIONAL OBJECTS. */}
+          <p
+            className={`font-mono text-[10px] sm:text-[11px] lg:text-[11.5px] uppercase tracking-[0.24em] text-[#D8C7B5]/90 transition-all duration-700 delay-200 ${
+              isSectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+            }`}
+          >
+            SIX DISCIPLINES. A WORLD OF EXCEPTIONAL OBJECTS.
+          </p>
+
+          {/* Top-Right "View all categories →" Action */}
+          <div className="w-full flex justify-end -mt-5 sm:-mt-7 pr-2 sm:pr-6">
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedPanelTitle(undefined);
+                setIsNoticeOpen(true);
+              }}
+              className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-serif text-[#E7C477] hover:text-[#F4F0E8] transition-colors focus:outline-none focus-visible:underline"
+              aria-label="View all categories"
             >
-              {/* Image Frame */}
-              <div className="relative aspect-[4/4.8] w-full overflow-hidden bg-[#101113]">
-                <img
-                  src={cat.image}
-                  alt={cat.title}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                {/* Subtle Luxury Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B2B20]/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-
-                {/* Corner Department Badge */}
-                <div className="absolute top-3.5 left-3.5 px-2.5 py-1 bg-[#101113]/70 backdrop-blur-md border border-[#F4F0E8]/15 text-[9.5px] font-mono tracking-widest text-[#F4F0E8] uppercase">
-                  {cat.deptNumber}
-                </div>
-
-                {/* Lots Count Overlay */}
-                <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-center justify-between text-[11px] font-mono text-[#F4F0E8] drop-shadow-md">
-                  <span>{cat.lotsCount}</span>
-                  <span className="w-6 h-6 rounded-full bg-[#FAF8F5]/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#B99455] group-hover:text-[#101113] transition-colors duration-200">
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between">
-                <div>
-                  <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[#B99455] font-medium mb-1">
-                    {cat.subtitle}
-                  </p>
-                  <h3 className="font-serif text-[22px] lg:text-[24px] text-[#123D2C] font-normal leading-snug mb-2.5 group-hover:text-[#B99455] transition-colors duration-200">
-                    {cat.title}
-                  </h3>
-                  <p className="font-sans text-[12.5px] lg:text-[13px] text-[#0B2B20]/70 leading-relaxed line-clamp-3">
-                    {cat.description}
-                  </p>
-                </div>
-
-                {/* Footer Action */}
-                <div className="pt-4 mt-4 border-t border-[#B99455]/15 flex items-center justify-between text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#123D2C] group-hover:text-[#B99455] transition-colors duration-200">
-                  <span>View Department</span>
-                  <span className="text-[#B99455]">&rarr;</span>
-                </div>
-              </div>
-            </a>
-          ))}
+              <span>View all categories</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* ── Continuous Exhibition Installation (6 Framed Artworks in Curved Perspective) ── */}
+      <div
+        className="relative w-full max-w-[1600px] mx-auto px-2 sm:px-6 lg:px-8 z-20"
+        style={{ perspective: '1600px', perspectiveOrigin: '50% 45%' }}
+      >
+        {/* Gallery Polyptych Row */}
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleMobileScroll}
+          className="flex items-center justify-start lg:justify-center gap-[4px] sm:gap-[6px] lg:gap-[6px] overflow-x-auto lg:overflow-x-visible pb-8 lg:pb-0 scroll-smooth no-scrollbar"
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            transformStyle: 'preserve-3d',
+          }}
+        >
+          {EXHIBITION_PANELS.map((panel) => {
+            const isHovered = hoveredPanelId === panel.id;
+
+            return (
+              <div
+                key={panel.id}
+                data-collection-id={panel.id}
+                onClick={(e) => handlePanelClick(e, panel)}
+                onMouseEnter={() => setHoveredPanelId(panel.id)}
+                onMouseLeave={() => setHoveredPanelId(null)}
+                className="group relative flex-shrink-0 cursor-pointer transition-all duration-500 ease-out"
+                style={{
+                  width: 'calc(min(72vw, 216px))',
+                  minWidth: '180px',
+                  maxWidth: '228px',
+                  transform: `rotateY(${panel.rotationY}deg) translateZ(${panel.translateZ}px) ${
+                    isHovered ? 'translateY(-8px) scale(1.025)' : 'translateY(0px)'
+                  }`,
+                  transformOrigin: panel.transformOrigin,
+                  transformStyle: 'preserve-3d',
+                  zIndex: isHovered ? 30 : 10,
+                  ...panel.edgeBevelStyle,
+                }}
+              >
+                {/* ── Artwork Frame Container (Matching Reference Proportions) ── */}
+                <div
+                  className="relative aspect-[1/1.76] w-full overflow-hidden bg-[#140508] transition-all duration-300"
+                  style={{
+                    border: isHovered
+                      ? '1.8px solid #F3E5AB'
+                      : '1.4px solid rgba(212, 175, 55, 0.85)',
+                    boxShadow: isHovered
+                      ? '0 0 16px rgba(243, 229, 171, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.25)'
+                      : 'inset 0 0 0 1px rgba(255, 235, 175, 0.15)',
+                  }}
+                >
+                  {/* High-Resolution Artwork Image */}
+                  <img
+                    src={panel.image}
+                    alt={`${panel.title} collection`}
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="eager"
+                    decoding="async"
+                  />
+
+                  {/* Dark Lower Vignette (Matching Reference) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0E0305] via-[#0E0305]/70 via-35% to-transparent opacity-95 transition-opacity duration-300" />
+
+                  {/* Top Fine Gold Highlight Line */}
+                  <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FFF0C4]/70 to-transparent" />
+
+                  {/* ── Lower Information Area (Directly matching Reference) ── */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3.5 sm:p-4 flex flex-col justify-end text-left z-10">
+                    {/* Collection Title */}
+                    <h3 className="font-serif text-[18px] sm:text-[19.5px] lg:text-[20.5px] font-normal text-[#F4F0E8] leading-tight mb-1 drop-shadow-md group-hover:text-[#E7C477] transition-colors duration-200">
+                      {panel.title}
+                    </h3>
+
+                    {/* Subtitle Line 1 & Line 2 */}
+                    <div className="space-y-0.5 text-[10.5px] sm:text-[11px] font-sans text-[#D8C7B5]/85 leading-snug">
+                      <p>{panel.subtitleLine1}</p>
+                      <p>{panel.subtitleLine2}</p>
+                    </div>
+
+                    {/* Small Delicate Right Arrow at Bottom Right */}
+                    <div className="w-full flex justify-end mt-1.5">
+                      <span className="text-[#C5A059] group-hover:text-[#E7C477] group-hover:translate-x-1 transition-all duration-200">
+                        <ArrowRight className="w-3.5 h-3.5 stroke-[1.4]" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Floor Mirrored Downward Reflection ── */}
+                <div
+                  className="hidden lg:block absolute -bottom-16 left-0 right-0 h-16 pointer-events-none overflow-hidden opacity-30 transition-opacity duration-300 group-hover:opacity-45"
+                  style={{
+                    transform: 'scaleY(-1)',
+                    filter: 'blur(1.2px)',
+                    maskImage: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 80%)',
+                    WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 80%)',
+                  }}
+                  aria-hidden="true"
+                >
+                  <img
+                    src={panel.image}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-bottom"
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── Center Warm Golden Floor Radiance (Directly matching Reference) ── */}
+        <div
+          className="pointer-events-none absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-[500px] sm:w-[650px] lg:w-[780px] h-[75px] rounded-full opacity-65 blur-2xl z-10"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(235, 185, 95, 0.45) 0%, rgba(197, 160, 89, 0.15) 45%, transparent 75%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* ── Centered Floor Pagination Dots (Matching Reference ● ○ ○ ○ ○ ○) ── */}
+        <div className="mt-7 sm:mt-9 flex items-center justify-center gap-2.5 z-20 relative">
+          {[0, 1, 2, 3, 4, 5].map((dotIdx) => {
+            const isActive = dotIdx === activeDotIndex;
+            return (
+              <button
+                key={dotIdx}
+                type="button"
+                onClick={() => {
+                  setActiveDotIndex(dotIdx);
+                  if (scrollContainerRef.current) {
+                    const scrollTarget = (scrollContainerRef.current.scrollWidth / 6) * dotIdx;
+                    scrollContainerRef.current.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+                  }
+                }}
+                className={`transition-all duration-300 rounded-full focus:outline-none focus:ring-1 focus:ring-[#C5A059] ${
+                  isActive
+                    ? 'w-2.5 h-2.5 bg-[#E7C477] shadow-[0_0_8px_rgba(231,196,119,0.8)]'
+                    : 'w-2 h-2 rounded-full border border-[#998A7E]/60 bg-transparent hover:border-[#E7C477]'
+                }`}
+                aria-label={`Go to collection panel ${dotIdx + 1}`}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── Compact Informational Guest Access Notice (Informational Only, No Auth Pages) ── */}
+      <GuestAccessNotice
+        isOpen={isNoticeOpen}
+        onClose={() => setIsNoticeOpen(false)}
+        collectionTitle={selectedPanelTitle}
+      />
     </section>
   );
 }

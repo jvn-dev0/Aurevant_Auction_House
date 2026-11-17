@@ -7,13 +7,21 @@ import { SculptureContainer } from '../sculpture/SculptureContainer';
 export function HeroSection() {
   return (
     <section className="relative min-h-[100svh] lg:h-[100svh] lg:max-h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-[66px] isolate">
+      <div id="about" className="absolute top-0 pointer-events-none" aria-hidden="true" />
       {/* 1. Cinematic Full-Width Museum Gallery Background */}
       <div className="hero-background-container absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
-        <img
-          src="/images/Hero-background.png"
-          alt="Museum exhibition gallery background"
-          className="w-full h-full object-cover object-center pointer-events-none select-none"
-        />
+        <picture className="w-full h-full block">
+          <source srcSet="/images/Hero-background.webp" type="image/webp" />
+          <img
+            src="/images/Hero-background.png"
+            alt="Museum exhibition gallery background"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover object-center pointer-events-none select-none"
+          />
+        </picture>
         {/* Cinematic Left Vignette for Curatorial Typography Contrast */}
         <div className="absolute inset-y-0 left-0 w-full lg:w-[60%] bg-gradient-to-r from-[#0B0D0C]/85 via-[#101113]/55 via-50% to-transparent pointer-events-none" />
         <div className="absolute top-0 left-0 w-full lg:w-[50%] h-full bg-[radial-gradient(ellipse_at_20%_45%,rgba(11,13,12,0.78)_0%,rgba(16,17,19,0.35)_55%,transparent_100%)] pointer-events-none" />

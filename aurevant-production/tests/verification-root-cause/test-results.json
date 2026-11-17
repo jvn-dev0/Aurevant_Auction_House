@@ -1,0 +1,239 @@
+{
+  "state1_compactIntro": {
+    "scrollY": 900,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": 0,
+    "collectionsTop": 0,
+    "catalogueTop": 1699,
+    "catalogueVisible": false,
+    "introOpacity": 0.6755,
+    "gapBetweenSupportingAndVideo": 175,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 820,
+      "height": 460,
+      "widthVw": 57,
+      "heightVh": 51,
+      "borderRadius": "16px",
+      "top": 341,
+      "bottom": 801
+    }
+  },
+  "state2_expandingEarly": {
+    "scrollY": 1250,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": -350,
+    "collectionsTop": -350,
+    "catalogueTop": 1349,
+    "catalogueVisible": false,
+    "introOpacity": 0,
+    "gapBetweenSupportingAndVideo": 182,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 1026,
+      "height": 460,
+      "widthVw": 71,
+      "heightVh": 51,
+      "borderRadius": "13px",
+      "top": 324,
+      "bottom": 784
+    }
+  },
+  "state3_expandingMid": {
+    "scrollY": 1550,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": -650,
+    "collectionsTop": -650,
+    "catalogueTop": 1049,
+    "catalogueVisible": false,
+    "introOpacity": 0,
+    "gapBetweenSupportingAndVideo": 157,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 1305,
+      "height": 452,
+      "widthVw": 91,
+      "heightVh": 50,
+      "borderRadius": "9px",
+      "top": 300,
+      "bottom": 752
+    }
+  },
+  "state4_finalExpanded": {
+    "scrollY": 1850,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": -950,
+    "collectionsTop": -950,
+    "catalogueTop": 749,
+    "catalogueVisible": true,
+    "introOpacity": 0,
+    "gapBetweenSupportingAndVideo": 153,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 1354,
+      "height": 450,
+      "widthVw": 94,
+      "heightVh": 50,
+      "borderRadius": "8px",
+      "top": 180,
+      "bottom": 630
+    }
+  },
+  "state5_nextSection": {
+    "scrollY": 2700,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": -1800,
+    "collectionsTop": -1800,
+    "catalogueTop": -101,
+    "catalogueVisible": true,
+    "introOpacity": 0,
+    "gapBetweenSupportingAndVideo": 153,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 1354,
+      "height": 450,
+      "widthVw": 94,
+      "heightVh": 50,
+      "borderRadius": "8px",
+      "top": -670,
+      "bottom": -220
+    }
+  },
+  "state6_reverseCompact": {
+    "scrollY": 900,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": 0,
+    "collectionsTop": 0,
+    "catalogueTop": 1699,
+    "catalogueVisible": false,
+    "introOpacity": 0.6755,
+    "gapBetweenSupportingAndVideo": 175,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 820,
+      "height": 460,
+      "widthVw": 57,
+      "heightVh": 51,
+      "borderRadius": "16px",
+      "top": 341,
+      "bottom": 801
+    }
+  },
+  "state7_reverseHero": {
+    "scrollY": 0,
+    "windowW": 1440,
+    "windowH": 900,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.35)"
+    },
+    "heroBottom": 900,
+    "collectionsTop": 900,
+    "catalogueTop": 2599,
+    "catalogueVisible": false,
+    "introOpacity": 1,
+    "gapBetweenSupportingAndVideo": 163,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 820,
+      "height": 460,
+      "widthVw": 57,
+      "heightVh": 51,
+      "borderRadius": "16px",
+      "top": 1175,
+      "bottom": 1635
+    }
+  },
+  "laptopCheck": {
+    "scrollY": 768,
+    "windowW": 1366,
+    "windowH": 768,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": 0,
+    "collectionsTop": 0,
+    "catalogueTop": 1550,
+    "catalogueVisible": false,
+    "introOpacity": 0.6261,
+    "gapBetweenSupportingAndVideo": 174,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 793,
+      "height": 445,
+      "widthVw": 58,
+      "heightVh": 58,
+      "borderRadius": "16px",
+      "top": 339,
+      "bottom": 784
+    }
+  },
+  "mobileCheck": {
+    "scrollY": 844,
+    "windowW": 390,
+    "windowH": 844,
+    "hasHorizontalOverflow": false,
+    "navbar": {
+      "height": 67,
+      "bg": "rgba(16, 17, 19, 0.9)"
+    },
+    "heroBottom": 275,
+    "collectionsTop": 275,
+    "catalogueTop": 1516,
+    "catalogueVisible": false,
+    "introOpacity": 1,
+    "gapBetweenSupportingAndVideo": 144,
+    "isOverlapping": false,
+    "videoWrapper": {
+      "width": 226,
+      "height": 127,
+      "widthVw": 58,
+      "heightVh": 15,
+      "borderRadius": "16px",
+      "top": 498,
+      "bottom": 625
+    }
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+}

@@ -1,90 +1,99 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Clock, ArrowUpRight, ShieldCheck, Gavel } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Clock, ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Interactive3DViewer, AuctionObject3D } from './Interactive3DViewer';
 
 /**
- * AUREVANT AUCTION HOUSE — Closing Soon | LIVE AUCTIONS
+ * AUREVANT AUCTION HOUSE — Closing Soon | Interactive 3D Auction Showcase
  * 
- * Luxury Curatorial Auction Catalogue:
- * - Appears naturally immediately beneath the second-hero expanded video
- * - Warm Ivory Canvas (#F8F7F2) with Deep Forest Green (#183D30) & Antique Gold (#C5A059)
- * - 4 Premier Live Auction Lots with synchronized countdown timers, estimates,
- *   current bids, provenance metadata, and quick-bid actions
- * - Complies with AGENTS.md curatorial transparency standards ([DEMO LOT])
+ * Refined Single-Row Editorial Catalogue:
+ * - 4 Featured Auction Objects displayed in ONE horizontal row on desktop.
+ * - Matching preview assets: each thumbnail faithfully represents the exact 3D model.
+ * - Clean object images without visible INTERACT 3D buttons or obscuring badges.
+ * - Mechanical departure-board rolling countdown digits (HRS MIN SEC).
+ * - Side-by-side object image and curatorial metadata layout.
+ * - Full 360° interactive 3D inspection modal on image/title selection.
  */
 
-interface AuctionLot {
-  id: string;
-  lotNumber: string;
-  title: string;
-  department: string;
-  period: string;
-  provenance: string;
-  estimateMin: number;
-  estimateMax: number;
-  currentBid: number;
-  totalBids: number;
-  initialSeconds: number;
-  image: string;
-}
-
-const LIVE_LOTS: AuctionLot[] = [
+const CLOSING_SOON_OBJECTS: AuctionObject3D[] = [
   {
-    id: 'lot-01',
-    lotNumber: 'LOT #01',
-    title: 'A European Marble Figure',
-    department: 'Old Masters & Classical Works',
-    period: 'Circa 1780 • Continental Europe',
-    provenance: 'Distinguished Private Collection, Zurich',
-    estimateMin: 120000,
-    estimateMax: 180000,
-    currentBid: 145000,
+    id: 'slot-12',
+    slotNumber: 'Slot 12',
+    title: 'Antique Book with Quill & Key',
+    collection: 'Historical Literary Collection',
+    period: 'Circa 1623 • Shakespeare First Folio Binding & Calligraphic Implements',
+    provenance: 'Acquired from British Aristocratic Family Library, Oxfordshire',
+    estimateMin: 35000,
+    estimateMax: 50000,
+    currentBid: 42000,
     totalBids: 14,
     initialSeconds: 8072, // ~02h 14m 32s
-    image: '/images/collections/art-paintings.jpg',
+    modelPath: '/images/3d%20images/antique_book_with_quill_and_key/scene.gltf',
+    previewImage: '/images/collections/antique-book-preview.png',
+    modelScaleAdjustment: 1.0,
+    cameraPositionOffset: [0, 1.2, 3.2],
+    cameraDistanceMultiplier: 1.55,
+    cameraFov: 42,
   },
   {
-    id: 'lot-02',
-    lotNumber: 'LOT #02',
-    title: 'Patek Philippe Perpetual Calendar',
-    department: 'Haute Horology',
-    period: 'Ref. 3970J • 18k Yellow Gold • 1992',
-    provenance: 'Single-Owner Estate, Geneva',
-    estimateMin: 110000,
-    estimateMax: 160000,
-    currentBid: 128000,
+    id: 'slot-27',
+    slotNumber: 'Slot 27',
+    title: 'Vintage Wristwatch',
+    collection: 'Classic Horological Collection',
+    period: 'Circa 1954 • Manual-Wind Chronograph • 18k Yellow Gold Case',
+    provenance: 'Single-Owner Private Estate Collection, Geneva',
+    estimateMin: 85000,
+    estimateMax: 120000,
+    currentBid: 96000,
     totalBids: 22,
     initialSeconds: 13690, // ~03h 48m 10s
-    image: '/images/collections/fine-watches.jpg',
+    modelPath: '/images/3d%20images/old_wrist_watch_dh/scene.gltf',
+    previewImage: '/images/collections/vintage-watch-preview.png',
+    modelScaleAdjustment: 1.0,
+    modelRotation: [Math.PI * 0.35, 0, 0],
+    cameraPositionOffset: [0, 0.4, 3.4],
+    cameraDistanceMultiplier: 1.45,
+    cameraFov: 40,
   },
   {
-    id: 'lot-03',
-    lotNumber: 'LOT #03',
-    title: 'Classical Athenian Owl Tetradrachm',
-    department: 'Ancient Numismatics',
-    period: 'Circa 440 BC • Attica, Athens • Mint State',
-    provenance: 'Ex-European Institutional Cabinet',
-    estimateMin: 45000,
-    estimateMax: 65000,
-    currentBid: 52000,
+    id: 'slot-35',
+    slotNumber: 'Slot 35',
+    title: 'Historic Masterpiece',
+    collection: 'Fine Art Collection',
+    period: 'Circa 1650 • Continental School • Oil on Canvas with Carved Giltwood Frame',
+    provenance: 'Distinguished Private Continental Collection, Vienna',
+    estimateMin: 150000,
+    estimateMax: 220000,
+    currentBid: 175000,
     totalBids: 19,
     initialSeconds: 3919, // ~01h 05m 19s
-    image: '/images/collections/rare-coins.jpg',
+    modelPath: '/images/3d%20images/psx-painting/source/model.gltf',
+    previewImage: '/images/collections/historic-painting-preview.png',
+    modelScaleAdjustment: 1.0,
+    cameraPositionOffset: [0, 0.05, 3.1],
+    cameraDistanceMultiplier: 1.4,
+    cameraFov: 45,
   },
   {
-    id: 'lot-04',
-    lotNumber: 'LOT #04',
-    title: 'First Folio Edition (Rare Fragment)',
-    department: 'Manuscripts & First Editions',
-    period: 'London, 1623 • Shakespeare Comedies',
-    provenance: 'Acquired from British Aristocratic Library',
-    estimateMin: 220000,
-    estimateMax: 300000,
-    currentBid: 260000,
-    totalBids: 31,
+    id: 'slot-48',
+    slotNumber: 'Slot 48',
+    title: 'Ancient Roman Coin',
+    collection: 'Classical Numismatic Collection',
+    period: 'Circa 76 AD • Roman Gold Aureus • Emperor Domitian (Caesar Aug F Domitianus)',
+    provenance: 'Ex-European Institutional Numismatic Cabinet, Medallion Archive',
+    estimateMin: 45000,
+    estimateMax: 65000,
+    currentBid: 54000,
+    totalBids: 28,
     initialSeconds: 15765, // ~04h 22m 45s
-    image: '/images/collections/rare-books.jpg',
+    modelPath: '/images/3d%20images/roman-coin/scene.glb',
+    previewImage: '/images/collections/roman-coin-preview.png',
+    modelScaleAdjustment: 1.0,
+    modelRotation: [0, 0, 0],
+    cameraPositionOffset: [0, 0.05, 2.7],
+    cameraDistanceMultiplier: 1.35,
+    cameraFov: 38,
   },
 ];
 
@@ -96,182 +105,308 @@ function formatCurrency(val: number): string {
   }).format(val);
 }
 
-function formatCountdown(totalSecs: number): string {
-  if (totalSecs <= 0) return '00h 00m 00s';
+function formatCountdown(totalSecs: number): { hours: string; minutes: string; seconds: string } {
+  if (totalSecs <= 0) {
+    return { hours: '00', minutes: '00', seconds: '00' };
+  }
   const h = Math.floor(totalSecs / 3600);
   const m = Math.floor((totalSecs % 3600) / 60);
   const s = totalSecs % 60;
-  return `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+  return {
+    hours: String(h).padStart(2, '0'),
+    minutes: String(m).padStart(2, '0'),
+    seconds: String(s).padStart(2, '0'),
+  };
+}
+
+/**
+ * Mechanical Departure-Board Rolling Digit
+ * Replaces digits with a smooth vertical wheel transition without flickering or resetting stationary digits.
+ */
+function MechanicalDigit({ value }: { value: string }) {
+  const [curr, setCurr] = useState(value);
+  const [prev, setPrev] = useState(value);
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    if (value !== curr) {
+      setPrev(curr);
+      setCurr(value);
+      setAnimating(true);
+      const timer = setTimeout(() => {
+        setAnimating(false);
+      }, 350);
+      return () => clearTimeout(timer);
+    }
+  }, [value, curr]);
+
+  return (
+    <span className="relative inline-block w-[0.62em] h-[1.2em] overflow-hidden align-baseline select-none" aria-label={value}>
+      <span
+        className={`flex flex-col transition-transform ${
+          animating
+            ? 'duration-350 ease-[cubic-bezier(0.2,0.8,0.2,1)] -translate-y-1/2'
+            : 'duration-0 translate-y-0'
+        } motion-reduce:transition-none motion-reduce:transform-none`}
+      >
+        <span className="h-[1.2em] flex items-center justify-center font-mono">{animating ? prev : curr}</span>
+        {animating && (
+          <span className="h-[1.2em] flex items-center justify-center font-mono" aria-hidden="true">{curr}</span>
+        )}
+      </span>
+    </span>
+  );
 }
 
 export function ClosingSoonSection() {
-  const [secondsLeft, setSecondsLeft] = useState<number[]>(
-    LIVE_LOTS.map((lot) => lot.initialSeconds)
+  // Target timestamps initialized once to avoid drift or resets
+  const [targetTimestamps] = useState<number[]>(() =>
+    CLOSING_SOON_OBJECTS.map((obj) => Date.now() + obj.initialSeconds * 1000)
   );
 
+  const [secondsRemaining, setSecondsRemaining] = useState<number[]>(() =>
+    CLOSING_SOON_OBJECTS.map((obj) => obj.initialSeconds)
+  );
+
+  const [active3DObject, setActive3DObject] = useState<AuctionObject3D | null>(null);
+  const [active3DIndex, setActive3DIndex] = useState<number>(0);
+
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Live Timer: updates remaining seconds calculated from persistent target timestamp
   useEffect(() => {
-    const timer = setInterval(() => {
-      setSecondsLeft((prev) =>
-        prev.map((sec) => (sec > 0 ? sec - 1 : 0))
+    const updateCountdowns = () => {
+      const now = Date.now();
+      setSecondsRemaining(
+        targetTimestamps.map((target) => {
+          const diff = Math.max(0, Math.floor((target - now) / 1000));
+          return diff;
+        })
       );
-    }, 1000);
-    return () => clearInterval(timer);
+    };
+
+    updateCountdowns();
+    const interval = setInterval(updateCountdowns, 1000);
+    return () => clearInterval(interval);
+  }, [targetTimestamps]);
+
+  // Carousel navigation for mobile / compact screens
+  const scrollCarousel = useCallback((direction: 'left' | 'right') => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const cardWidth = container.firstElementChild?.clientWidth || 320;
+    const scrollAmount = direction === 'left' ? -cardWidth - 16 : cardWidth + 16;
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   }, []);
+
+  const open3DViewer = (obj: AuctionObject3D, index: number) => {
+    setActive3DObject(obj);
+    setActive3DIndex(index);
+  };
+
+  const close3DViewer = () => {
+    setActive3DObject(null);
+  };
 
   return (
     <section
-      id="closing-soon"
+      id="auctions"
       className="relative w-full bg-[#F8F7F2] text-[#183D30] z-10 pt-16 sm:pt-20 lg:pt-24 pb-24 sm:pb-32 px-6 sm:px-10 lg:px-16 selection:bg-[#C5A059]/30 selection:text-[#0B2B20]"
       aria-label="Closing Soon Live Auctions"
     >
-      <div className="max-w-[1600px] mx-auto">
+      <div id="closing-soon" className="absolute -top-[70px] pointer-events-none" aria-hidden="true" />
+      <div className="max-w-[1520px] mx-auto">
         {/* ── Section Header ── */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 pb-8 border-b border-[#C5A059]/25">
-          <div className="max-w-[760px]">
-            {/* Live Status Eyebrow */}
-            <div className="flex items-center gap-3 mb-3.5">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#183D30] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#183D30]" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 mb-8 sm:mb-10 border-b border-[#C5A059]/30">
+          <div>
+            <div className="flex items-center gap-3">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[42px] font-normal tracking-tight text-[#183D30]">
+                Closing Soon
+              </h2>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#183D30] text-[#D7E65A] font-mono text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D7E65A] animate-pulse" />
+                Live Auctions
               </span>
-              <p className="text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.28em] text-[#C5A059] font-mono font-semibold">
-                Closing Soon &bull; LIVE AUCTIONS
-              </p>
             </div>
-
-            {/* Main Headline */}
-            <h2
-              className="font-serif font-normal text-[#183D30] leading-[1.08] tracking-tight mb-3"
-              style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3.4rem)' }}
-            >
-              Closing Soon
-            </h2>
-
-            {/* Supporting Description */}
-            <p className="font-sans text-[#183D30]/80 leading-relaxed text-[14px] sm:text-[15.5px] lg:text-[16px] max-w-[640px]">
-              Time-sensitive live bidding across premier global lots. Authenticated provenance with real-time saleroom updates.
+            <p className="mt-2 text-sm text-[#183D30]/70 max-w-xl font-sans">
+              Active salerooms entering final bidding intervals. Select any lot to inspect authentic 3D geometry and verified curatorial provenance.
             </p>
           </div>
 
-          {/* Right Header Status Badges */}
-          <div className="mt-6 md:mt-0 flex items-center gap-3 sm:gap-4 font-mono text-xs">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#183D30]/6 border border-[#183D30]/15 rounded-none text-[#183D30] font-medium tracking-wider uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#183D30]" />
-              <span>4 Live Lots</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#C5A059]/15 border border-[#C5A059]/35 rounded-none text-[#183D30] font-medium tracking-wider uppercase">
-              <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Saleroom Active</span>
+          {/* Right Header Navigation */}
+          <div className="flex items-center gap-4 self-start md:self-end">
+            <a
+              href="#closing-soon"
+              className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.16em] text-[#183D30] hover:text-[#C5A059] font-medium transition-colors"
+            >
+              <span>View all auctions</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover:translate-x-1 transition-transform" />
+            </a>
+
+            {/* Prev / Next Carousel Controls (visible for smaller widths) */}
+            <div className="flex items-center gap-1.5 pl-3 border-l border-[#C5A059]/30">
+              <button
+                type="button"
+                onClick={() => scrollCarousel('left')}
+                className="w-9 h-9 flex items-center justify-center rounded-none border border-[#183D30]/25 bg-[#F4F0E8] hover:bg-[#183D30] hover:text-[#F4F0E8] text-[#183D30] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
+                aria-label="Previous auction lot"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollCarousel('right')}
+                className="w-9 h-9 flex items-center justify-center rounded-none border border-[#183D30]/25 bg-[#F4F0E8] hover:bg-[#183D30] hover:text-[#F4F0E8] text-[#183D30] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
+                aria-label="Next auction lot"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>
 
-        {/* ── 4 Live Lot Cards Grid ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {LIVE_LOTS.map((lot, idx) => (
-            <article
-              key={lot.id}
-              className="group relative bg-[#F4F0E8] border border-[#C5A059]/25 hover:border-[#C5A059] transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-xl"
-            >
-              {/* Image & Overlay Badges */}
-              <div className="relative w-full aspect-[4/3] overflow-hidden bg-[#111312]">
-                <img
-                  src={lot.image}
-                  alt={lot.title}
-                  className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out select-none"
-                />
+        {/* ── 4 Featured Auction Objects in ONE Horizontal Row ── */}
+        <div
+          ref={carouselRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 w-full overflow-x-auto pb-4 scroll-smooth"
+        >
+          {CLOSING_SOON_OBJECTS.map((obj, idx) => {
+            const countdown = formatCountdown(secondsRemaining[idx]);
 
-                {/* Subtle vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111312]/70 via-transparent to-[#111312]/20 pointer-events-none" />
-
-                {/* Top Overlay Badges */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
-                  {/* Live Status Pill */}
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#183D30]/90 backdrop-blur-md border border-[#F4F0E8]/20 text-[#F4F0E8] font-mono text-[10px] uppercase tracking-wider font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E7C477] animate-pulse" />
-                    Live
-                  </span>
-
-                  {/* Lot Number */}
-                  <span className="px-2.5 py-1 bg-[#111312]/85 backdrop-blur-md border border-[#F4F0E8]/15 text-[#C5A059] font-mono text-[10.5px] uppercase tracking-wider font-medium">
-                    {lot.lotNumber}
-                  </span>
-                </div>
-
-                {/* Bottom Countdown Overlay */}
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#111312]/85 backdrop-blur-md border border-[#F4F0E8]/15 text-[#F4F0E8] font-mono text-[11px] tracking-wider font-medium">
-                    <Clock className="w-3 h-3 text-[#E7C477]" />
-                    <span>{formatCountdown(secondsLeft[idx])}</span>
-                  </div>
-                  <span className="font-mono text-[10.5px] tracking-wider text-[#F4F0E8]/80 bg-[#111312]/85 backdrop-blur-md px-2 py-1 border border-[#F4F0E8]/10">
-                    {lot.totalBids} Bids
-                  </span>
-                </div>
-              </div>
-
-              {/* Lot Card Content */}
-              <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between">
-                <div>
-                  {/* Department */}
-                  <p className="text-[10px] sm:text-[10.5px] uppercase tracking-[0.24em] text-[#C5A059] font-mono font-medium mb-1.5">
-                    {lot.department}
-                  </p>
-
-                  {/* Lot Title */}
-                  <h3 className="font-serif text-[18px] sm:text-[19px] lg:text-[20px] text-[#183D30] font-normal leading-snug group-hover:text-[#C5A059] transition-colors duration-200 line-clamp-1">
-                    {lot.title}
-                  </h3>
-
-                  {/* Period & Provenance */}
-                  <p className="font-sans text-[12px] sm:text-[12.5px] text-[#183D30]/70 mt-1 line-clamp-1">
-                    {lot.period}
-                  </p>
-                </div>
-
-                {/* Pricing & Bidding Action */}
-                <div className="mt-5 pt-4 border-t border-[#C5A059]/20">
-                  <div className="flex items-baseline justify-between mb-1.5">
-                    <span className="font-mono text-[10.5px] uppercase tracking-wider text-[#183D30]/60">
-                      Estimate
-                    </span>
-                    <span className="font-mono text-[11px] text-[#183D30]/75">
-                      {formatCurrency(lot.estimateMin)} &ndash; {formatCurrency(lot.estimateMax)}
-                    </span>
+            return (
+              <article
+                key={obj.id}
+                className="group bg-[#F4F0E8] border border-[#C5A059]/30 hover:border-[#C5A059] p-3.5 sm:p-4 flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                {/* Top: Side-by-Side Object Image & Curatorial Info */}
+                <div className="flex gap-3 sm:gap-3.5 items-start mb-3.5">
+                  {/* Left: Clean Object Image (Interaction target with subtle hover scale, no text overlay) */}
+                  <div
+                    onClick={() => open3DViewer(obj, idx)}
+                    className="relative w-24 sm:w-28 aspect-square flex-shrink-0 bg-[#141716] overflow-hidden cursor-pointer group/img border border-[#C5A059]/20"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        open3DViewer(obj, idx);
+                      }
+                    }}
+                    aria-label={`Inspect 3D model for ${obj.title}`}
+                  >
+                    <img
+                      src={obj.previewImage}
+                      alt={obj.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-center transform group-hover/img:scale-108 transition-transform duration-500 ease-out select-none"
+                    />
+                    {/* Subtle hover vignette cue without any visible text overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/20 transition-colors pointer-events-none" />
                   </div>
 
-                  <div className="flex items-baseline justify-between mb-4">
-                    <span className="font-mono text-[11px] uppercase tracking-wider text-[#183D30] font-semibold">
+                  {/* Right: Curatorial Information */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span className="font-mono text-[9.5px] uppercase tracking-wider text-[#C5A059] font-bold">
+                          {obj.slotNumber}
+                        </span>
+                        <span className="font-mono text-[8.5px] uppercase tracking-wider text-[#183D30]/60">
+                          [DEMO]
+                        </span>
+                      </div>
+                      <h3
+                        onClick={() => open3DViewer(obj, idx)}
+                        className="font-serif text-[15px] sm:text-[16px] text-[#183D30] font-normal leading-snug group-hover:text-[#C5A059] transition-colors cursor-pointer truncate mb-1"
+                        title={obj.title}
+                      >
+                        {obj.title}
+                      </h3>
+                      <p className="font-sans text-[11px] text-[#183D30]/75 leading-snug line-clamp-2 mb-2">
+                        {obj.period}
+                      </p>
+                    </div>
+
+                    <div className="font-mono text-[10.5px] text-[#183D30]/80">
+                      <span className="text-[#183D30]/50 uppercase tracking-wider text-[9px] block">Estimate</span>
+                      <span className="font-medium text-[#183D30]">{formatCurrency(obj.estimateMin)} – {formatCurrency(obj.estimateMax)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom: Mechanical Rolling Countdown Timer */}
+                <div className="bg-[#EDE7DC] border border-[#C5A059]/30 px-3 py-2 mb-3">
+                  <div className="flex items-center justify-between text-[9px] font-mono text-[#183D30]/70 uppercase tracking-wider mb-1">
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="w-2.5 h-2.5 text-[#C5A059]" />
+                      Closing In
+                    </span>
+                    <span className="text-[#C5A059] font-medium">Saleroom</span>
+                  </div>
+
+                  {/* Rolling Mechanical Digits */}
+                  <div data-testid="countdown-clock" className="flex items-center justify-center gap-1 font-mono text-[16px] sm:text-[17px] font-bold text-[#183D30]">
+                    {/* Hours */}
+                    <div className="flex items-center bg-[#F4F0E8] px-1.5 py-0.5 border border-[#C5A059]/20 shadow-inner">
+                      <MechanicalDigit value={countdown.hours[0]} />
+                      <MechanicalDigit value={countdown.hours[1]} />
+                    </div>
+                    <span className="text-[#C5A059] font-normal select-none">:</span>
+                    {/* Minutes */}
+                    <div className="flex items-center bg-[#F4F0E8] px-1.5 py-0.5 border border-[#C5A059]/20 shadow-inner">
+                      <MechanicalDigit value={countdown.minutes[0]} />
+                      <MechanicalDigit value={countdown.minutes[1]} />
+                    </div>
+                    <span className="text-[#C5A059] font-normal select-none">:</span>
+                    {/* Seconds */}
+                    <div className="flex items-center bg-[#F4F0E8] px-1.5 py-0.5 border border-[#C5A059]/20 shadow-inner">
+                      <MechanicalDigit value={countdown.seconds[0]} />
+                      <MechanicalDigit value={countdown.seconds[1]} />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 text-center text-[8.5px] font-mono text-[#183D30]/60 uppercase tracking-widest mt-1">
+                    <span>HRS</span>
+                    <span>MIN</span>
+                    <span>SEC</span>
+                  </div>
+                </div>
+
+                {/* Action CTA Row */}
+                <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#C5A059]/20">
+                  <div>
+                    <span className="block text-[8.5px] font-mono uppercase tracking-wider text-[#183D30]/55">
                       Current Bid
                     </span>
-                    <span className="font-mono text-[15px] sm:text-[16px] text-[#183D30] font-bold tracking-tight">
-                      {formatCurrency(lot.currentBid)}
+                    <span className="font-mono text-[13px] sm:text-[14px] text-[#183D30] font-bold">
+                      {formatCurrency(obj.currentBid)}
                     </span>
                   </div>
-
-                  {/* Action CTA Button */}
-                  <a
-                    href="#closing-soon"
-                    className="w-full py-2.5 px-4 bg-[#183D30] hover:bg-[#0B2B20] active:scale-[0.99] text-[#F4F0E8] font-mono text-[11px] uppercase tracking-[0.16em] font-semibold transition-all duration-200 border border-[#183D30] flex items-center justify-center gap-2 group-hover:border-[#C5A059] shadow-sm"
+                  <button
+                    type="button"
+                    className="py-1.5 px-3 bg-[#183D30] hover:bg-[#0B2B20] text-[#F4F0E8] font-mono text-[10.5px] uppercase tracking-wider font-semibold transition-colors flex items-center gap-1 shadow-sm group/btn"
                   >
                     <span>Place Bid</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#C5A059] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
-
-                  {/* Simulated Demo Disclaimer */}
-                  <div className="mt-2.5 flex items-center justify-between text-[9px] font-mono text-[#183D30]/45 uppercase tracking-wider">
-                    <span>[DEMO LOT]</span>
-                    <span className="flex items-center gap-1">
-                      <ShieldCheck className="w-3 h-3 text-[#C5A059]" />
-                      Verified
-                    </span>
-                  </div>
+                    <ArrowUpRight className="w-3 h-3 text-[#C5A059] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                  </button>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
+
+      {/* ── Interactive 3D Viewer Modal (Rendered ONLY when active) ── */}
+      {active3DObject && (
+        <Interactive3DViewer
+          object={active3DObject}
+          remainingSeconds={secondsRemaining[active3DIndex]}
+          onClose={close3DViewer}
+          formatCountdown={formatCountdown}
+          formatCurrency={formatCurrency}
+        />
+      )}
     </section>
   );
 }

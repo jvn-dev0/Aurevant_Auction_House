@@ -280,6 +280,22 @@ declare module 'three' {
     export function clamp(value: number, min: number, max: number): number;
     export function lerp(x: number, y: number, t: number): number;
   }
+
+  export const LinearFilter: number;
+  export const NearestFilter: number;
+
+  export class PlaneGeometry extends BufferGeometry {
+    constructor(width?: number, height?: number, widthSegments?: number, heightSegments?: number);
+    dispose(): void;
+  }
+
+  export class ShaderMaterial extends Material {
+    vertexShader: string;
+    fragmentShader: string;
+    uniforms: { [uniform: string]: { value: any } };
+    constructor(parameters?: any);
+    dispose(): void;
+  }
 }
 
 declare module 'three/examples/jsm/loaders/GLTFLoader.js' {

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\candidate.json",
+    "sha256": "dc027065a928a7c9ad20fc53336ff27872609d9dfd8fa11558c61ff38f11a241",
+    "bytes": 3905
+  },
+  "artifact": {
+    "path": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\cache-miss-web-request.html",
+    "sha256": "0abfb52200f7c1a13182901871a3748830b712f486a6183a62b2da0ab933fd71",
+    "bytes": 834361
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\cache-miss-web-request.finalize.json",
+    "summaryReceipt": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\cache-miss-web-request.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\kbjee\\OneDrive\\Desktop\\omniroute\\.archify\\sequence-cache-miss-web-request-20261117-095800\\cache-miss-web-request.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-11-17T04:29:42.281Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 17373,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}
