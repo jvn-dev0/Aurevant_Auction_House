@@ -5,6 +5,7 @@ import { CollectionsSection } from '../components/collections/CollectionsSection
 import { ClosingSoonSection } from '../components/collections/ClosingSoonSection';
 import { ExploreCollectionsSection } from '../components/collections/ExploreCollectionsSection';
 import { StorySection } from '../components/story/StorySection';
+import { IntelligenceSection } from '../components/intelligence/IntelligenceSection';
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <ClosingSoonSection />
       <ExploreCollectionsSection />
       <StorySection />
+      <IntelligenceSection />
     </main>
   );
 }

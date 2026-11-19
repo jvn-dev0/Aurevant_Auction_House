@@ -35,6 +35,7 @@ Every interface decision — from grid rhythm to countdown typesetting — serve
 | Closing Soon — live auction row with Three.js 3D inspection | ✅ Complete |
 | Explore the Collections — curved exhibition gallery (6 panels) | ✅ Complete |
 | Beyond the Object — editorial story section with glass-lens | ✅ Complete |
+| AUREVANT Intelligence — natural-language search with scroll animation | ✅ Complete |
 | Guest access notice (CuratorialModal system) | ✅ Complete |
 | Responsive layout (360px → 1600px+) | ✅ Complete |
 | WCAG 2.2 AA focus indicators, ARIA roles, keyboard nav | ✅ Complete |
@@ -42,7 +43,7 @@ Every interface decision — from grid rhythm to countdown typesetting — serve
 | WebP image delivery (Hero-background, sculpture-fallback) | ✅ Complete |
 | OpenGraph + Twitter card metadata | ✅ Complete |
 | Schema.org JSON-LD (WebSite + Organization + AuctionHouse) | ✅ Complete |
-| `#auctions`, `#categories`, `#stories`, `#about` anchor system | ✅ Complete |
+| `#auctions`, `#categories`, `#stories`, `#intelligence`, `#about` anchor system | ✅ Complete |
 | Consignment, Watchlist, Account, Search — interactive modals | ✅ Complete |
 | `app/icon.svg` — gold monogram SVG favicon | ✅ Complete |
 | TypeScript strict mode — 0 errors | ✅ Passing |
@@ -101,6 +102,17 @@ Editorial storytelling section featuring:
 - Right column: Typographic hierarchy in Instrument Serif + Manrope
 - Height-matched columns on desktop
 - Touch-drag lens interaction on mobile
+
+### 6. AUREVANT Intelligence (Search Section)
+Premium natural-language search experience featuring:
+- Choreographed scroll-triggered entrance: gold hairline sweep, masked eyebrow reveal, staggered heading and search-field formation
+- Prominent search field with natural-language placeholder, forest-green submit button with gold detail
+- Focus interaction: border transitions from muted stone to antique gold with light sweep effect
+- Loading spinner and CuratorialModal feedback on submission
+- Three editorial benefits with gold-accented icon markers (Curated discoveries, Provenance insights, Specialist perspective)
+- `prefers-reduced-motion` compliant (all animations disabled)
+- Responsive across 360px–1600px+
+- **Backend status:** Frontend interaction complete; search indexing not yet connected (documented via CuratorialModal notice)
 
 ---
 
@@ -234,6 +246,8 @@ components/
   story/
     StorySection.tsx            # Beyond the Object editorial section
     GlasswaveCanvas.tsx         # WebGL floating glass-lens interaction
+  intelligence/
+    IntelligenceSection.tsx     # AUREVANT Intelligence natural-language search
 ```
 
 ---
