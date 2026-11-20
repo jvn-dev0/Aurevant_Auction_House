@@ -36,6 +36,7 @@ Every interface decision — from grid rhythm to countdown typesetting — serve
 | Explore the Collections — curved exhibition gallery (6 panels) | ✅ Complete |
 | Beyond the Object — editorial story section with glass-lens | ✅ Complete |
 | AUREVANT Intelligence — natural-language search with scroll animation | ✅ Complete |
+| Sell with AUREVANT — editorial consignment section with custom scroll reveal | ✅ Complete |
 | Guest access notice (CuratorialModal system) | ✅ Complete |
 | Responsive layout (360px → 1600px+) | ✅ Complete |
 | WCAG 2.2 AA focus indicators, ARIA roles, keyboard nav | ✅ Complete |
@@ -120,6 +121,29 @@ Premium natural-language search experience featuring:
 - `prefers-reduced-motion` compliance across all animations
 - Responsive across desktop (1440px), tablet (768px), and mobile (390px/360px) with zero horizontal overflow
 - **Backend status:** Frontend interaction complete; search indexing not yet connected (documented via CuratorialModal notice)
+
+### 7. Sell with AUREVANT (Consignment Section)
+Editorial consignment section positioned immediately following AUREVANT Intelligence:
+- **Asymmetric two-column composition:**
+  - Left column: authentic high-resolution editorial photograph (`sell.webp`) showing a specialist wearing white gloves carefully inspecting an exceptional antique object.
+  - Right column: curatorial consignment copy with eyebrow, display heading, supporting narrative, primary CTA, secondary link, and editorial reflection.
+- **Palette:** Warm ivory canvas (`#F4F0E8`), forest-green typography (`#183D30`), antique gold accents (`#C5A059`), and muted stone (`#D8D0C2`).
+- **Typography:**
+  - Eyebrow: `SELL WITH AUREVANT` in antique gold IBM Plex Mono with generous tracking.
+  - Display heading: *"Give exceptional objects their next chapter."* set in Instrument Serif.
+  - Supporting narrative: *"From rare works of art to remarkable collectibles, our specialists help you present your object to the right audience."* in refined Manrope.
+  - Editorial reflection: *"Thoughtful guidance. Specialist knowledge. A considered approach to every object."* in italic serif.
+- **Custom scroll entrance transition:**
+  - Specialist photograph reveals smoothly through a vertical clipping mask (`clip-path: inset(0 0 0 0)`) with subtle vertical settling.
+  - Display heading enters with a refined horizontal slide from right.
+  - Supporting text elements appear in staggered sequence.
+  - Primary CTA reveals with a delicate antique-gold border highlight (`rgba(197, 160, 89, 0.4)`).
+  - Respects `prefers-reduced-motion` settings.
+- **Guest CTA interaction:**
+  - Clicking `REQUEST AN ESTIMATE →` opens the accessible `CuratorialModal` (type: `'consignment'`) explaining account requirements for submitting object details and following consignment status.
+  - Clean dismiss via Escape key, close button, or backdrop click with focus management.
+- **Secondary link:** *"Discover our selling process"* (gracefully documented placeholder).
+- **Responsive design:** seamlessly stacks vertically on mobile (`390px`) and tablet (`768px`) with zero horizontal overflow.
 
 ---
 
@@ -213,6 +237,7 @@ public/
     sculpture-fallback.png      # Original marble bust (842 KB PNG, preserved)
     sculpture-fallback.webp     # Optimized WebP bust (61 KB, generated)
     story-background.webp       # Story section statue (1.3 MB WebP)
+    sell.webp                   # Specialist examining antique object (662 KB WebP)
     painting.jpg                # Fine Art department panel
     vintage watch.jpg           # Horology department panel
     roman coin.jpg              # Numismatics department panel
@@ -255,6 +280,8 @@ components/
     GlasswaveCanvas.tsx         # WebGL floating glass-lens interaction
   intelligence/
     IntelligenceSection.tsx     # AUREVANT Intelligence natural-language search
+  sell/
+    SellSection.tsx             # Sell with AUREVANT editorial consignment section
 ```
 
 ---

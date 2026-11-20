@@ -138,10 +138,14 @@ omniroute/
 │   │   │   ├── Navbar.tsx          # 66px desktop header with breathing room
 │   │   │   ├── SearchInput.tsx     # 36px search field with clear action
 │   │   │   └── MobileMenu.tsx      # Accessible slide-out navigation drawer
-│   │   └── sculpture/              # Real-time WebGL 3D experience
-│   │       ├── SculptureCanvas.tsx # Three.js canvas, lighting, camera framing
-│   │       ├── SculptureContainer.tsx
-│   │       └── SculptureFallback.tsx # Zero-CLS visual fallback representation
+│   │   ├── sculpture/              # Real-time WebGL 3D experience
+│   │   │   ├── SculptureCanvas.tsx # Three.js canvas, lighting, camera framing
+│   │   │   ├── SculptureContainer.tsx
+│   │   │   └── SculptureFallback.tsx # Zero-CLS visual fallback representation
+│   │   ├── intelligence/           # AUREVANT Intelligence natural-language search
+│   │   │   └── IntelligenceSection.tsx
+│   │   └── sell/                   # Sell with AUREVANT consignment section
+│   │       └── SellSection.tsx
 │   ├── public/                     # Static assets, 3D GLB models, PBR textures
 │   │   ├── images/                 # Museum gallery backgrounds & textures
 │   │   ├── models/                 # Optimized GLTF/GLB binary assets
