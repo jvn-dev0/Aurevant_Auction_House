@@ -7,6 +7,7 @@ import { ExploreCollectionsSection } from '../components/collections/ExploreColl
 import { StorySection } from '../components/story/StorySection';
 import { IntelligenceSection } from '../components/intelligence/IntelligenceSection';
 import { SellSection } from '../components/sell/SellSection';
+import { Footer } from '../components/footer/Footer';
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
       <StorySection />
       <IntelligenceSection />
       <SellSection />
+      <Footer />
     </main>
   );
 }

@@ -144,8 +144,10 @@ omniroute/
 │   │   │   └── SculptureFallback.tsx # Zero-CLS visual fallback representation
 │   │   ├── intelligence/           # AUREVANT Intelligence natural-language search
 │   │   │   └── IntelligenceSection.tsx
-│   │   └── sell/                   # Sell with AUREVANT consignment section
-│   │       └── SellSection.tsx
+│   │   ├── sell/                   # Sell with AUREVANT consignment section
+│   │   │   └── SellSection.tsx
+│   │   └── footer/                 # Reference-accurate AUREVANT footer
+│   │       └── Footer.tsx
 │   ├── public/                     # Static assets, 3D GLB models, PBR textures
 │   │   ├── images/                 # Museum gallery backgrounds & textures
 │   │   ├── models/                 # Optimized GLTF/GLB binary assets

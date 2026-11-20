@@ -37,6 +37,7 @@ Every interface decision — from grid rhythm to countdown typesetting — serve
 | Beyond the Object — editorial story section with glass-lens | ✅ Complete |
 | AUREVANT Intelligence — natural-language search with scroll animation | ✅ Complete |
 | Sell with AUREVANT — editorial consignment section with custom scroll reveal | ✅ Complete |
+| AUREVANT Footer — reference-accurate footer with brand wordmark, real contact details, 4 local SVG icons, 4 nav columns, newsletter, dynamic legal & regional controls | ✅ Complete |
 | Guest access notice (CuratorialModal system) | ✅ Complete |
 | Responsive layout (360px → 1600px+) | ✅ Complete |
 | WCAG 2.2 AA focus indicators, ARIA roles, keyboard nav | ✅ Complete |
@@ -145,6 +146,37 @@ Editorial consignment section positioned immediately following AUREVANT Intellig
 - **Secondary link:** *"Discover our selling process"* (gracefully documented placeholder).
 - **Responsive design:** seamlessly stacks vertically on mobile (`390px`) and tablet (`768px`) with zero horizontal overflow.
 
+### 8. AUREVANT Footer
+Reference-accurate, full-width near-black (`#080D0C`) footer grounding the homepage experience:
+- **Brand & Tagline:**
+  - Full AUREVANT AUCTION HOUSE wordmark in Instrument Serif + IBM Plex Mono with antique gold accent.
+  - Tagline: *"THE ART OF EXCEPTIONAL OWNERSHIP."* in uppercase tracked monospace.
+- **Verified Contact Details:**
+  - Phone: `+91 93429 77191` (`tel:+919342977191`)
+  - Email: `kbjeevanbabu803@gmail.com` (`mailto:kbjeevanbabu803@gmail.com`)
+  - WhatsApp: Direct specialist link to `https://wa.me/919342977191`
+- **Strict Local SVG Assets (`public/icons/`):**
+  - Instagram (`/icons/instagram.svg`)
+  - X (`/icons/x.svg`)
+  - Facebook (`/icons/facebook.svg`)
+  - WhatsApp (`/icons/whatsapp.svg`)
+  - Rendered at ~18px with warm ivory appearance and restrained antique-gold (`#C5A059`) hover transitions.
+- **Navigation Columns (4 columns):**
+  - **AUCTIONS:** Upcoming Auctions (`#auctions`), Past Auctions, Private Sales
+  - **CATEGORIES:** Fine Art (`#categories`), Horology, Numismatics, Rare Books, Jewellery, Antiquities
+  - **ABOUT:** Our Expertise (`#about`), Our Story (`#stories`), Press, Careers
+  - **SUPPORT:** Help Center, Contact Us, Locations, Shipping & Global Services
+- **Stay Informed Newsletter:**
+  - Email input, submit arrow button, client-side regex format validation.
+  - Simulated loading state and accessible `CuratorialModal` feedback explaining subscription registry status.
+- **Bottom Legal & Regional Row:**
+  - Dynamic copyright year: `© {new Date().getFullYear()} AUREVANT Auction House. All rights reserved.`
+  - Legal links (Privacy Policy, Terms & Conditions, Cookie Policy, Modern Slavery Statement) backed by curatorial disclosure modals.
+  - Interactive `INTERNATIONAL` region selector and `ENGLISH` language selector.
+- **Motion & Accessibility:**
+  - Upward editorial scroll reveal respecting `prefers-reduced-motion`.
+  - Zero horizontal overflow across desktop (1440px), tablet (768px), and mobile (390px).
+
 ---
 
 ## Tech Stack
@@ -247,6 +279,11 @@ public/
     3d images/                  # Three.js GLTF model assets
     collections/                # Closing Soon auction preview images
     marble_bust_01_4k.blend/    # Source Blender asset (reference only)
+  icons/                        # Strict local SVG social icons
+    instagram.svg               # Instagram vector asset
+    x.svg                       # X vector asset
+    facebook.svg                # Facebook vector asset
+    whatsapp.svg                # WhatsApp vector asset
 ```
 
 ---
@@ -282,6 +319,8 @@ components/
     IntelligenceSection.tsx     # AUREVANT Intelligence natural-language search
   sell/
     SellSection.tsx             # Sell with AUREVANT editorial consignment section
+  footer/
+    Footer.tsx                  # Reference-accurate AUREVANT footer
 ```
 
 ---
