@@ -1,36 +1,48 @@
 'use client';
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { Search } from 'lucide-react';
 import { CuratorialModal } from '../common/CuratorialModal';
 
 /**
  * AUREVANT AUCTION HOUSE — AUREVANT Intelligence Section
  *
- * Premium editorial natural-language search experience.
- * No icons — uses typographic markers, gold numbering, and em-dash accents.
- * Choreographed scroll-triggered entrance with CSS animations.
- * Integrates with the existing CuratorialModal system for search feedback.
+ * Specific visual direction:
+ * - Background: Clean, minimal soft warm-white / ivory (#FAF8F2)
+ * - Top label: AUREVANT INTELLIGENCE in lime-green (#A8CF22) uppercase tracking
+ * - Main heading: "A more intelligent way to discover."
+ *   - "discover" in lime-to-yellow gradient (#A8CF22 -> #E7C94A)
+ *   - Final period "." in coral-red (#F16B59)
+ * - Subtitle: "Search naturally. Explore exceptional objects with deeper insight." in muted charcoal (#66645F)
+ * - Search bar: Wide rectangular with multi-color fine border (#A8CF22, #E7C94A, #F16B59),
+ *   search symbol, clean white background, lime-green "SEARCH" button (#A8CF22)
+ * - Three supporting features below:
+ *   - Curated discoveries (lime-green bar accent)
+ *   - Provenance insights (muted-yellow bar accent)
+ *   - Specialist perspective (coral-red bar accent)
+ *   - Text-only: NO icons, NO numbers, NO cards, NO vertical dividers
+ * - Scoped palette strictly to this section
+ * - Smooth scroll entrance and focus animations, prefers-reduced-motion compliant
  */
 
-// ─── Benefit data with Roman-numeral-style gold indices ──────────────────
-const BENEFITS = [
+const FEATURES = [
   {
-    index: '01',
     title: 'Curated discoveries',
     description:
       'Explore exceptional objects across collections and global auction references.',
+    accentColor: '#A8CF22', // Lime green
   },
   {
-    index: '02',
     title: 'Provenance insights',
     description:
       'Discover available historical records and documented ownership information.',
+    accentColor: '#E7C94A', // Muted yellow
   },
   {
-    index: '03',
     title: 'Specialist perspective',
     description:
       'Access clearly identified expert knowledge and research context.',
+    accentColor: '#F16B59', // Coral red
   },
 ] as const;
 
@@ -54,20 +66,42 @@ export function IntelligenceSection() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // ─── Intersection observer — trigger entrance once ───────────────────
+  // ─── Visibility detection on scroll & mount ─────────────────────────
   useEffect(() => {
-    if (!sectionRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const checkVisibility = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      // Trigger when top of section enters 85% of viewport
+      if (rect.top <= windowHeight * 0.85) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener('scroll', checkVisibility, { passive: true });
+    window.addEventListener('resize', checkVisibility, { passive: true });
+    checkVisibility(); // Check immediately on mount
+
+    // Also run an IntersectionObserver as an additional progressive trigger
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined' && sectionRef.current) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            setIsVisible(true);
+            if (observer) observer.disconnect();
+          }
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', checkVisibility);
+      window.removeEventListener('resize', checkVisibility);
+      if (observer) observer.disconnect();
+    };
   }, []);
 
   // ─── Search submission ───────────────────────────────────────────────
@@ -80,16 +114,16 @@ export function IntelligenceSection() {
       setIsSubmitting(true);
       setSearchedQuery(trimmed);
 
-      // Brief loading state before showing the modal
+      // Brief loading state before opening search modal feedback
       setTimeout(() => {
         setIsModalOpen(true);
         setIsSubmitting(false);
-      }, 600);
+      }, 550);
     },
     [query, isSubmitting]
   );
 
-  // ─── Animation class helpers ─────────────────────────────────────────
+  // ─── Animation helper classes ────────────────────────────────────────
   const dur = prefersReducedMotion ? '0ms' : undefined;
   const baseReveal = prefersReducedMotion
     ? 'opacity-100 translate-y-0'
@@ -102,192 +136,149 @@ export function IntelligenceSection() {
       <section
         ref={sectionRef}
         id="intelligence"
-        className="relative w-full bg-[#F4F0E8] text-[#111312] overflow-hidden"
-        aria-label="AUREVANT Intelligence search"
+        className="relative w-full bg-[#FAF8F2] text-[#20201E] overflow-hidden py-24 sm:py-32 lg:py-40"
+        aria-label="AUREVANT Intelligence search section"
       >
-        {/* ── Subtle ambient radial glow ─────────────────────────────── */}
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.07)_0%,transparent_60%)]"
-          aria-hidden="true"
-        />
-
-        {/* ── Top gold hairline separator ────────────────────────────── */}
-        <div className="relative max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16">
-          <div
-            className={`h-px bg-gradient-to-r from-transparent via-[#C5A059]/60 to-transparent transition-all ${
-              prefersReducedMotion ? 'duration-0' : 'duration-[1400ms]'
-            } ease-out ${
-              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-            }`}
-            style={{ transitionDelay: dur ?? '200ms' }}
-          />
-        </div>
-
-        {/* ── Main content ──────────────────────────────────────────── */}
-        <div className="relative max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32 lg:py-40 z-10">
-          <div className="max-w-3xl mx-auto">
-            {/* ── Stage 1: Eyebrow ──────────────────────────────────── */}
-            <div className="flex items-center justify-center gap-3 mb-8 sm:mb-10">
-              <span
-                className={`hidden sm:block w-8 h-px bg-[#C5A059] transition-all ${
-                  prefersReducedMotion ? 'duration-0' : 'duration-700'
-                } ease-out ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}
-                style={{ transitionDelay: dur ?? '400ms', transformOrigin: 'right' }}
-              />
-              <p
-                className={`font-mono text-[11px] sm:text-[12px] uppercase tracking-[0.35em] text-[#C5A059] font-medium transition-all ${
-                  prefersReducedMotion ? 'duration-0' : 'duration-700'
-                } ease-out ${baseReveal}`}
-                style={{ transitionDelay: dur ?? '500ms' }}
-              >
+        <div className="relative max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-16 z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            {/* ── Top Label: AUREVANT INTELLIGENCE in Lime Green ───── */}
+            <div
+              className={`mb-5 sm:mb-6 transition-all ${
+                prefersReducedMotion ? 'duration-0' : 'duration-700'
+              } ease-out ${baseReveal}`}
+              style={{ transitionDelay: dur ?? '150ms' }}
+            >
+              <p className="font-sans text-[11px] sm:text-[12px] uppercase tracking-[0.28em] text-[#A8CF22] font-semibold">
                 AUREVANT INTELLIGENCE
               </p>
-              <span
-                className={`hidden sm:block w-8 h-px bg-[#C5A059] transition-all ${
-                  prefersReducedMotion ? 'duration-0' : 'duration-700'
-                } ease-out ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}
-                style={{ transitionDelay: dur ?? '400ms', transformOrigin: 'left' }}
-              />
             </div>
 
-            {/* ── Stage 1: Main heading ─────────────────────────────── */}
+            {/* ── Main Heading: Editorial display typography ────────── */}
             <h2
-              className={`font-serif font-normal text-center text-[#111312] leading-[1.05] tracking-tight mb-5 sm:mb-6 transition-all ${
+              className={`font-serif font-normal text-center text-[#20201E] leading-[1.08] tracking-tight mb-5 sm:mb-6 transition-all ${
                 prefersReducedMotion ? 'duration-0' : 'duration-800'
               } ease-out ${baseReveal}`}
               style={{
-                fontSize: 'clamp(2.4rem, 4.8vw, 4.2rem)',
-                transitionDelay: dur ?? '650ms',
+                fontSize: 'clamp(2.5rem, 5.2vw, 4.4rem)',
+                transitionDelay: dur ?? '300ms',
               }}
             >
               A more intelligent way
               <br />
-              to discover.
+              to{' '}
+              <span className="bg-gradient-to-r from-[#A8CF22] to-[#E7C94A] bg-clip-text text-transparent font-normal">
+                discover
+              </span>
+              <span className="text-[#F16B59]">.</span>
             </h2>
 
-            {/* ── Stage 1: Supporting description ──────────────────── */}
+            {/* ── Subtitle: Clean contemporary sans-serif ───────────── */}
             <p
-              className={`font-sans text-center text-[#4A524C] leading-relaxed max-w-lg mx-auto mb-12 sm:mb-14 transition-all ${
+              className={`font-sans text-center text-[#66645F] leading-relaxed max-w-xl mx-auto mb-10 sm:mb-12 transition-all ${
                 prefersReducedMotion ? 'duration-0' : 'duration-700'
               } ease-out ${baseReveal}`}
               style={{
-                fontSize: 'clamp(1rem, 1.3vw, 1.15rem)',
-                transitionDelay: dur ?? '800ms',
+                fontSize: 'clamp(1.05rem, 1.4vw, 1.2rem)',
+                transitionDelay: dur ?? '450ms',
               }}
             >
               Search naturally. Explore exceptional objects with deeper insight.
             </p>
 
-            {/* ── Stage 2: Search field ─────────────────────────────── */}
+            {/* ── Search Bar: Rectangular with lime-yellow-coral fine border ─ */}
             <form
               role="search"
               onSubmit={handleSubmit}
-              className={`relative transition-all ${
+              className={`relative mx-auto transition-all ${
                 prefersReducedMotion ? 'duration-0' : 'duration-800'
               } ease-out ${baseReveal}`}
-              style={{ transitionDelay: dur ?? '950ms' }}
+              style={{ transitionDelay: dur ?? '600ms' }}
               aria-label="AUREVANT Intelligence natural-language search"
             >
+              {/* Outer gradient border wrapper */}
               <div
-                className={`relative flex items-center border transition-all duration-300 ease-out ${
+                className={`relative p-[1px] transition-all duration-300 ease-out ${
                   isFocused
-                    ? 'border-[#C5A059] shadow-[0_0_0_1px_rgba(197,160,89,0.3),0_8px_32px_rgba(197,160,89,0.08)]'
-                    : 'border-[#A7A39A]/40 shadow-[0_4px_24px_rgba(17,19,18,0.06)]'
-                } bg-white/80 backdrop-blur-sm`}
-              >
-                {/* Gold vertical bar marker — replaces search icon */}
-                <div className="flex items-center pl-5 sm:pl-6">
-                  <span
-                    className={`block w-[2px] h-5 sm:h-6 transition-colors duration-300 ${
-                      isFocused ? 'bg-[#C5A059]' : 'bg-[#A7A39A]/50'
-                    }`}
-                    aria-hidden="true"
-                  />
-                </div>
-
-                {/* Input */}
-                <input
-                  ref={inputRef}
-                  type="search"
-                  value={query}
-                  maxLength={200}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => setIsFocused(false)}
-                  placeholder="Find a mid-century painting with a documented exhibition history..."
-                  aria-label="Search the AUREVANT catalogue using natural language"
-                  className="flex-1 bg-transparent text-[#111312] placeholder-[#A7A39A]/70 font-sans py-4 sm:py-5 px-4 text-[15px] sm:text-base focus:outline-none"
-                />
-
-                {/* Submit button — typographic arrow instead of icon */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !query.trim()}
-                  className={`flex items-center gap-2.5 mr-2 sm:mr-3 px-5 sm:px-7 py-2.5 sm:py-3 bg-[#183D30] text-[#F4F0E8] font-sans font-medium text-[13px] sm:text-sm uppercase tracking-[0.14em] transition-all duration-300 border border-[#C5A059]/30 hover:bg-[#122A21] hover:border-[#C5A059]/60 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] whitespace-nowrap ${
-                    isSubmitting ? 'animate-pulse' : ''
-                  }`}
-                  aria-label="Search"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <span className="w-3.5 h-3.5 border-2 border-[#F4F0E8]/30 border-t-[#F4F0E8] rounded-full animate-spin" />
-                      <span className="hidden sm:inline">Searching</span>
-                    </span>
-                  ) : (
-                    <>
-                      <span>Search</span>
-                      <span className="text-[#C5A059] font-serif text-base leading-none" aria-hidden="true">→</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* Light sweep effect on focus */}
-              <div
-                className={`absolute inset-x-0 top-0 h-px transition-all duration-700 ease-out ${
-                  isFocused
-                    ? 'bg-gradient-to-r from-transparent via-[#C5A059]/70 to-transparent opacity-100'
-                    : 'opacity-0'
+                    ? 'scale-[1.008] shadow-[0_12px_40px_rgba(32,32,30,0.08)]'
+                    : 'shadow-[0_4px_24px_rgba(32,32,30,0.04)]'
                 }`}
-                aria-hidden="true"
-              />
+                style={{
+                  background: isFocused
+                    ? 'linear-gradient(90deg, #A8CF22 0%, #E7C94A 50%, #F16B59 100%)'
+                    : 'linear-gradient(90deg, rgba(168,207,34,0.45) 0%, rgba(231,201,74,0.35) 50%, rgba(241,107,89,0.35) 100%)',
+                }}
+              >
+                {/* Clean white input container */}
+                <div className="relative flex items-center bg-white px-3 sm:px-4 py-2 sm:py-2.5">
+                  {/* Left search icon */}
+                  <div className="flex items-center pl-2 sm:pl-3 pr-2 text-[#20201E]/70">
+                    <Search
+                      className={`w-[19px] h-[19px] sm:w-5 sm:h-5 transition-colors duration-200 ${
+                        isFocused ? 'text-[#A8CF22]' : 'text-[#66645F]'
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  {/* Text input */}
+                  <input
+                    ref={inputRef}
+                    type="search"
+                    value={query}
+                    maxLength={200}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    placeholder="Find a mid-century painting with a documented exhibition history..."
+                    aria-label="Find a mid-century painting with a documented exhibition history..."
+                    className="flex-1 bg-transparent text-[#20201E] placeholder-[#66645F]/60 font-sans py-2.5 sm:py-3 px-2 sm:px-3 text-[14.5px] sm:text-[16px] focus:outline-none"
+                  />
+
+                  {/* Right search button: Lime green with dark readable text */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !query.trim()}
+                    className="ml-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-[#A8CF22] hover:bg-[#99BD1F] text-[#20201E] font-sans font-semibold text-[12px] sm:text-[13px] tracking-[0.16em] uppercase transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#20201E] whitespace-nowrap shadow-sm hover:shadow active:scale-[0.98]"
+                    aria-label="Search"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <span className="w-3.5 h-3.5 border-2 border-[#20201E]/30 border-t-[#20201E] rounded-full animate-spin" />
+                        <span>SEARCHING</span>
+                      </span>
+                    ) : (
+                      'SEARCH'
+                    )}
+                  </button>
+                </div>
+              </div>
             </form>
 
-            {/* ── Stage 3: Benefits ─────────────────────────────────── */}
-            <div className="mt-16 sm:mt-20">
-              {/* Thin horizontal divider */}
-              <div
-                className={`h-px w-full bg-gradient-to-r from-transparent via-[#C5A059]/25 to-transparent mb-12 sm:mb-14 transition-all ${
-                  prefersReducedMotion ? 'duration-0' : 'duration-700'
-                } ease-out ${
-                  isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-                }`}
-                style={{ transitionDelay: dur ?? '1200ms' }}
-              />
+            {/* ── Three Supporting Features (Text-only, no icons, no numbers) ─ */}
+            <div
+              className={`mt-16 sm:mt-20 pt-4 transition-all ${
+                prefersReducedMotion ? 'duration-0' : 'duration-800'
+              } ease-out ${baseReveal}`}
+              style={{ transitionDelay: dur ?? '800ms' }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-12 text-left">
+                {FEATURES.map((feat) => (
+                  <div key={feat.title} className="flex flex-col">
+                    {/* Feature Title */}
+                    <h3 className="font-serif font-normal text-[#20201E] text-[20px] sm:text-[22px] tracking-tight">
+                      {feat.title}
+                    </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-10">
-                {BENEFITS.map((benefit, idx) => (
-                  <div
-                    key={benefit.title}
-                    className={`text-center md:text-left transition-all ${
-                      prefersReducedMotion ? 'duration-0' : 'duration-700'
-                    } ease-out ${baseReveal}`}
-                    style={{
-                      transitionDelay: dur ?? `${1300 + idx * 150}ms`,
-                    }}
-                  >
-                    {/* Gold numbered index + title */}
-                    <div className="flex items-baseline justify-center md:justify-start gap-3 mb-2.5">
-                      <span className="font-mono text-[11px] text-[#C5A059] tracking-wider font-medium">
-                        {benefit.index}
-                      </span>
-                      <span className="w-4 h-px bg-[#C5A059]/40 hidden md:block" aria-hidden="true" />
-                      <h3 className="font-serif font-normal text-[#111312] text-lg sm:text-[19px] tracking-tight">
-                        {benefit.title}
-                      </h3>
-                    </div>
-                    <p className="font-sans text-[#4A524C] text-[14px] sm:text-[15px] leading-relaxed md:pl-[calc(11px_*_2_+_0.75rem_+_1rem_+_2px)]">
-                      {benefit.description}
+                    {/* Short accent line beneath heading */}
+                    <div
+                      className="w-8 h-[2px] mt-2.5 mb-3.5 rounded-full"
+                      style={{ backgroundColor: feat.accentColor }}
+                      aria-hidden="true"
+                    />
+
+                    {/* Feature Description */}
+                    <p className="font-sans text-[#66645F] text-[14px] sm:text-[15px] leading-relaxed">
+                      {feat.description}
                     </p>
                   </div>
                 ))}
@@ -303,14 +294,10 @@ export function IntelligenceSection() {
         onClose={() => setIsModalOpen(false)}
         type="search"
         eyebrow="AUREVANT INTELLIGENCE"
-        title="Catalogue Search"
-        subtitle={
-          searchedQuery
-            ? `Your query: "${searchedQuery}"`
-            : undefined
-        }
-        description="The AUREVANT Intelligence search engine is currently indexing verified provenance records and cataloguing notes across all six specialist departments. Full natural-language search capabilities will activate with the upcoming seasonal saleroom release."
-        note="[CATALOGUE INDEXING IN PROGRESS]"
+        title="Curatorial Search Query"
+        subtitle={searchedQuery ? `Query: “${searchedQuery}”` : undefined}
+        description="The AUREVANT Intelligence natural-language search engine is currently indexing verified provenance records, historical ownership documentation, and cataloguing notes across all specialist departments. Full query resolution will activate in the upcoming seasonal release."
+        note="[SEARCH ENGINE INDEXING IN PROGRESS]"
       />
     </>
   );

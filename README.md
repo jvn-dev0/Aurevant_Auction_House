@@ -268,7 +268,7 @@ ENABLE_PRODUCTION_CUSTODY=false
 | :--- | :--- | :--- | :--- |
 | **Phase 1 / 1.5** | Requirements, Architecture & Design System Baseline | ✅ Formally Accepted | Complete |
 | **Phase 2 / 2.1** | Clickable Frontend Prototype (`auction system/`) | ✅ Formally Accepted | Complete (Prototype Only) |
-| **Homepage Production Readiness** | WebP images, SEO metadata, OpenGraph, Schema.org JSON-LD, search form, navigation anchors, interactive modals, WCAG 2.2 AA | ✅ **Complete & Verified (Build Passing, 0 TypeScript Errors)** | **Active** |
+| **Homepage Production Readiness & Intelligence Search** | WebP images, SEO metadata, OpenGraph, Schema.org JSON-LD, AUREVANT Intelligence natural-language search, navigation anchors, interactive modals, WCAG 2.2 AA | ✅ **Complete & Verified (Build Passing, 0 TypeScript Errors)** | **Active** |
 | **Aurevant Milestone 2** | Live Saleroom Lot Grid & Dynamic Category Filtering | ⏳ In Planning | Scheduled |
 | **Aurevant Milestone 3** | Interactive 3D Inspection Viewer (Watch, Coin, Book) | ⏳ In Planning | Scheduled |
 | **Phase 3 Backend** | Database Schemas, Concurrency Engine & Real-Time Bidding | 🔒 Specified (Audit Complete) | **Strictly Prohibited (NO-GO)** |

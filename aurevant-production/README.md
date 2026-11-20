@@ -105,13 +105,20 @@ Editorial storytelling section featuring:
 
 ### 6. AUREVANT Intelligence (Search Section)
 Premium natural-language search experience featuring:
-- Choreographed scroll-triggered entrance: gold hairline sweep, masked eyebrow reveal, staggered heading and search-field formation
-- Prominent search field with natural-language placeholder, forest-green submit button with gold detail
-- Focus interaction: border transitions from muted stone to antique gold with light sweep effect
-- Loading spinner and CuratorialModal feedback on submission
-- Three editorial benefits with gold-accented icon markers (Curated discoveries, Provenance insights, Specialist perspective)
-- `prefers-reduced-motion` compliant (all animations disabled)
-- Responsive across 360px–1600px+
+- Minimal soft warm-white canvas (`#FAF8F2`) with clean, spacious layout (no distracting backgrounds or imagery)
+- Top label: `AUREVANT INTELLIGENCE` in uppercase lime-green (`#A8CF22`) with generous letter spacing
+- Editorial display typography: *"A more intelligent way to discover."* with a lime-to-yellow (`#A8CF22` → `#E7C94A`) gradient on "discover" and coral-red (`#F16B59`) punctuation
+- Clean contemporary subtitle: *"Search naturally. Explore exceptional objects with deeper insight."* in muted charcoal (`#66645F`)
+- Wide rectangular search bar featuring a fine lime-yellow-coral multi-color transition border, clean white background, left search symbol, and lime-green (`#A8CF22`) `SEARCH` button with dark readable lettering
+- Focus interaction: search bar gently elevates with smooth multi-color border transition
+- Three supporting features presented text-only with color-coded bar accents:
+  - **Curated discoveries** (lime-green bar accent `#A8CF22`)
+  - **Provenance insights** (muted-yellow bar accent `#E7C94A`)
+  - **Specialist perspective** (coral-red bar accent `#F16B59`)
+  - Text-only presentation: no icons, no numbered labels, no floating cards, no vertical dividers
+- Loading spinner and `CuratorialModal` feedback on submission with sandbox indexing notice
+- `prefers-reduced-motion` compliance across all animations
+- Responsive across desktop (1440px), tablet (768px), and mobile (390px/360px) with zero horizontal overflow
 - **Backend status:** Frontend interaction complete; search indexing not yet connected (documented via CuratorialModal notice)
 
 ---
